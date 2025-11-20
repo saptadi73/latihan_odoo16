@@ -1,0 +1,77 @@
+<odoo>
+  <data>
+    <record id="pembayaran_pinjaman_tree_view" model="ir.ui.view">
+        <field name="name">pembayaran_pinjaman.tree.view</field>
+        <field name="model">simpan_pinjam.pembayaran_pinjaman</field>
+        <field name="arch" type="xml">
+            <tree string="Pembayaran Pinjaman">
+                <field name="nasabah_id"/>
+                <field name="pinjaman_id"/>
+                <field name="tanggal_pembayaran"/>
+                <field name="jumlah_pembayaran"/>
+                <field name="metode_pembayaran"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pembayaran_pinjaman_search_view" model="ir.ui.view">
+        <field name="name">pembayaran_pinjaman.search.view</field>
+        <field name="model">simpan_pinjam.pembayaran_pinjaman</field>
+        <field name="arch" type="xml">
+            <search string="Pembayaran Pinjaman">
+                <field name="pinjaman_id"/>
+                <field name="tanggal_pembayaran"/>
+                <field name="metode_pembayaran"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="pembayaran_pinjaman_kanban_view" model="ir.ui.view">
+        <field name="name">pembayaran_pinjaman.kanban.view</field>
+        <field name="model">simpan_pinjam.pembayaran_pinjaman</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="pinjaman_id"/>
+                <field name="jumlah_pembayaran"/>
+                <field name="metode_pembayaran"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+                            <div class="oe_kanban_content">
+                                <h4><field name="pinjaman_id"/></h4>
+                                <p>Jumlah: <field name="jumlah_pembayaran"/></p>
+                                <p>Metode: <field name="metode_pembayaran"/></p>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="pembayaran_pinjaman_form_view" model="ir.ui.view">
+        <field name="name">pembayaran_pinjaman.form.view</field>
+        <field name="model">simpan_pinjam.pembayaran_pinjaman</field>
+        <field name="arch" type="xml">
+            <form string="Pembayaran Pinjaman">
+                <sheet>
+                    <group name="data_pembayaran" string="Data Pembayaran">
+                        <field name="nasabah_id"/>
+                        <field name="pinjaman_id" domain="[('nasabah_id', '=', nasabah_id)]"/>
+                        <field name="tanggal_pembayaran"/>
+                        <field name="jumlah_pembayaran"/>
+                        <field name="metode_pembayaran"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pembayaran_pinjaman" model="ir.actions.act_window">
+        <field name="name">Pembayaran Pinjaman</field>
+        <field name="res_model">simpan_pinjam.pembayaran_pinjaman</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help">Klik untuk menambahkan Pembayaran Pinjaman baru.</field>
+    </record>
+  </data>
+</odoo>

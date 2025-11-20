@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="laporan_setoran_simpanan_wajib_report"
+            model="simpan_pinjam.simpanan"
+            string="Laporan Setoran Simpanan Wajib"
+            report_type="qweb-pdf"
+            name="simpan_pinjam.laporan_setoran_simpanan_wajib"
+            file="simpan_pinjam.laporan_setoran_simpanan_wajib"
+        />
+
+        <template id="laporan_setoran_simpanan_wajib">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h1>Laporan Setoran Simpanan Wajib</h1>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Setoran</th>
+                                        <th>Tanggal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="data" t-as="nasabah">
+                                        <t t-foreach="nasabah" t-as="setoran">
+                                            <tr>
+                                                <td><t t-esc="nasabah_key"/></td>
+                                                <td><t t-esc="setoran['setoran']"/></td>
+                                                <td><t t-esc="setoran['tanggal']"/></td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

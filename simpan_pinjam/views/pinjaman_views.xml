@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Pinjaman Kanban View -->
+        <record id="pinjaman_kanban_view" model="ir.ui.view">
+            <field name="name">pinjaman.kanban.view</field>
+            <field name="model">simpan_pinjam.pinjaman</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="nasabah_id">
+                    <field name="nasabah_id"/>
+                    <field name="jumlah_pinjaman"/>
+                    <field name="tanggal_pinjaman"/>
+                    <field name="tenor"/>
+                    <field name="bunga"/>
+                    <field name="pembayaran_per_bulan"/>
+                    <field name="status"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card">
+                                <div class="oe_kanban_content">
+                                    <h4>
+                                        <field name="nasabah_id"/>
+                                    </h4>
+                                    <ul>
+                                        <li>Jumlah Pinjaman: <field name="jumlah_pinjaman"/></li>
+                                        <li>Tanggal: <field name="tanggal_pinjaman"/></li>
+                                        <li>Tenor: <field name="tenor"/> bulan</li>
+                                        <li>Bunga: <field name="bunga"/>%</li>
+                                        <li>Status: <field name="status"/></li>
+                                        <li>Pembayaran/Bulan: <field name="pembayaran_per_bulan"/></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Pinjaman Tree View -->
+        <record id="pinjaman_tree_view" model="ir.ui.view">
+            <field name="name">pinjaman.tree.view</field>
+            <field name="model">simpan_pinjam.pinjaman</field>
+            <field name="arch" type="xml">
+                <tree string="Pinjaman">
+                    <field name="nasabah_id"/>
+                    <field name="jumlah_pinjaman"/>
+                    <field name="tanggal_pinjaman"/>
+                    <field name="tenor"/>
+                    <field name="bunga"/>
+                    <field name="pembayaran_per_bulan"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Pinjaman Search View -->
+        <record id="pinjaman_search_view" model="ir.ui.view">
+            <field name="name">pinjaman.search.view</field>
+            <field name="model">simpan_pinjam.pinjaman</field>
+            <field name="arch" type="xml">
+                <search string="Pinjaman">
+                    <field name="nasabah_id"/>
+                    <field name="status"/>
+                    <field name="tanggal_pinjaman"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Pinjaman Form View -->
+        <record id="pinjaman_form_view" model="ir.ui.view">
+            <field name="name">pinjaman.form.view</field>
+            <field name="model">simpan_pinjam.pinjaman</field>
+            <field name="arch" type="xml">
+                <form string="Pinjaman">
+                    <sheet>
+                        <group>
+                            <field name="nasabah_id" string="Nama Nasabah"/>
+                            <field name="jumlah_pinjaman" string="Jumlah Pinjaman"/>
+                            <field name="tanggal_pinjaman" string="Tanggal Pinjaman"/>
+                            <field name="tenor" string="Tenor (Bulan)"/>
+                            <field name="bunga" string="Bunga (%)"/>
+                            <field name="pembayaran_per_bulan" string="Pembayaran per Bulan"/>
+                            <field name="status" string="Status Pinjaman"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Pinjaman Action Window -->
+        <record id="action_pinjaman" model="ir.actions.act_window">
+            <field name="name">Pinjaman</field>
+            <field name="res_model">simpan_pinjam.pinjaman</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help">Klik untuk menambahkan Pinjaman baru.</field>
+        </record>
+    </data>
+</odoo>

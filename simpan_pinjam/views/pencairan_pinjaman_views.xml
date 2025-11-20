@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record id="pencairan_pinjaman_tree_view" model="ir.ui.view">
+            <field name="name">pencairan_pinjaman.tree.view</field>
+            <field name="model">simpan_pinjam.pencairan_pinjaman</field>
+            <field name="arch" type="xml">
+                <tree string="Pencairan Pinjaman">
+                    <field name="nasabah_id"/>
+                    <field name="pinjaman_id"/>
+                    <field name="tanggal_pencairan"/>
+                    <field name="jumlah_pencairan"/>
+                    <field name="biaya_administrasi"/>
+                    <field name="biaya_provisi"/>
+                    <field name="total_pencairan"/>
+                    <field name="metode_pencairan"/>
+                </tree>
+            </field>
+        </record>
+        <record id="pencairan_pinjaman_form_view" model="ir.ui.view">
+            <field name="name">pencairan_pinjaman.form.view</field>
+            <field name="model">simpan_pinjam.pencairan_pinjaman</field>
+            <field name="arch" type="xml">
+                <form string="Pencairan Pinjaman">
+                    <sheet>
+                        <group>
+                            <field name="nasabah_id"/>
+                            <field name="pinjaman_id" domain="[('nasabah_id', '=', nasabah_id)]"/>
+                            <field name="tanggal_pencairan"/>
+                            <field name="jumlah_pencairan"/>
+                            <field name="biaya_administrasi"/>
+                            <field name="biaya_provisi"/>
+                            <field name="total_pencairan"/>
+                            <field name="metode_pencairan"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_pencairan_pinjaman" model="ir.actions.act_window">
+            <field name="name">Pencairan Pinjaman</field>
+            <field name="res_model">simpan_pinjam.pencairan_pinjaman</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help">Klik untuk menambahkan Pencairan Pinjaman baru.</field>
+        </record>
+    </data>
+</odoo>

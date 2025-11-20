@@ -1,0 +1,79 @@
+<odoo>
+  <data>
+    <record id="simpanan_tree_view" model="ir.ui.view">
+        <field name="name">simpanan.tree.view</field>
+        <field name="model">simpan_pinjam.simpanan</field>
+        <field name="arch" type="xml">
+            <tree string="Simpanan">
+                <field name="nasabah_id"/>
+                <field name="jenis_simpanan"/>
+                <field name="jumlah_simpanan"/>
+                <field name="tanggal_simpanan"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="simpanan_search_view" model="ir.ui.view">
+        <field name="name">simpanan.search.view</field>
+        <field name="model">simpan_pinjam.simpanan</field>
+        <field name="arch" type="xml">
+            <search string="Simpanan">
+                <field name="nasabah_id"/>
+                <field name="jenis_simpanan"/>
+                <field name="tanggal_simpanan"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="simpanan_kanban_view" model="ir.ui.view">
+        <field name="name">simpanan.kanban.view</field>
+        <field name="model">simpan_pinjam.simpanan</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="nasabah_id"/>
+                <field name="jenis_simpanan"/>
+                <field name="jumlah_simpanan"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+                            <div class="oe_kanban_content">
+                                <h4><field name="nasabah_id"/></h4>
+                                <p>Jenis: <field name="jenis_simpanan"/></p>
+                                <p>Jumlah: <field name="jumlah_simpanan"/></p>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="simpanan_form_view" model="ir.ui.view">
+        <field name="name">simpanan.form.view</field>
+        <field name="model">simpan_pinjam.simpanan</field>
+        <field name="arch" type="xml">
+            <form string="Simpanan">
+                <sheet>
+                    <group>
+                        <field name="nasabah_id"/>
+                        <field name="jenis_simpanan"/>
+                        <field name="jumlah_simpanan"/>
+                        <field name="tanggal_simpanan"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_simpanan" model="ir.actions.act_window">
+        <field name="name">Simpanan</field>
+        <field name="res_model">simpan_pinjam.simpanan</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Klik untuk menambahkan Simpanan baru.
+            </p>
+        </field>
+    </record>
+  </data>
+</odoo>

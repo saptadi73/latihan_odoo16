@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_simpanan_user,simpanan user,model_simpan_pinjam_simpanan,base.group_user,1,1,1,1
+access_pinjaman_user,pinjaman user,model_simpan_pinjam_pinjaman,base.group_user,1,1,1,1
+access_nasabah_user,nasabah user,model_simpan_pinjam_nasabah,base.group_user,1,1,1,1
+access_pembayaran_pinjaman_user,pembayaran pinjaman user,model_simpan_pinjam_pembayaran_pinjaman,base.group_user,1,1,1,1
+access_pencairan_pinjaman_user,pencairan pinjaman user,model_simpan_pinjam_pencairan_pinjaman,base.group_user,1,1,1,1

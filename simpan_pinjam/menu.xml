@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <!-- Parent Menu -->
+        <menuitem id="menu_simpan_pinjam" name="Simpan Pinjam" parent="root" sequence="10" web_icon="fa fa-money" groups="base.group_user"/>
+
+        <!-- Submenus -->
+        <menuitem id="menu_nasabah" name="Nasabah" action="action_nasabah" parent="menu_simpan_pinjam" groups="base.group_user"/>
+        <menuitem id="menu_simpanan" name="Simpanan" action="action_simpanan" parent="menu_simpan_pinjam" groups="base.group_user"/>
+        <!-- <menuitem id="menu_pinjaman" name="Pinjaman" action="action_pinjaman" parent="menu_simpan_pinjam" groups="base.group_user"/> -->
+        <menuitem id="menu_pencairan_pinjaman" name="Pencairan Pinjaman" action="action_pencairan_pinjaman" parent="menu_simpan_pinjam" groups="base.group_user"/>
+        <menuitem id="menu_pembayaran_pinjaman" name="Pembayaran Pinjaman" action="action_pembayaran_pinjaman" parent="menu_simpan_pinjam" groups="base.group_user"/>
+    </data>
+</odoo>

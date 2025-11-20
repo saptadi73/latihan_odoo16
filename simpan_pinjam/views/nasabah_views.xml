@@ -1,0 +1,80 @@
+<odoo>
+  <data>
+    <record id="nasabah_tree_view" model="ir.ui.view">
+        <field name="name">nasabah.tree.view</field>
+        <field name="model">simpan_pinjam.nasabah</field>
+        <field name="arch" type="xml">
+            <tree string="Nasabah">
+                <field name="nama"/>
+                <field name="no_anggota"/>
+                <field name="usaha"/>
+                <field name="tanggal_lahir"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="nasabah_search_view" model="ir.ui.view">
+        <field name="name">nasabah.search.view</field>
+        <field name="model">simpan_pinjam.nasabah</field>
+        <field name="arch" type="xml">
+            <search string="Nasabah">
+                <field name="nama"/>
+                <field name="no_anggota"/>
+                <field name="usaha"/>
+                <field name="nik"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="nasabah_kanban_view" model="ir.ui.view">
+        <field name="name">nasabah.kanban.view</field>
+        <field name="model">simpan_pinjam.nasabah</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="nama"/>
+                <field name="no_anggota"/>
+                <field name="usaha"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+                            <div class="oe_kanban_content">
+                                <h4><field name="nama"/></h4>
+                                <p>No Anggota: <field name="no_anggota"/></p>
+                                <p>Usaha: <field name="usaha"/></p>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="nasabah_form_view" model="ir.ui.view">
+        <field name="name">nasabah.form.view</field>
+        <field name="model">simpan_pinjam.nasabah</field>
+        <field name="arch" type="xml">
+            <form string="Nasabah">
+                <sheet>
+                    <group name="data_pribadi" string="Data Pribadi">
+                        <field name="nama"/>
+                        <field name="nik"/>
+                        <field name="tanggal_lahir"/>
+                        <field name="no_anggota"/>
+                    </group>
+                    <group name="data_usaha" string="Data Usaha">
+                        <field name="usaha"/>
+                        <field name="alamat_usaha"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_nasabah" model="ir.actions.act_window">
+        <field name="name">Nasabah</field>
+        <field name="res_model">simpan_pinjam.nasabah</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help">Klik untuk menambahkan Nasabah baru.</field>
+    </record>
+  </data>
+</odoo>
