@@ -1,0 +1,15 @@
+# Mengaktifkan Odoo Shell
+python c:/odoo16c/server/odoo-bin shell -d kanjabung --config c:/latihanodoo/odoo.conf
+
+
+# contoh ambil data produk simpanan wajib di odoo
+simpanan_wajib = env['simpan_pinjam.simpanan'].get_simpanan_wajib()
+for record in simpanan_wajib:
+    nama = record.nasabah_id.nama.name
+    jumlah = record.jumlah_simpanan
+    print(f"Nama: {nama}, Jumlah: {jumlah}")
+
+# Output :
+Nama: Saptadi Nurfraid, Jumlah: 25000.0
+Nama: Edi Supriyanto, Jumlah: 25000.0
+Nama: Bayu Ariesta Widya, Jumlah: 25000.0

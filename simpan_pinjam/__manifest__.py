@@ -17,6 +17,7 @@
         'views/pinjaman_views.xml',
         'views/pencairan_pinjaman_views.xml',
         'views/pembayaran_pinjaman_views.xml',
+        'reports/laporan_setoran_simpanan_wajib.xml',
         'views/menu.xml',
     ],
     'demo': [
