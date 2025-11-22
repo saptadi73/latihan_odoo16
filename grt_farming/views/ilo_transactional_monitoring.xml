@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="view_ilo_transaction_monitoring_tree" model="ir.ui.view">
+        <field name="name">ilo.transaction_monitoring.tree</field>
+        <field name="model">ilo.transaction_monitoring</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="total_transactions_as_seller"/>
+                <field name="total_transactions_as_buyer"/>
+                <field name="total_transactions"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ilo_transaction_monitoring_form" model="ir.ui.view">
+        <field name="name">ilo.transaction_monitoring.form</field>
+        <field name="model">ilo.transaction_monitoring</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="total_transactions_as_seller" readonly="1"/>
+                        <field name="total_transactions_as_buyer" readonly="1"/>
+                        <field name="total_transactions" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Transactions as Seller">
+                            <field name="source_transaction_ids" context="{'default_source_actor': employee_id}">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Transactions as Buyer">
+                            <field name="destination_transaction_ids" context="{'default_destination_actor': employee_id}">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to open the tree view -->
+    <record id="action_ilo_transaction_monitoring" model="ir.actions.act_window">
+        <field name="name">Transaction Monitoring</field>
+        <field name="res_model">ilo.transaction_monitoring</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_ilo_transaction_monitoring_tree"/>
+    </record>
+
+    <!-- Menu item for Transaction Monitoring -->
+    <!-- <menuitem id="menu_ilo_transaction_monitoring" 
+              name="Transaction Monitoring" 
+              action="action_ilo_transaction_monitoring" 
+              parent="menu_ilo_employee" 
+              sequence="10"/> -->
+              
+</odoo>

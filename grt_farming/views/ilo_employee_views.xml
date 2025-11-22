@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Form View for ILOEmployee -->
+        <record id="view_ilo_employee_form" model="ir.ui.view">
+            <field name="name">ilo.employee.form</field>
+            <field name="model">ilo.employee</field>
+            <field name="arch" type="xml">
+                <form string="ILO Employee">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="is_company"/>
+                                <field name="ilo_associate"/>
+                                <field name="ilo_associate_code" readonly="1"/>
+                                <field name="family_members"/>
+                            </group>
+                            <group>
+                                <field name="organization_status"/>
+                                <field name="organization_name" readonly="1"/>
+                                <field name="parent_id" options="{'no_create': True}"/>
+                            </group>
+                            <group>
+                                <field name="employment_contract"/>
+                                <field name="contract_file_name" readonly="1"/>
+                            </group>
+                        </group>
+
+                        <group string="Address Information">
+                            <group>
+                                <field name="street"/>
+                                <field name="kelurahan"/>
+                                <field name="kecamatan"/>
+                            </group>
+                            <group>
+                                <field name="state_id"/>
+                                <field name="country_id"/>
+                                <field name="tax_id"/>
+                            </group>
+                        </group>
+
+                        <group string="Contact Information">
+                            <group>
+                                <field name="phone"/>
+                                <field name="mobile"/>
+                                <field name="email"/>
+                            </group>
+                            <group>
+                                <field name="education_level"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View for ILOEmployee -->
+        <record id="view_ilo_employee_tree" model="ir.ui.view">
+            <field name="name">ilo.employee.tree</field>
+            <field name="model">ilo.employee</field>
+            <field name="arch" type="xml">
+                <tree string="ILO Employees">
+                    <field name="name"/>
+                    <field name="ilo_associate"/>
+                    <field name="ilo_associate_code"/>
+                    <field name="organization_status"/>
+                    <field name="organization_name"/>
+                    <field name="is_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action to Open ILOEmployee Form and Tree -->
+        <record id="action_ilo_employee" model="ir.actions.act_window">
+            <field name="name">ILO Employees</field>
+            <field name="res_model">ilo.employee</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_ilo_employee_tree"/>
+        </record>
+
+        <!-- Menu Item for ILOEmployee -->
+        <menuitem id="menu_ilo_employee" name="ILO Employees" action="action_ilo_employee" parent="menu_ilo_farming_root" sequence="50"/>
+    </data>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="seq_ilo_production" model="ir.sequence">
+        <field name="name">ILO Production</field>
+        <field name="code">ilo.production</field>
+        <field name="prefix">ILO-</field> <!-- Prefix for the production ID -->
+        <field name="padding">5</field> <!-- Number of digits (e.g., ILO-00001) -->
+        <field name="implementation">no_gap</field>
+    </record>
+</odoo>

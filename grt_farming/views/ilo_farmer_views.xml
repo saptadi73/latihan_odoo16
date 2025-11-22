@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View for Farmers -->
+    <record id="view_ilo_farmer_tree" model="ir.ui.view">
+        <field name="name">ilo.farmer.tree</field>
+        <field name="model">ilo.farmer</field>
+        <field name="arch" type="xml">
+            <tree string="Farmers">
+                <field name="farmer_name" />
+                <field name="farm_id"/>
+                <field name="province"/>
+                <field name="crop_type"/>
+                <field name="farm_size"/>
+                <field name="farm_location"/> <!-- Added field -->
+                <field name="production_capacity"/> <!-- Added field -->
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for Farmers -->
+    <record id="view_ilo_farmer_form" model="ir.ui.view">
+        <field name="name">ilo.farmer.form</field>
+        <field name="model">ilo.farmer</field>
+        <field name="arch" type="xml">
+            <form string="Farmer">
+                <sheet>
+                    <group>
+                        <field name="farmer_name"/>
+                        <field name="farm_id" readonly="1"/> <!-- Farm ID is generated, so it should be readonly -->
+                        <field name="province"/>
+                        <field name="crop_type"/>
+                        <field name="farm_size"/>
+                        <field name="farm_location"/> <!-- Added field -->
+                        <field name="production_capacity"/> <!-- Added field -->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to open tree and form views for Farmers -->
+    <record id="action_ilo_farmer" model="ir.actions.act_window">
+        <field name="name">Farmers</field>
+        <field name="res_model">ilo.farmer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_ilo_farmer_tree"/>
+    </record>
+
+    <!-- Menu Item for Farmers under ILO Farming -->
+    <menuitem id="menu_ilo_farmers"
+              name="Farmers"
+              parent="menu_ilo_farming_root"
+              action="action_ilo_farmer"
+              sequence="20"/>
+</odoo>

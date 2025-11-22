@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define Quant Views -->
+        <record id="view_ilo_quant_tree" model="ir.ui.view">
+            <field name="name">ilo.quant.tree</field>
+            <field name="model">ilo.quant</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id" />
+                    <field name="product_image" widget="image" options="{'size': (48, 48)}"/>
+                    <field name="product_id"/>
+                    <field name="product_batch_code"/>
+                    <field name="quantity_available"/>
+                    <field name="quantity_sold"/>
+                    <field name="availability_status" />
+                    <field name="location_id"/>
+                    <field name="employee_id"/>
+                    <field name="warehouse_id"/>
+                    <button name="backfill_product_images" type="object" string="Update Product Image" class="btn btn-info btn-sm" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ilo_quant_form" model="ir.ui.view">
+            <field name="name">ilo.quant.form</field>
+            <field name="model">ilo.quant</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="backfill_product_images" type="object" string="Update Product Image" class="btn-info"/>
+                    </header>
+                    <group>
+                        <field name="product_image" widget="image" class="oe_avatar"/>
+                        <field name="product_id"/>
+                        <field name="product_name" readonly="1"/>
+                        <field name="batch_code" readonly="1"/>
+                        <field name="product_image_url"/>
+                        <field name="product_batch_code"/>
+                        <field name="quantity_available"/>
+                        <field name="quantity_sold"/>
+                        <field name="availability_status"/>
+                        <field name="product_uom_id"/>
+                        <field name="location_id"/>
+                        <field name="warehouse_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+                <!-- Define the Quant Menu Item -->
+        <record id="action_ilo_quant" model="ir.actions.act_window">
+            <field name="name">ILO Quants</field>
+            <field name="res_model">ilo.quant</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_ilo_quant"
+                  name="Barang dan Kuantitas(ILO Quants)"
+                  parent="menu_ilo_inventory"
+                  action="action_ilo_quant"
+                  sequence="50"/>
+    </data>
+</odoo>

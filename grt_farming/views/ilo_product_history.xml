@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- Tree View for Product History -->
+    <record id="view_ilo_product_history_tree" model="ir.ui.view">
+        <field name="name">ilo.product.history.tree</field>
+        <field name="model">ilo.product.history</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="production_code"/>
+                <field name="goes_to"/>
+                <field name="then_then"/>
+                <field name="after_that"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for Product History -->
+    <record id="view_ilo_product_history_form" model="ir.ui.view">
+        <field name="name">ilo.product.history.form</field>
+        <field name="model">ilo.product.history</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <!-- Group 1: Production Code Details -->
+                    <group>
+                        <group string="Production Code Details">
+                            <field name="production_code"/>
+                            <field name="name" readonly="1"/>
+                            <field name="employee_id" readonly="1"/>
+                            <field name="harvesting_id" widget="many2many_tags" options="{'no_create': True, 'open_action': 'action_ilo_production_harvesting'}" required="1"/>
+
+                        </group>
+                    </group>
+
+                    <!-- Group 2: Goes To -->
+                    <group>
+                        <group string="Goes To">
+                            <field name="ownership_code_id" widget="many2many_tags" options="{'no_create': True, 'open_action': 'action_ownership_code'}"/>
+                            <field name="ownership_line_id" widget="many2many_tags" options="{'no_create': True, 'open_action': 'action_ownership_line'}"/>
+                        </group>
+                    </group>
+
+                    <!-- Group 3: Then Then -->
+                    <group>
+                        <group string="Then Then">
+                            <field name="ownership_code_id" widget="many2many_tags" options="{'no_create': True, 'open_action': 'action_ownership_code'}"/>
+                            <field name="ownership_line_id" widget="many2many_tags" options="{'no_create': True, 'open_action': 'action_ownership_line'}"/>
+                        </group>
+                    </group>
+
+                    <!-- Group 4: After That -->
+                    <group>
+                        <group string="After That">
+                            <field name="ownership_code_id" widget="many2many_tags" options="{'no_create': True, 'open_action': 'action_ownership_code'}"/>
+                            <field name="ownership_line_id" widget="many2many_tags" options="{'no_create': True, 'open_action': 'action_ownership_line'}"/>
+                        </group>
+                    </group>
+
+                    <!-- Additional fields can be added below as needed -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

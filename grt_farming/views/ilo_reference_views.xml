@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>    
+        <!-- Tree View for IloReference -->
+        <record id="view_ilo_reference_tree" model="ir.ui.view">
+            <field name="name">ilo.reference.tree</field>
+            <field name="model">ilo.reference</field>
+            <field name="arch" type="xml">
+                <tree string="References">
+                    <field name="reference_link_ids" widget="many2many_tags" options="{'no_create': True}" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View for IloReference -->
+        <record id="view_ilo_reference_form" model="ir.ui.view">
+            <field name="name">ilo.reference.form</field>
+            <field name="model">ilo.reference</field>
+            <field name="arch" type="xml">
+                <form string="Reference">
+                    <button name="action_populate_summary" type="object" string="Populate Summary" class="btn-primary"/>
+                    <sheet>
+                        <group string="References" widget="one2many_list">
+                            <field name="reference_link_ids">
+                                <tree editable="bottom">
+                                    <field name="parent_reference_id" />
+                                    <field name="reference" />
+                                    <field name="sequence" />
+                                    <field name="ownership_line_id" />
+                                    <button name="action_view_ownership_line" type="object" string="View Ownership Line" />
+                                    <field name="ownership_code_id" />
+                                    <button name="action_view_ownership_code" type="object" string="View Ownership Code" />
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_ilo_reference_summary_tree" model="ir.ui.view">
+            <field name="name">ilo.reference.summary.tree</field>
+            <field name="model">ilo.reference.summary</field>
+            <field name="arch" type="xml">
+                <tree string="Reference Summary">
+                    <field name="state" />
+                    <field name="latest_quantity"/>
+                    <field name="product_uom_id" />
+                    <field name="reference_1"/>
+                    <field name="actor_1"/> <!-- Added actor_1 -->
+                    <field name="actor_ilo_associate_1" />
+                    <field name="kabupaten_1"/> <!-- Added kabupaten_1 -->
+                    <field name="date_order_1"/>
+                    
+                    <field name="reference_2"/>
+                    <field name="actor_2"/> <!-- Added actor_2 -->
+                    <field name="actor_ilo_associate_2" />
+                    <field name="kabupaten_2"/> <!-- Added kabupaten_2 -->
+                    <field name="date_order_2"/>
+                    
+                    <field name="reference_3"/>
+                    <field name="actor_3"/> <!-- Added actor_3 -->
+                    <field name="actor_ilo_associate_3" />
+                    <field name="kabupaten_3"/> <!-- Added kabupaten_3 -->
+                    <field name="date_order_3"/>
+                    
+                    <field name="reference_4"/>
+                    <field name="actor_4"/> <!-- Added actor_4 -->
+                    <field name="actor_ilo_associate_4" />
+                    <field name="kabupaten_4"/> <!-- Added kabupaten_4 -->
+                    <field name="date_order_4"/>
+                    
+                    <field name="reference_5"/>
+                    <field name="actor_5"/> <!-- Added actor_5 -->
+                    <field name="actor_ilo_associate_5" />
+                    <field name="kabupaten_5"/> <!-- Added kabupaten_5 -->
+                    <field name="date_order_5"/>
+                    
+                    <field name="date_created" />
+                    <field name="date_modified" />
+                    <!-- Replaced the quantity fields with the latest_quantity field -->
+                </tree>
+            </field>
+        </record>
+        
+        
+        
+        <record id="view_ilo_reference_summary_form" model="ir.ui.view">
+            <field name="name">ilo.reference.summary.form</field>
+            <field name="model">ilo.reference.summary</field>
+            <field name="arch" type="xml">
+                <form string="Reference Summary">
+                    <group>
+                        <field name="state" />
+                        <field name="latest_quantity"/>
+                        <field name="product_uom_id" />
+
+                        <field name="reference_1"/>
+                        <field name="actor_1"/> <!-- Added actor_1 -->
+                        <field name="actor_ilo_associate_1" />
+                        <field name="kabupaten_1"/> <!-- Added kabupaten_1 -->
+                        <field name="date_order_1"/>
+                        
+                        <field name="reference_2"/>
+                        <field name="actor_2"/> <!-- Added actor_2 -->
+                        <field name="actor_ilo_associate_2" />
+                        <field name="kabupaten_2"/> <!-- Added kabupaten_2 -->
+                        <field name="date_order_2"/>
+                        
+                        <field name="reference_3"/>
+                        <field name="actor_3"/> <!-- Added actor_3 -->
+                        <field name="actor_ilo_associate_3" />
+                        <field name="kabupaten_3"/> <!-- Added kabupaten_3 -->
+                        <field name="date_order_3"/>
+                        
+                        <field name="reference_4"/>
+                        <field name="actor_4"/> <!-- Added actor_4 -->
+                        <field name="actor_ilo_associate_4" />
+                        <field name="kabupaten_4"/> <!-- Added kabupaten_4 -->
+                        <field name="date_order_4"/>
+                        
+                        <field name="reference_5"/>
+                        <field name="actor_5"/> <!-- Added actor_5 -->
+                        <field name="actor_ilo_associate_5" />
+                        <field name="kabupaten_5"/> <!-- Added kabupaten_5 -->
+                        <field name="date_order_5"/>
+
+                        <field name="date_created"/>
+                        <field name="date_modified" />
+                        
+                        <!-- Replaced the quantity fields with the latest_quantity field -->
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        
+        
+        <record id="action_ilo_reference_summary" model="ir.actions.act_window">
+            <field name="name">Reference Summary</field>
+            <field name="res_model">ilo.reference.summary</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+
+        <!-- Action to open the IloReference -->
+        <record id="action_ilo_reference" model="ir.actions.act_window">
+            <field name="name">References</field>
+            <field name="res_model">ilo.reference</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu Item for IloReference -->
+        <menuitem id="menu_ilo_reference" name="Referensi Pergerakan Produk" parent="menu_ilo_farming_ownership_code" action="action_ilo_reference"/>
+        <menuitem id="menu_ilo_reference_summary" name="Pemantauan Pergerakan Produk" parent="menu_ilo_farming_ownership_code" action="action_ilo_reference_summary"/>
+    </data>
+</odoo>

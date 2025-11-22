@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+            <!-- Tree View -->
+            <record id="view_ilo_production_harvesting_tree" model="ir.ui.view">
+                <field name="name">ilo.production.harvesting.tree</field>
+                <field name="model">ilo.production.harvesting</field>
+                <field name="arch" type="xml">
+                    <tree string="Extraction Production">
+                        <field name="name" />
+                        <field name="kabupaten_id" />
+                        <field name="employee_id" />
+                        <field name="asset_id"/>
+                        <field name="coordinates"/>
+                        <field name="address"/>
+                        <!-- <field name="area_ha" /> -->
+                        <!-- <field name="area_uom" /> -->
+                        <field name="final_product"/>
+                        <field name="final_quantity"/>
+                        <field name="actual_final_quantity" />
+                        <field name="uom"/>
+                        <field name="completion_percentage" widget="percentage"/>
+                        <field name="date_started" />
+                        <field name="date_harvested"/>
+                        <field name="state"/>
+                        <field name="weather_conditions"/>
+                        <field name="yield_percentage" widget="percentage"/>
+                        <field name="product_quality"/>
+                        <field name="product_loss"/>
+                        <field name="date_created"/>
+                        <field name="date_modified"/>
+                        <field name="date_actual"/>
+                        <field name="date_missed_display" />
+
+                    </tree>
+                </field>
+            </record>
+    
+            <!-- Form View -->
+            <record id="view_ilo_production_harvesting_form" model="ir.ui.view">
+                <field name="name">ilo.production.harvesting.form</field>
+                <field name="model">ilo.production.harvesting</field>
+                <field name="arch" type="xml">
+                    <form string="Extraction Production">
+                        <header>
+                            <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done"/>
+                            <button name="action_confirm" type="object" string="Confirm" states="draft" class="btn-primary"/>
+                            <button name="action_mark_done" type="object" string="Mark as Done" states="in_progress" class="btn-success"/>
+                        </header>
+                        <sheet>
+                        <group string="Production Image">
+                            <field name="production_harvesting_image" widget="image" 
+                                   class="img img-fluid" style="max-width: 200px;" />
+                        </group>
+                            <group string="General Information">
+                                <group>
+                                    <field name="production_identifier" readonly="1"/>
+                                    <field name="employee_id" placeholder="Masukan Nama Petani" />
+                                    <field name="employee_ilo_associate" />
+                                    <field name="produce_product" placeholder="Ketik dan Pilih Tanaman Nilam"/>
+                                    <field name="planting_produce_quantity" placeholder="Jumlah Tanaman dalam kg"/>
+                                    <field name="uom" />
+                                </group>
+                                <group>
+                                    <field name="final_product" placeholder="Ketik dan Pilih Minyak Nilam"/>
+                                    <field name="final_quantity" readonly="0"/>
+                                    <field name="uom" />
+                                    <field name="actual_final_quantity" 
+                                           attrs="{'readonly': [('state', '!=', 'in_progress')], 
+                                                   'required': [('state', '=', 'in_progress')]}"/>
+                                    <field name="yield_percentage" widget="percentage"/>
+                                    <field name="production_harvesting_image_url"/>
+
+                                </group>
+                            </group>
+            
+                            <group string="Production Details">
+                                <group>
+                                    <field name="kabupaten_id"/>
+                                    <field name="asset_id"/>
+                                    <field name="weather_conditions"/>
+                                </group>
+                                <group>
+                                    <field name="coordinates" readonly="1"/>
+                                    <field name="address" readonly="1" />
+                                    <!-- <field name="area_ha" /> -->
+                                    <!-- <field name="area_uom" /> -->
+                                </group>
+                            </group>
+            
+                            <group string="Harvesting Information">
+                                <group>
+                                    <field name="extraction_method" placeholder="Pilih Metode"/>
+                                    <field name="date_started"/>
+                                    <field name="date_harvested"/>
+                                    <field name="production_harvesting_image_url" />
+                                </group>
+                            </group>
+            
+                            <group string="Product Quality and Completion">
+                                <group>
+                                    <field name="completion_percentage" widget="percentage" />
+                                    <field name="percentage_final_quantity" readonly="0" widget="percentage"/>
+                                    <field name="product_loss" readonly="1"/>
+                                    <field name="product_quality" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="user_note" />
+                                </group>
+                            </group>
+            
+                            <group string="Date Information">
+                                <group>
+                                    <field name="date_actual" attrs="{'readonly': [('state', '!=', 'in_progress')]}"/>
+                                    <field name="date_missed_display"/>
+                                </group>
+                                <group>
+                                    <field name="date_created"/>
+                                    <field name="date_modified" />
+                                </group>
+                            </group>
+                        </sheet>
+            
+                        <!-- Chatter and Audit Trail -->
+                        <div class="o_attachment_preview"/>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" groups="base.group_user"/>
+                            <field name="activity_ids"/>
+                            <field name="message_ids"/>
+                        </div>
+                    </form>
+                </field>
+            </record>
+            
+            
+    
+            <!-- Action to Open the Model -->
+            <record id="action_ilo_production_harvesting" model="ir.actions.act_window">
+                <field name="name">Produksi Minyak</field>
+                <field name="res_model">ilo.production.harvesting</field>
+                <field name="view_mode">tree,form</field>
+                <field name="help" type="html">
+                    <p>
+                        Use this model to manage the harvesting of products.
+                    </p>
+                </field>
+            </record>
+    
+            <!-- Menu Item -->
+            <menuitem id="menu_ilo_production_harvesting" name="Produksi Minyak" parent="menu_produksi" action="action_ilo_production_harvesting"/>
+    
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_grt_l10n_id_kabupaten_user,grt_l10n_id_kabupaten,model_res_kabupaten,base.group_user,1,0,0,0
+access_grt_l10n_id_education_level_user,grt_l10n_id_kabupaten_education,model_education_level,base.group_user,1,1,1,1

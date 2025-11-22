@@ -1,0 +1,79 @@
+<odoo>
+  <data>
+
+  		<record id="view_partner_form_aos_l10n_id" model="ir.ui.view">
+        	<field name="name">dos.res.partner.custom</field>
+          <field name="model">res.partner</field>
+          <field name="inherit_id" ref="base.view_partner_form" />
+          <field name="arch" type="xml">   
+
+            <xpath expr="//div[@name='div_address']/field[@name='street2']" position="after">      
+                <div class="address_format">
+                      <field name="kelurahan" placeholder="Kelurahan"/>
+                      <field name="kecamatan" placeholder="kecamatan"/>
+                      <field name="kabupaten_id" context="{'search_default_province': state_id}" options='{"no_open": True, "no_create": True}' class="oe_no_button" placeholder="Kabupaten" style="width: 32%%"/>
+                  </div>                	
+            </xpath>	
+
+            <field name="street2" position="after">    
+                <div class="address_additional_format">
+                    <field name="kelurahan" placeholder="Kelurahan"/>
+                    <field name="kecamatan" placeholder="kecamatan"/>
+                    <field name="kabupaten_id" context="{'search_default_province': state_id}" options='{"no_open": True, "no_create": True}' class="oe_no_button" placeholder="Kabupaten" style="width: 32%%" attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                </div>
+            </field>			
+            <xpath expr="//field[@name='category_id']" position="after">      
+                    <field name="education_level_id" placeholder="e.g. S-1 - Management Lahan"/>                      
+            </xpath>	
+
+          </field>
+      </record>
+		
+        <!-- Tree View -->
+    <record id="view_education_level_tree" model="ir.ui.view">
+        <field name="name">education.level.tree</field>
+        <field name="model">education.level</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id" />
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_education_level_form" model="ir.ui.view">
+        <field name="name">education.level.form</field>
+        <field name="model">education.level</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="id" />
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_education_level" model="ir.actions.act_window">
+        <field name="name">Education Levels</field>
+        <field name="res_model">education.level</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_education_root" name="Education Management" sequence="10"/>
+
+    <menuitem id="menu_education_levels"
+              name="Education Levels"
+              parent="menu_education_root"
+              action="action_education_level"
+              sequence="10"/>
+
+  </data>
+</odoo>

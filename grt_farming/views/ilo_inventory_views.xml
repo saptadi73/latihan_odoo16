@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define Inventory Views -->
+        <record id="view_ilo_inventory_tree" model="ir.ui.view">
+            <field name="name">ilo.inventory.tree</field>
+            <field name="model">ilo.inventory</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="product_id"/>
+                    <field name="seller_id"/>
+                    <field name="quantity"/>
+                    <field name="warehouse_id"/>
+                    <field name="date"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ilo_inventory_form" model="ir.ui.view">
+            <field name="name">ilo.inventory.form</field>
+            <field name="model">ilo.inventory</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="product_id"/>
+                        <field name="quantity"/>
+                        <field name="product_uom_id"/>
+                        <field name="price"/>
+                        <field name="seller_id"/>
+                        <field name="warehouse_id"/>
+                        <field name="category"/>
+                        <field name="status"/>
+                        <field name="date"/>
+                    </group>
+                    <field name="stock_move_ids" widget="one2many_list"/>
+                </form>
+            </field>
+        </record>
+
+                <!-- Define the Inventory Menu Item -->
+                <record id="action_ilo_inventory" model="ir.actions.act_window">
+                    <field name="name">ILO Inventory</field>
+                    <field name="res_model">ilo.inventory</field>
+                    <field name="view_mode">tree,form</field>
+                    <field name="help" type="html">
+                        <p class="o_view_nocontent_smiling_face">
+                            Create your ILO Inventory records here.
+                        </p>
+                    </field>
+                </record>
+        
+                <menuitem id="menu_ilo_inventory"
+                          name="Inventaris"
+                          parent="menu_ilo_farming_root"
+                          sequence="10"/>
+                          
+
+        
+    </data>
+</odoo>

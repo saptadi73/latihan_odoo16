@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sequence for Production Order -->
+        <record id="seq_ilo_production" model="ir.sequence">
+            <field name="name">ILO Production Order Sequence</field>
+            <field name="code">ilo.production</field>
+            <field name="prefix">PROD/</field>  <!-- Prefix for the sequence -->
+            <field name="padding">5</field>      <!-- Padding for sequence numbers (00001, 00002, etc.) -->
+            <field name="number_next">1</field>  <!-- Start of the sequence -->
+            <field name="number_increment">1</field> <!-- Increment step -->
+        </record>
+    </data>
+</odoo>

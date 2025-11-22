@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_ilo_production_planting_tree" model="ir.ui.view">
+        <field name="name">ilo.production.planting.tree</field>
+        <field name="model">ilo.production_planting</field>
+        <field name="arch" type="xml">
+            <tree string="Production Planting">
+                <field name="production_identifier"/>
+                <field name="employee_id"/>
+                <field name="asset_id"/>
+                <field name="coordinates"/>
+                <field name="address" />
+                <field name="produce_product"/>
+                <field name="plant" />
+                <field name="quantity"/>
+                <field name="drying_percentage" widget="percentage"/>
+                <field name="dry_quantity" />
+                <field name="actual_quantity"/>
+                <field name="actual_drying_percentage" widget="percentage"/>
+                <field name="uom"/>
+                <!-- <field name="area"/> -->
+                <!-- <field name="area_uom"/> -->
+                <field name="kabupaten_id" />
+                <field name="weather_conditions" />
+                <field name="date_planned_start"/>
+                <field name="date_planned_finish"/>
+                <field name="completion_percentage" widget="percentage"/>
+                <field name="state"/>
+                <field name="date_created"/>
+                <field name="date_modified" />
+                <field name="date_actual"/>
+                <field name="date_missed_display"/>
+                <field name="actual_quantity"/>
+                <field name="quantity_loss"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_ilo_production_planting_form" model="ir.ui.view">
+        <field name="name">ilo.production.planting.form</field>
+        <field name="model">ilo.production_planting</field>
+        <field name="arch" type="xml">
+            <form string="Production Planting">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" states="draft"/>
+                    <button name="action_done" string="Mark as Done" type="object" states="in_progress"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done,canceled"/>
+                </header>
+                <sheet>
+                    <!-- Group for Production Information -->
+                    <group string="Production Information">
+                        <group>
+                            <field name="production_planting_image" widget="image" 
+                                   class="img img-fluid" style="max-width: 200px;" />
+                            <field name="production_identifier" readonly="1"/>
+                            <field name="state" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="employee_id" placeholder="Masukan Nama Petani"/>
+                            <field name="employee_ilo_associate"/>
+                            <field name="produce_product" placeholder="Ketik dan Pilih Tanaman Nilam"/>
+                            <field name="plant" placeholder="Masukan Jumlah Batang yang Ditanam"/>
+                            <field name="average_weight" />
+                            <field name="quantity"/>
+                            <field name="uom"/>
+                            <field name="drying_percentage" widget="percentage"/>
+                            <field name="dry_quantity"/>
+                            <field name="uom"/>
+
+                        </group>
+                    </group>
+    
+                    <!-- Group for Scheduling Information -->
+                    <group string="Scheduling Information">
+                        <group>
+                            <field name="date_planned_start"/>
+                            <field name="date_planned_finish"/>
+                        </group>
+                        <group>
+                            <field name="kabupaten_id"/>
+                            <field name="asset_id"/>
+                            <field name="area"/>
+                            <field name="area_uom" />
+                            <field name="coordinates"/>
+                            <field name="address"/>
+                        </group>
+                    </group>
+    
+                    <!-- Group for Weather and Completion -->
+                    <group string="Weather and Completion">
+                        <group>
+                            <field name="weather_conditions"/>
+                            <field name="production_planting_image_url"/>
+                            <field name="completion_percentage" readonly="1" widget="percentage"/>
+                        </group>
+                    </group>
+    
+                    <!-- Group for Actual and Quantity Information -->
+                    <group string="Actual and Quantity">
+                        <group>
+                            <field name="date_actual" attrs="{'readonly': [('state', '!=', 'in_progress')]}" />
+                            <field name="date_missed_display"/>
+                        </group>
+                        <group>
+                            <field name="actual_quantity" attrs="{'readonly': [('state', '!=', 'in_progress')]}" />
+                            <field name="quantity_loss"/>
+                            <field name="actual_estimate_dry_quantity" 
+                            readonly="1"
+                             />
+                            <field name="actual_drying_percentage" widget="percentage"/>
+                        </group>
+                    </group>
+    
+                    <!-- Group for User Notes -->
+                    <group string="User Notes">
+                        <field name="user_note" placeholder="Enter reason for quantity change..."/>
+                    </group>
+    
+                    <!-- Group for Date Information -->
+                    <group string="Date Information">
+                        <field name="date_created"/>
+                        <field name="date_modified"/>
+                    </group>
+                </sheet>
+    
+                <!-- Chatter and Audit Trail -->
+                <div class="o_attachment_preview"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+
+    <!-- Action for Tree and Form Views -->
+    <record id="action_ilo_production_planting" model="ir.actions.act_window">
+        <field name="name">Produksi Tanam</field>
+        <field name="res_model">ilo.production_planting</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_ilo_production_planting" name="Produksi Tanam"
+              parent="menu_produksi" action="action_ilo_production_planting" sequence="20"/>
+</odoo>

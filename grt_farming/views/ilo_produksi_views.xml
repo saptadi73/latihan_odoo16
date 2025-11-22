@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- Menu Item -->
+    <menuitem id="menu_produksi"
+              name="Produksi"
+              parent="menu_ilo_farming_root"
+              sequence="10"/>
+
+    <!-- Menu Item
+    <menuitem id="menu_produksi_produksi"
+    name="Produksi"
+    parent="menu_produksi"
+    action="action_produksi"
+    sequence="10"/> -->
+</odoo>

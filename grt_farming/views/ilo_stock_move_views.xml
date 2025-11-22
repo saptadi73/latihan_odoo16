@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define Stock Move Tree View -->
+        <record id="view_stock_move_tree" model="ir.ui.view">
+            <field name="name">stock.move.tree</field>
+            <field name="model">ilo.stock_move</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Moves">
+                    <field name="product_id"/>
+                    <field name="quantity"/>
+                    <field name="product_uom_id"/>
+                    <field name="source_employee_location" />
+                    <field name="source_employee_ilo_associate" />
+                    <field name="source_employee_ilo_associate_code" />
+                    <field name="location_id"/>
+                    <field name="location_dest_id"/>
+                    <field name="destination_employee_location" />
+                    <field name="destination_employee_ilo_associate"/>
+                    <field name="destination_employee_ilo_associate_code"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                    <field name="movement_type"/> <!-- Added movement type -->
+                    <field name="movement_date"/> <!-- Added movement date -->
+                </tree>
+            </field>
+        </record>
+
+        <!-- Define the Stock Move Form View -->
+        <record id="view_ilo_stock_move_form" model="ir.ui.view">
+            <field name="name">ilo.stock_move.form</field>
+            <field name="model">ilo.stock_move</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_confirm" type="object" string="Confirm" states="draft" class="btn-primary"/>
+                        <button name="action_assign" type="object" string="Assign" states="confirmed" class="btn-primary"/>
+                        <button name="action_done" type="object" string="Done" states="assigned" class="btn-primary"/>
+                        <button name="action_cancel" type="object" string="Cancel" states="draft,assigned,confirmed" class="btn-danger"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="product_id"/>
+                                <field name="quantity"/>
+                                <field name="product_uom_id"/>
+                            </group>
+                            <group>
+
+                                <field name="source_employee_location" />
+                                <field name="source_employee_ilo_associate" />
+                                <field name="source_employee_ilo_associate_code" />
+                                <field name="location_id"/>
+                                <field name="location_dest_id"/>
+                                <field name="destination_employee_location" />
+                                <field name="destination_employee_ilo_associate"/>
+                                <field name="destination_employee_ilo_associate_code" />
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="state" readonly="1"/> <!-- Make state read-only -->
+                            <field name="movement_type" readonly="1"/> <!-- Make movement type read-only -->
+                            <field name="movement_date" readonly="1"/> <!-- Make movement date read-only -->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Define the Stock Move Menu Item -->
+        <record id="action_ilo_stock_move" model="ir.actions.act_window">
+            <field name="name">ILO Pergerakan Barang</field>
+            <field name="res_model">ilo.stock_move</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_ilo_stock_move"
+                  name="Pergerakan Barang"
+                  parent="menu_ilo_inventory"
+                  action="action_ilo_stock_move"
+                  sequence="30"/>
+    </data>
+</odoo>

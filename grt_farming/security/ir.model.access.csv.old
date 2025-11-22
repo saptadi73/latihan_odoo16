@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ilo_assets_user,ilo.assets user,model_ilo_assets,,1,1,1,1
+access_sale_order_user,sale.order user,model_sale_order,,1,1,1,1
+access_res_partner_user,res.partner user,model_res_partner,,1,1,1,1
+access_project_project_user,project.project user,model_project_project,,1,1,1,1
+access_mrp_production_user,mrp.production user,model_mrp_production,,1,1,1,1
+access_ilo_dashboard_user,ilo.dashboard user,model_ilo_dashboard,,1,1,1,1
+access_qr_code_user,qr.code user,model_qr_code,,1,1,1,1
+
+"access_ilo_assets_user","grt_farming.access_ilo_assets_user","model_ilo_assets","group_farm_user","1","0","0","0"
+"access_ilo_assets_manager","grt_farming.access_ilo_assets_manager","model_ilo_assets","group_farm_manager","1","1","1","1"

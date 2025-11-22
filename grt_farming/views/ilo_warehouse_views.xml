@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define Warehouse Tree View -->
+        <record id="view_ilo_warehouse_tree" model="ir.ui.view">
+            <field name="name">ilo.warehouse.tree</field>
+            <field name="model">ilo.warehouse</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id" />
+                    <field name="warehouse_name"/>
+                    <field name="warehouse_code"/>
+                    <field name="actor_id"/>
+                    <field name="street"/>
+                    <field name="kabupaten_id"/>  <!-- Added Kabupaten -->
+                    <field name="state_id"/>
+                    <field name="country_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Define Warehouse Form View -->
+        <record id="view_ilo_warehouse_form" model="ir.ui.view">
+            <field name="name">ilo.warehouse.form</field>
+            <field name="model">ilo.warehouse</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="warehouse_name"/>
+                        <field name="warehouse_code"/>
+                        <field name="actor_id"/>
+                        <field name="actor_name"/>
+                        <field name="actor_code"/>
+                    </group>
+                    <group string="Address Information">
+                        <field name="street"/>
+                        <field name="kelurahan"/>  <!-- Added Kelurahan -->
+                        <field name="kecamatan"/>  <!-- Added Kecamatan -->
+                        <field name="kabupaten_id"/>  <!-- Added Kabupaten -->
+                        <field name="state_id"/>
+                        <field name="country_id"/>
+                    </group>
+                    <group string="Stock Locations">
+                        <!-- Display the One2many relationship of stock locations -->
+                        <field name="location_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="location_code"/>
+                                <field name="quantity_available"/>
+                                <field name="quantity_sold"/>
+                            </tree>
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Define the Warehouse Action -->
+        <record id="action_ilo_warehouse" model="ir.actions.act_window">
+            <field name="name">ILO Gudang</field>
+            <field name="res_model">ilo.warehouse</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Define the Warehouse Menu Item -->
+        <menuitem id="menu_ilo_warehouse"
+                  name="Gudang"
+                  parent="menu_ilo_inventory"
+                  action="action_ilo_warehouse"
+                  sequence="40"/>
+    </data>
+</odoo>

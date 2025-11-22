@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="grt_farming.list">
+      <field name="name">grt_farming list</field>
+      <field name="model">grt_farming.grt_farming</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="grt_farming.action_window">
+      <field name="name">grt_farming window</field>
+      <field name="res_model">grt_farming.grt_farming</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="grt_farming.action_server">
+      <field name="name">grt_farming server</field>
+      <field name="model_id" ref="model_grt_farming_grt_farming"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="grt_farming" id="grt_farming.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="grt_farming.menu_1" parent="grt_farming.menu_root"/>
+    <menuitem name="Menu 2" id="grt_farming.menu_2" parent="grt_farming.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="grt_farming.menu_1_list" parent="grt_farming.menu_1"
+              action="grt_farming.action_window"/>
+    <menuitem name="Server to list" id="grt_farming" parent="grt_farming.menu_2"
+              action="grt_farming.action_server"/>
+-->
+  </data>
+</odoo>

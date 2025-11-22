@@ -1,0 +1,293 @@
+<odoo>
+    <record id="view_ownership_code_form" model="ir.ui.view">
+        <field name="name">ownership.code.form</field>
+        <field name="model">ownership.code</field>
+        <field name="arch" type="xml">
+            <form string="Ownership Code">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm" states="draft" class="btn-primary"/>
+                    <button name="action_done" type="object" string="Mark as Done" states="confirmed" class="btn-secondary"/>
+                    <button name="action_cancel" type="object" string="Cancel" states="draft,confirmed" class="btn-danger"/>
+                    <button name="action_receive" type="object" string="Received" states="done" class="btn-success"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done,received,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="product_transaction_image_ownership_code" widget="image" class="oe_avatar"/>
+                        <field name="general_ownership_code" readonly="1"/>
+                        <group>
+                            <field name="destination_actor" required="1"/>
+                            <field name="destination_actor_associate_code"/>
+                            <field name="kabupaten_id"/>
+                        </group>
+                        <group>
+                            <field name="date_order" required="1"/>
+                            <field name="date_receive" />
+                            <field name="product_transaction_image_ownership_code_url"/>
+                        </group>
+                        <group>
+                            <!-- Ownership Reference Type Field -->
+                            <field name="ownership_reference_type" widget="radio"/>
+                        
+                            <!-- Specific Ownership Fields (Larger size to display long references) -->
+                            <group attrs="{'invisible': [('ownership_reference_type', '=', 'general')]}">
+                                <field name="specific_ownership_line_ids" 
+                                       widget="many2many_tags"  
+                                       size="64" 
+                                       colspan="2"/>
+                                
+                                <!-- Updated Production Code Field -->
+                                <field name="production_code" 
+                                       widget="many2many_tags" 
+                                       options="{'no_create': True}" 
+                                       attrs="{'invisible': [('ownership_reference_type', '!=', 'specific')]}"/>
+                        
+                            </group>
+                        
+                            <!-- General Ownership Fields (Larger size to display long references) -->
+                            <group attrs="{'invisible': [('ownership_reference_type', '=', 'specific')]}">
+                                <field name="general_ownership_code_ids"
+                                       widget="many2many_tags" 
+                                       size="64" 
+                                       colspan="2"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="reference_code" 
+                            widget="badge"
+                            class="o_field_badge o_badge_info"
+                            />
+                        </group>
+
+                        <group>
+                            <!-- <field name="linked_references_count" readonly="1"/> -->
+                            <field name="ilo_reference_ids" widget="one2many_list"/>
+                            <!-- <button name="action_view_linked_references" type="object" string="View Linked References" class="oe_highlight"/> -->
+                        </group>
+                        
+                        <!-- QR Code Field (Reduce size by limiting column span) -->
+                        <group>
+                            <field name="qr_code_image" widget="image" string="QR Code" readonly="1" class="oe_avatar" colspan="1"/>
+                        </group>
+                    </group>
+    
+                    <!-- Notebook for Product Details -->
+                    <notebook>
+                        <page string="Products">
+                            <field name="ownership_line_ids">
+                                <tree editable="bottom">
+                                    <field name="specific_code" readonly="1"/>
+                                    <field name="source_actor_associate_code" readonly="1"/>
+                                    <field name="source_actor" required="1"/>
+                                    <field name="source_location_id"/>
+                                    <field name="kabupaten_id" />
+                                    <field name="reference_code" widget="many2many_tags"/>
+                                    <!-- New Field for Production Harvesting -->
+                                    <field name="production_harvesting_id" readonly="0"/>
+                                    <!-- New Field for Reference Code -->
+                                    <field name="production_code" readonly="1"/>
+                                    <field name="destination_actor_associate_code" readonly="1"/>
+                                    <field name="destination_actor" required="1"/>
+                                    <field name="destination_location_id"/>
+                                    <field name="product_id" required="1"/>
+                                    <field name="quantity" required="1"/>
+                                    <field name="product_uom_id" required="1"/>
+                                    <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}" required="1"/>
+                                    <field name="currency_id" />
+                                    <field name="value" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                                    <button name="action_view_qr_code" type="object" string="View QR Code" class="btn btn-link"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="specific_code" readonly="1"/>
+                                        <field name="source_actor_associate_code" readonly="1"/>
+                                        <field name="source_actor" required="1"/>
+                                        <field name="reference_code" widget="many2many_tags"/>
+                                        <!-- New Field for Production Harvesting -->
+                                        <field name="production_harvesting_id"/>
+                                        <!-- New Field for Reference Code -->
+                                        <field name="production_code" readonly="1" size="64" colspan="2"/>
+                                        <field name="product_id" required="1"/>
+                                        <field name="quantity" required="1"/>
+                                        <field name="product_uom_id" required="1"/>
+                                        <field name="destination_actor_associate_code" readonly="1"/>
+                                        <field name="destination_actor" required="1"/>
+                                        <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}" required="1"/>
+                                        <field name="currency_id" />
+                                        <field name="value" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                                        <button name="action_view_qr_code" type="object" string="View QR Code" class="btn btn-link"/>
+                                    </group>
+                                </form>
+                            </field>                            
+                        </page>
+                    </notebook>
+    
+                    <!-- History Section -->
+                    <group>
+                        <field name="history" string="History" readonly="1" widget="text"/>
+                    </group>
+                </sheet>
+                                  <!-- audit trail  -->
+                                  <div class="o_attachment_preview"/>
+                                  <!-- Chatter -->
+                                  <div class="oe_chatter">
+                                      <field name="message_follower_ids" groups="base.group_user"/>
+                                      <field name="activity_ids"/>
+                                      <field name="message_ids"/>
+                                  </div>
+                                <!-- audit trail  -->
+            </form>
+        </field>
+    </record>
+    
+
+    <record id="view_ownership_line_tree" model="ir.ui.view">
+        <field name="name">ownership.line.tree</field>
+        <field name="model">ownership.line</field>
+        <field name="arch" type="xml">
+            <tree string="Ownership Lines">
+                <field name="date_order" />
+                <field name="product_transaction_image_ownership_line" widget="image" options="{'size': (48, 48)}"/>
+                <field name="specific_code"/>
+                <field name="source_actor"/>
+                <field name="source_actor_associate_code"/>
+                <field name="source_actor_ilo_associate_code" />
+                <field name="reference_code" widget="many2many_tags"/>
+                <field name="destination_actor"/>
+                <field name="destination_actor_associate_code" />
+                <field name="destination_actor_ilo_associate_code" />
+                <field name="kabupaten_id" />
+                <field name="product_id"/>
+                <field name="production_code"/>
+                <field name="quantity"/>
+                <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="currency_id" />
+                <field name="value" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                <field name="ownership_code_id"/>
+                <field name="state" />
+                <button name="action_view_qr_code" type="object" string="View QR Code" class="btn btn-link"/>
+                <button name="backfill_product_images" type="object" string="Update Product Image" class="btn btn-info btn-sm" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ownership_line_form" model="ir.ui.view">
+        <field name="name">ownership.line.form</field>
+        <field name="model">ownership.line</field>
+        <field name="arch" type="xml">
+            <form string="Ownership Line">
+                <sheet>
+                    <group>
+                        <field name="product_transaction_image_ownership_line" widget="image" class="oe_avatar"/>
+                        <field name="product_transaction_image_ownership_line_url"/>
+                        <field name="date_order" />
+                        <field name="specific_code" readonly="1"/>
+                        <field name="source_actor"/>
+                        <field name="source_actor_ilo_associate_code" />
+                        <field name="reference_code" widget="many2many_tags"/>
+                        <field name="destination_actor"/>
+                        <field name="destination_actor_ilo_associate_code" />
+                        <field name="kabupaten_id" />
+                        <field name="product_id"/>
+                        <field name="production_code"/>
+                        <field name="quantity"/>
+                        <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="currency_id" />
+                        <field name="value" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="ownership_code_id"/>
+                        <button name="action_view_qr_code" type="object" string="View QR Code" class="btn btn-link"/>
+                        <field name="state" />
+                    </group>
+                </sheet>
+                  <!-- audit trail  -->
+                  <div class="o_attachment_preview"/>
+                    <!-- Chatter -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                  <!-- audit trail  -->
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="action_ownership_line" model="ir.actions.act_window">
+        <field name="name">ILO Transaksi Detail</field>
+        <field name="res_model">ownership.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    
+        <!-- Action for Viewing Ownership Code Form -->
+    <record id="action_view_qr_code" model="ir.actions.act_window">
+        <field name="name">View Ownership Code</field>
+        <field name="res_model">ownership.code</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field> <!-- Opens in a new window -->
+        <field name="context">{'no_create': True}</field> <!-- Prevents creation -->
+    </record>
+
+    <!-- Ownership Code Tree View -->
+    <record id="view_ownership_code_tree" model="ir.ui.view">
+        <field name="name">ownership.code.tree</field>
+        <field name="model">ownership.code</field>
+        <field name="arch" type="xml">
+            <tree string="Ownership Codes">
+                <field name="product_transaction_image_ownership_code" widget="image" options="{'size': (48, 48)}"/>
+                <field name="date_order" />
+                <field name="general_ownership_code"/>
+                <field name="destination_actor" />
+                <field name="destination_actor_associate_code"/>
+                <field name="kabupaten_id"/>
+                <field name="total_requested_quantity"/>
+                <field name="total_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="currency_id" />
+                <field name="total_value" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                <field name="product_uom_id"/>
+                <field name="reference_code" 
+                widget="badge"
+                class="o_field_badge o_badge_info"
+                />                
+                <field name="state"/>
+                <button name="action_view_qr_code" type="object" string="View QR Code" class="btn btn-link"/>
+                <button name="backfill_product_images" type="object" string="Update Product Image" class="btn btn-info btn-sm" />
+            </tree>
+        </field>
+    </record>
+
+
+
+    <!-- Action for Ownership Code -->
+    <record id="action_ownership_code" model="ir.actions.act_window">
+        <field name="name">ILO Transaksi Barang</field>
+        <field name="res_model">ownership.code</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_ownership_code_tree"/>
+        <field name="help" type="html">
+            <p>Create and manage ownership codes that track the flow of products through different actors.</p>
+        </field>
+    </record>
+
+    <!-- Menu Item for Ownership Codes under ILO Farming Perspective -->
+    <menuitem id="menu_ilo_farming_ownership_code"
+              name="Kebutuhan Transaksi"
+              parent="menu_ilo_farming_root"
+              action="action_ownership_code"
+              sequence="20"/>
+
+              <menuitem id="menu_ilo_transaction"
+              name="Transaksi Barang"
+              parent="menu_ilo_farming_ownership_code"
+              action="action_ownership_code"
+              sequence="10"/>
+
+              <menuitem
+                id="menu_ilo_transaction_detail"
+                parent="menu_ilo_farming_ownership_code"
+                name="Transaksi Detail"
+                action="action_ownership_line"
+                sequence="30"/>
+</odoo>

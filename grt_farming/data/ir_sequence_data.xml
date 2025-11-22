@@ -1,0 +1,48 @@
+<odoo>
+    <data noupdate="1">
+        <!-- Sequence for Farmers -->
+        <record id="seq_farmers_code" model="ir.sequence">
+            <field name="name">Farmers Code Sequence</field>
+            <field name="code">ilo.employee.farmers.sequence</field>
+            <field name="padding">3</field>  <!-- Generates FA001, FA002, etc. -->
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- Sequence for Agents -->
+        <record id="seq_agent_code" model="ir.sequence">
+            <field name="name">Agent Code Sequence</field>
+            <field name="code">ilo.employee.agent.sequence</field>
+            <field name="padding">3</field>  <!-- Generates AG001, AG002, etc. -->
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- Sequence for Koperasi -->
+        <record id="seq_koperasi_code" model="ir.sequence">
+            <field name="name">Koperasi Code Sequence</field>
+            <field name="code">ilo.employee.koperasi.sequence</field>
+            <field name="padding">3</field>  <!-- Generates KO001, KO002, etc. -->
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- Sequence for UGreen -->
+        <record id="seq_ugreen_code" model="ir.sequence">
+            <field name="name">UGreen Code Sequence</field>
+            <field name="code">ilo.employee.ugreen.sequence</field>
+            <field name="padding">3</field>  <!-- Generates UG001, UG002, etc. -->
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <!-- Sequence for Green -->
+        <record id="seq_green_code" model="ir.sequence">
+            <field name="name">Green Code Sequence</field>
+            <field name="code">ilo.employee.green.sequence</field>
+            <field name="padding">3</field>  <!-- Generates GR001, GR002, etc. -->
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>

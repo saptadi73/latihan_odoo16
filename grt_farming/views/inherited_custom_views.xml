@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_ilo_employee_form_inherit" model="ir.ui.view">
+        <field name="name">ilo.employee.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary" attrs="{'invisible': [('state', '=', 'confirm')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                </header>
+            </xpath>
+            
+            <xpath expr="//sheet/group" position="after">
+                <group string="ILO Employee Information" attrs="{'invisible': [('is_company', '=', True)]}">
+                    
+                    <!-- Personal Information -->
+                    <group string="Personal Information">
+                        <field name="description" placeholder="Berikan Deskripsi" />
+                        <field name="nik_id" placeholder="Masukan NIK" />
+                        <field name="ilo_associate" placeholder="Pilih Asosiasi" help="Select the ILO Associate type"/>
+                        <field name="ilo_associate_code" help="Automatically generated code for the associate" readonly="1"/>
+                        <field name="family_members" placeholder="Jumlah Anggota Keluarga" help="Number of family members"/>
+                        <field name="organization_status" widget="radio" options="{'horizontal': true}" help="Select the organization status"/>
+                        <field name="organization_name" help="Enter the name of the organization"/>
+                        <field name="employment_contract" widget="binary" filename="contract_file_name" help="Upload the employment contract"/>
+                        <field name="contract_url"/>
+                        <field name="contract_file_name" help="Name of the contract file"/>
+                        <field name="total_area_ha" string="Total Area (Ha)" readonly="1" help="Total area of assets in hectares"/>
+                    </group>
+
+                    <!-- Notebook for better organization -->
+                    <notebook>
+                        
+                        <!-- Production Related Tab -->
+                        <page string="Total Produksi">
+                            <group string="Informasi Produksi Tanam" colspan="2">
+                                <group>
+                                    <field name="total_planting_quantity"/>
+                                    <field name="in_progress_planting_quantity"/>
+                                    <field name="in_progress_percentage_quantity" widget="percentage"/>
+                                </group>
+                                <group>
+                                    <field name="total_actual_quantity"/>
+                                    <field name="total_product_loss"/>
+                                    <field name="percentage_product_loss" widget="percentage"/>
+                                </group>
+                            </group>
+                            
+                            <group string="Informasi Produksi Minyak" colspan="2">
+                                <group>
+                                    <field name="total_oil_quantity"/>
+                                    <field name="in_progress_oil_quantity"/>
+                                    <field name="in_progress_oil_percentage_quantity" widget="percentage"/>
+                                </group>
+                                <group>
+                                    <field name="total_actual_oil_quantity"/>
+                                    <field name="total_oil_quantity_loss"/>
+                                    <field name="total_oil_loss_percentage" widget="percentage"/>
+                                </group>
+                            </group>
+                        </page>
+
+
+                        <!-- Transaction Related Tab -->
+                        <page string="Total Penjualan">
+                            <group>
+                                <field name="total_transaction_quantity"/>
+                                <field name="total_transaction_value" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="asset_ids"/>
+                            </group>
+                        </page>
+                        
+                    </notebook>
+
+                    <!-- Status Information -->
+                    <group string="Status">
+                        <field name="state" readonly="1"/>
+                        <field name="ilo_state"/>
+                    </group>
+
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- New form view for companies -->
+    <record id="view_ilo_company_form" model="ir.ui.view">
+        <field name="name">ilo.company.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="after">
+                <group string="ILO Company Information" attrs="{'invisible': [('is_company', '=', False)]}">
+                    <group string="Company Information">
+                        <field name="description"/>
+                        <field name="ilo_associate" help="Select the ILO Associate type"/>
+                        <field name="ilo_associate_code" help="Automatically generated code for the associate" readonly="1"/>
+                    </group>
+                    
+                    <!-- Notebook to organize Transaction Related information -->
+                    <notebook>
+                        
+                        <!-- Page for Transaction Quantities -->
+                        <page string="Total Penjualan">
+                            <group>
+                                <field name="total_transaction_quantity"/>
+                                <field name="asset_ids"/>
+                            </group>
+                        </page>
+                        
+                        <!-- Page for Transaction Values -->
+                        <page string="Total Nominal Penjualan">
+                            <group>
+                                <field name="total_transaction_value" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                        </page>
+                        
+                    </notebook>
+
+                    <group string="Status">
+                        <field name="state" readonly="1"/>
+                        <field name="ilo_state"/>
+                    </group>
+                </group>  
+            </xpath>
+        </field>
+    </record>
+
+    
+    
+    <record id="view_ilo_employee_tree_inherit" model="ir.ui.view">
+        <field name="name">ilo.employee.tree.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="id" />
+                <field name="nik_id" string="NIK" />
+                <field name="ilo_state" />
+                <field name="state"/>
+                <field name="description"/>
+                <field name="ilo_associate"/>
+                <field name="ilo_associate_code"/>
+                <field name="family_members"/>
+                <field name="organization_status"/>
+                <field name="organization_name"/>
+                <field name="total_area_ha"/>
+                <field name="total_planting_quantity" />
+                <field name="in_progress_planting_quantity" />
+                <field name="in_progress_percentage_quantity" widget="percentage"/>
+                <field name="total_actual_quantity"/>
+                <field name="total_product_loss"/>
+                <field name="percentage_product_loss" widget="percentage" />
+                <field name="total_oil_quantity" />
+                <field name="in_progress_oil_quantity" />
+                <field name="in_progress_oil_percentage_quantity" widget="percentage"/>
+                <field name="total_actual_oil_quantity" />
+                <field name="total_oil_quantity_loss" />
+                <field name="total_oil_loss_percentage" widget="percentage" />
+                <field name="total_transaction_quantity" />
+                <field name="total_transaction_value" widget="monetary" options="{'currency_field': 'currency_id'}" />
+            </xpath>
+        </field>
+    </record>
+
+        <!-- Action to open the employee form view -->
+        <record id="action_ilo_employee" model="ir.actions.act_window">
+            <field name="name">Keanggotaan UGreen</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_ilo_employee_tree_inherit"/> <!-- Reference to the tree view -->
+            <field name="context">{}</field>
+        </record>
+
+
+    <!-- Product Product Form View -->
+    <record id="view_product_product_form_inherit" model="ir.ui.view">
+        <field name="name">product.product.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_code']" position="after">
+                <field name="batch_code"/>
+                <field name="image_1920_url" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product Product Tree View -->
+    <record id="view_product_product_tree_inherit" model="ir.ui.view">
+        <field name="name">product.product.tree.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="id" />
+                <!-- Add batch code and image URL columns in the tree view -->
+                <field name="batch_code"/>
+                <field name="image_1920_url"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_product_product_inherited_action" model="ir.actions.act_window">
+        <field name="name">Produk</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_product_product_tree_inherit"/>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="product_product_inherited_menu"
+        name="Produk"
+        action="action_product_product_inherited_action"
+        parent="menu_ilo_farming_root"
+        sequence="40"/>
+
+        <!-- Menu item for the employee view under the farming root menu -->
+        <menuitem id="menu_ilo_employee"
+                  name="Keanggotaan"
+                  parent="menu_ilo_farming_root"
+                  action="action_ilo_employee"
+                  sequence="10"/> <!-- Set the sequence for order -->
+
+
+                  <menuitem id="ilo_menu_employee"
+                  name="Keanggotaan"
+                  parent="menu_ilo_employee"
+                  action="action_ilo_employee"
+                  sequence="10"/>
+</odoo>

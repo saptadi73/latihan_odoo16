@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ilo_production_monitoring_tree" model="ir.ui.view">
+        <field name="name">ilo.production_monitoring.tree</field>
+        <field name="model">ilo.production_monitoring</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="total_planted_quantity"/>
+                <field name="total_harvested_quantity"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ilo_production_monitoring_form" model="ir.ui.view">
+        <field name="name">ilo.production_monitoring.form</field>
+        <field name="model">ilo.production_monitoring</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="total_planted_quantity" readonly="1"/>
+                        <field name="total_harvested_quantity" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Planting Data">
+                            <field name="planting_data" context="{'default_monitoring_id': id}">
+                                <tree editable="bottom">
+                                    <field name="produce_product"/>
+                                    <field name="quantity"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Harvesting Data">
+                            <field name="harvesting_data" context="{'default_monitoring_id': id}">
+                                <tree editable="bottom">
+                                    <field name="final_product"/>
+                                    <field name="final_quantity"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to open the tree view -->
+    <record id="action_ilo_production_monitoring" model="ir.actions.act_window">
+        <field name="name">Production Monitoring</field>
+        <field name="res_model">ilo.production_monitoring</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_ilo_production_monitoring_tree"/>
+    </record>
+
+    <!-- Menu item for the Production Monitoring -->
+    <!-- <menuitem id="menu_ilo_production_monitoring" 
+              name="Production Monitoring" 
+              action="action_ilo_production_monitoring" 
+              parent="menu_ilo_employee"
+              sequence="10"/> -->
+              
+</odoo>

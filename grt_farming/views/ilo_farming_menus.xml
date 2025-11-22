@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define the Main Menu -->
+        <menuitem id="menu_ilo_farming_root"
+                  name="ILO Farming Perspective"
+                  sequence="10"/>
+
+        <!-- Define the Assets Menu Item -->
+        <record id="action_ilo_assets" model="ir.actions.act_window">
+            <field name="name">Lahan</field>
+            <field name="res_model">ilo.assets</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_ilo_assets_tree"/>
+        </record>
+
+        <menuitem id="menu_ilo_assets"
+                  name="Lahan"
+                  parent="menu_ilo_farming_root"
+                  action="action_ilo_assets"
+                  sequence="10"/>
+
+        
+    </data>
+</odoo>

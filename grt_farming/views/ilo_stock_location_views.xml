@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define Stock Location Views -->
+        <record id="view_stock_location_tree" model="ir.ui.view">
+            <field name="name">stock.location.tree</field>
+            <field name="model">ilo.stock_location</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Locations">
+                    <field name="id" />
+                    <field name="employee_image" widget="image" options="{'size': (48, 48)}"/>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="employee_ilo_associate" />
+                    <field name="employee_ilo_associate_code"/>
+                    <field name="location_code"/>
+                    <field name="warehouse_id" />
+                    <field name="kabupaten_id"/>  <!-- Added Kabupaten -->
+                    <button name="backfill_employee_images" type="object" string="Update Employee Images" class="btn btn-info btn-sm" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_stock_location_form" model="ir.ui.view">
+            <field name="name">stock.location.form</field>
+            <field name="model">ilo.stock_location</field>
+            <field name="arch" type="xml">
+                <form string="Stock Location Form">
+                    <header>
+                        <!-- Add the button here -->
+                        <button name="backfill_employee_images" type="object" string="Update Employee Images" class="btn-info" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="employee_image" widget="image" class="oe_avatar"/>
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="employee_ilo_associate" />
+                            <field name="employee_ilo_associate_code"/>
+                            <field name="employee_image_url" />
+                            <field name="location_code"/>
+                            <field name="warehouse_id" />
+                            <field name="address"/>
+                            <field name="city"/> <!-- Include city for clarity -->
+                            <field name="region"/> <!-- Include region for clarity -->
+                            <field name="kabupaten_id"/>  <!-- Added Kabupaten -->
+                            <field name="kecamatan"/>  <!-- Added Kecamatan -->
+                            <field name="kelurahan"/>  <!-- Added Kelurahan -->
+                            <field name="country"/> <!-- Country as a Char field -->
+                            <field name="stock_quant_ids" />
+                            <field name="quantity_available"/>
+                            <field name="quantity_sold" />
+                        </group>
+                        
+                        <!-- Sub-tree view for product movements -->
+                        <!-- <group string="Product Movements">
+                            <field name="product_in" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="product_out" widget="many2many_tags" options="{'no_create': True}"/>
+                        </group> -->
+                        
+                        <!-- Sub-tree view for stock moves -->
+                        <group string="Stock Moves Out">
+                            <field name="stock_move_ids" readonly="1">
+                                <tree editable="false" string="Product Movements">
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="quantity" readonly="1"/>
+                                    <field name="source_employee_location" readonly="1" />
+                                    <field name="source_employee_ilo_associate" readonly="1" />
+                                    <field name="source_employee_ilo_associate_code" readonly="1" />
+                                    <field name="location_id" readonly="1"/>
+                                    <field name="location_dest_id" readonly="1" />
+                                    <field name="destination_employee_location" readonly="1" />
+                                    <field name="destination_employee_ilo_associate" readonly="1" />
+                                    <field name="destination_employee_ilo_associate_code" readonly="1" />
+                                    <field name="date" readonly="1"/>
+                                    <field name="state" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="Stock Moves In">
+                            <field name="stock_move_dest_ids" readonly="1">
+                                <tree editable="false" string="Product Movements">
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="quantity" readonly="1"/>
+                                    <field name="source_employee_location" readonly="1" />
+                                    <field name="source_employee_ilo_associate" readonly="1" />
+                                    <field name="source_employee_ilo_associate_code" readonly="1" />
+                                    <field name="location_id" readonly="1"/>
+                                    <field name="location_dest_id" readonly="1" />
+                                    <field name="destination_employee_location" readonly="1" />
+                                    <field name="destination_employee_ilo_associate" readonly="1" />
+                                    <field name="destination_employee_ilo_associate_code" readonly="1" />
+                                    <field name="date" readonly="1"/>
+                                    <field name="state" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Define the Stock Location Menu Item -->
+        <record id="action_ilo_stock_location" model="ir.actions.act_window">
+            <field name="name">ILO Stock Locations</field>
+            <field name="res_model">ilo.stock_location</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_ilo_stock_location"
+                  name="Lokasi Barang"
+                  parent="menu_ilo_inventory"
+                  action="action_ilo_stock_location"
+                  sequence="20"/>
+    </data>
+</odoo>

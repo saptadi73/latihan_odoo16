@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_ilo_assets_tree" model="ir.ui.view">
+            <field name="name">ilo.assets.tree</field>
+            <field name="model">ilo.assets</field>
+            <field name="arch" type="xml">
+                <tree string="Lahan">
+                    <field name="status" />
+                    <field name="name" string="Kode Lahan"/>
+                    <field name="employee_id"/>
+                    <field name="employee_ilo_associate_code" />
+                    <field name="ownership_status"/>
+                    <field name="area_ha"/>
+                    <field name="area_uom" />
+                    <field name="planting_status"/>
+                    <field name="harvesting_status"/> <!-- Added harvesting status in the tree view -->
+                    <!-- <field name="production_capacity"/> -->
+                    <!-- <field name="uom_id"/> UoM added to tree view -->
+                    <field name="state_id"/> <!-- Province added to tree view -->
+                    <field name="kabupaten_id"/> <!-- Kabupaten added to tree view -->
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View -->
+        <record id="view_ilo_assets_form" model="ir.ui.view">
+            <field name="name">ilo.assets.form</field>
+            <field name="model">ilo.assets</field>
+            <field name="arch" type="xml">
+                <form string="Lahan">
+                    <!-- Header Section -->
+                    <header>
+                        <button name="action_confirm" type="object" string="Confirm" class="btn-primary"/>
+                        <field name="status" widget="statusbar" />
+                    </header>
+                    
+                    <!-- Main Content -->
+                        <!-- Asset Information Group -->
+                        <group string="Field Information">
+                            <group>
+                                <field name="asset_image" widget="image" 
+                                    class="img img-fluid" 
+                                    style="max-width: 200px;"/>
+                                <field name="product_id" placeholder="Ketik Minyak Nilam" />
+                                <field name="status"/>
+                                <field name="name" readonly="1"/>
+                                <field name="employee_id" placeholder="Ketik dan Pilih Nama"/>
+                                <field name="employee_ilo_associate"/>
+                                <field name="employee_ilo_associate_code"/>
+                            </group>
+                            <group>
+                                <field name="coordinates" placeholder="Masukan Titik Koordinat"/>
+                                <field name="ownership_status" placeholder="Masukan Jenis Kepemilikan"/>
+                                <field name="area_ha" placeholder="Masukan Luas Lahan"/>
+                                <field name="area_uom"/>
+                                <!-- <field name="average_yield_per_m2"/> -->
+                                <!-- <field name="area_conversion_factor" /> -->
+                                <field name="address" placeholder="Masukan Alamat Lengkap"/>
+                                <field name="state_id" placeholder="Masukan Provinsi"/>
+                                <field name="kabupaten_id" placeholder="Masukan Kabupaten"/>
+                                <field name="asset_image_url"/>
+                            </group>
+                        </group>
+        
+                        <!-- Status and Production Information Group -->
+                        <group string="Status and Production">
+                            <group>
+                                <field name="planting_status"/>
+                                <field name="harvesting_status"/>
+                                <!-- <field name="production_capacity"/> -->
+                            </group>
+                            <group>
+                                <!-- <field name="uom_id"/> -->
+                                <field name="shp_file" filename="shp_filename"/>
+                                <field name="shp_filename" readonly="1"/>
+                                <field name="shp_file_url" readonly="1" />
+                            </group>
+                        </group>
+        
+                    <!-- Chatter and Audit Trail -->
+                    <div class="o_attachment_preview"/>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
