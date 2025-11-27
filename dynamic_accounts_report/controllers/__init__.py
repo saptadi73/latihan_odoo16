@@ -20,3 +20,4 @@
 #
 #############################################################################
 from . import controllers
+from . import api_controllers

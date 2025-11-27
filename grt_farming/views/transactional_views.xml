@@ -18,7 +18,9 @@
                         <group>
                             <field name="destination_actor" required="1"/>
                             <field name="destination_actor_associate_code"/>
-                            <field name="kabupaten_id"/>
+                            <field name="kabupaten_id" 
+                            invisible="1"
+                            />
                         </group>
                         <group>
                             <field name="date_order" placeholder="Pilih Tanggal" required="1"/>
@@ -240,7 +242,9 @@
                 <field name="general_ownership_code"/>
                 <field name="destination_actor" />
                 <field name="destination_actor_associate_code"/>
-                <field name="kabupaten_id"/>
+                <field name="kabupaten_id" 
+                invisible="1"
+                />
                 <field name="total_requested_quantity"/>
                 <field name="total_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="currency_id" />

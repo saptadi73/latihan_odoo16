@@ -660,11 +660,14 @@ class OwnershipLine(models.Model):
                 record.product_image = False
                 _logger.info("No product_id set for ownership.line record %s", record.id)
 
-    @api.depends('ownership_code_id.kabupaten_id')
+    @api.depends('ownership_code_id.kabupaten_id', 'source_actor.kabupaten_id')
     def _compute_kabupaten_id(self):
         for record in self:
-            if record.ownership_code_id:
+            # If kabupaten_id is not set in OwnershipCode, get it from the source_actor
+            if record.ownership_code_id and record.ownership_code_id.kabupaten_id:
                 record.kabupaten_id = record.ownership_code_id.kabupaten_id
+            elif record.source_actor and record.source_actor.kabupaten_id:
+                record.kabupaten_id = record.source_actor.kabupaten_id
             else:
                 record.kabupaten_id = False
 
