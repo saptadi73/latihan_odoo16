@@ -56,6 +56,28 @@ class FinancialReportsAPIController(http.Controller):
             _logger.error(f"Error: {str(e)}", exc_info=True)
             return {'status': 'error', 'message': str(e)}
     
+    @http.route('/api/balance_sheet/analytic_accounts', type='json', auth='user', methods=['POST'], csrf=False)
+    def get_analytic_accounts(self, **kwargs):
+        """Get list of analytic accounts"""
+        try:
+            report_obj = request.env['account.balance.sheet.report']
+            data = report_obj.get_analytic_accounts(company_id=kwargs.get('company_id'))
+            return data
+        except Exception as e:
+            _logger.error(f"/api/balance_sheet/analytic_accounts error: {str(e)}", exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+
+    @http.route('/api/balance_sheet/filter_options', type='json', auth='user', methods=['POST'], csrf=False)
+    def get_filter_options(self, **kwargs):
+        """Get all filter options (companies + analytic accounts) in one call"""
+        try:
+            report_obj = request.env['account.balance.sheet.report']
+            data = report_obj.get_filter_options(company_id=kwargs.get('company_id'))
+            return data
+        except Exception as e:
+            _logger.error(f"/api/balance_sheet/filter_options error: {str(e)}", exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+
     # ============== PROFIT & LOSS ENDPOINTS ==============
     
     @http.route('/api/profit_loss/by_company', type='json', auth='user', methods=['POST'], csrf=False)
@@ -261,3 +283,36 @@ class FinancialReportsAPIController(http.Controller):
         except Exception as e:
             _logger.error(f"/api/financial/combined error: {str(e)}", exc_info=True)
             return {'status': 'error', 'message': str(e)}
+
+    @http.route('/api/financial/combined_analytic', type='json', auth='user', methods=['POST'], csrf=False)
+    def financial_report_combined_analytic(self, **kwargs):
+        """Endpoint gabungan: Asset, Liability, P&L, Equity dengan filter analytic_account_id"""
+        try:
+            report_obj = request.env['account.balance.sheet.report']
+            data = report_obj.financial_report_combined_analytic(
+                date_from=kwargs.get('date_from'),
+                date_to=kwargs.get('date_to'),
+                company_id=kwargs.get('company_id'),
+                analytic_account_id=kwargs.get('analytic_account_id')
+            )
+            return data
+        except Exception as e:
+            _logger.error(f"/api/financial/combined_analytic error: {str(e)}", exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+    
+    @http.route('/api/financial/reports_combined_analytic', type='json', auth='user', methods=['POST'], csrf=False)
+    def financial_reports_combined_analytic(self, **kwargs):
+        """Endpoint gabungan dengan filter analytic_account_id dan export detail move lines"""
+        try:
+            report_obj = request.env['account.balance.sheet.report']
+            data = report_obj.financial_report_combined_analytic(
+                date_from=kwargs.get('date_from'),
+                date_to=kwargs.get('date_to'),
+                company_id=kwargs.get('company_id'),
+                analytic_account_id=kwargs.get('analytic_account_id')
+            )
+            return data
+        except Exception as e:
+            _logger.error(f"/api/financial/reports_combined_analytic error: {str(e)}", exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+

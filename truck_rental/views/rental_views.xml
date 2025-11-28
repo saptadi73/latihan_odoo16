@@ -1,0 +1,88 @@
+<odoo>
+  <!-- Form View -->
+  <record id="view_rental_form" model="ir.ui.view">
+    <field name="name">truck.rental.form</field>
+    <field name="model">truck_rental.rental</field>
+    <field name="arch" type="xml">
+      <form string="Truck Rental">
+        <header>
+          <button name="action_view_sale_order" type="object" class="oe_stat_button"
+                  attrs="{'invisible': [('sale_order_id','=',False)]}">
+            <field name="sale_order_id" widget="statinfo" string="Sale Order"/>
+          </button>
+        </header>
+        <sheet>
+          <group>
+            <group>
+              <field name="customer_id"/>
+              <field name="truck_id"/>
+              <field name="rental_service_product_id"/>
+            </group>
+            <group>
+              <field name="rental_start_date"/>
+              <field name="rental_end_date"/>
+              <field name="total_rental_cost" readonly="1"/>
+              <field name="sale_order_id" readonly="1" invisible="1"/>
+            </group>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Tree View -->
+  <record id="view_rental_tree" model="ir.ui.view">
+    <field name="name">truck.rental.tree</field>
+    <field name="model">truck_rental.rental</field>
+    <field name="arch" type="xml">
+      <tree string="Truck Rentals">
+        <field name="customer_id"/>
+        <field name="truck_id"/>
+        <field name="rental_start_date"/>
+        <field name="rental_end_date"/>
+        <field name="total_rental_cost"/>
+        <field name="sale_order_id"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Search View -->
+  <record id="view_rental_search" model="ir.ui.view">
+    <field name="name">truck.rental.search</field>
+    <field name="model">truck_rental.rental</field>
+    <field name="arch" type="xml">
+      <search string="Search Rentals">
+        <field name="customer_id"/>
+        <field name="truck_id"/>
+        <field name="rental_start_date"/>
+        <field name="rental_end_date"/>
+        <filter string="Active Rentals" name="active_rentals"
+                domain="[('rental_end_date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+        <group expand="0" string="Group By">
+          <filter string="Customer" name="group_customer" context="{'group_by': 'customer_id'}"/>
+          <filter string="Truck" name="group_truck" context="{'group_by': 'truck_id'}"/>
+          <filter string="Start Date" name="group_start" context="{'group_by': 'rental_start_date'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <!-- Action -->
+  <record id="action_truck_rental" model="ir.actions.act_window">
+    <field name="name">Truck Rentals</field>
+    <field name="res_model">truck_rental.rental</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Create your first Truck Rental
+      </p>
+    </field>
+  </record>
+
+  <!-- Menu: masuk di bawah Fleet (parent_id mengacu ke menu Fleet) -->
+  <menuitem id="menu_truck_rental_root"
+            name="Truck Rentals"
+            parent="fleet.menu_root"
+            action="action_truck_rental"
+            sequence="10"/>
+</odoo>

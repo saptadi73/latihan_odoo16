@@ -1865,5 +1865,405 @@ class BalanceSheetReport(models.TransientModel):
             'totals': totals,
             'summary': summary,
         }
+    @api.model
+    def financial_report_combined_analytic(self, date_from=False, date_to=False, company_id=False, analytic_account_id=False):
+        """
+        Gabungan: Asset, Liability, Profit & Loss, dan Equity dengan filter analytic_account_id.
+        """
+        _logger.info("=== EXPORT FINANCIAL REPORT COMBINED WITH ANALYTIC FILTER ===")
+        company = self.env['res.company'].browse(company_id) if company_id else self.env.company
+        aml = self.env['account.move.line']
+
+        # Filter analytic - INISIALISASI DI AWAL
+        analytic_domain = []
+        analytic_account_ids = []  # ← TAMBAHKAN INI
+        
+        if analytic_account_id:
+            # Normalisasi analytic_account_id menjadi list
+            if not isinstance(analytic_account_id, (list, tuple)):
+                analytic_account_ids = [analytic_account_id]
+            else:
+                analytic_account_ids = analytic_account_id
+            
+            # Gunakan pendekatan yang sama seperti di fungsi _get_report_lines
+            aal = self.env['account.analytic.line'].search([
+                ('account_id', 'in', analytic_account_ids),
+                ('company_id', '=', company.id),
+            ])
+            move_line_ids = set(aal.mapped('move_line_id').ids)
+            _logger.info(f"Analytic filter: {len(move_line_ids)} move lines via analytic lines")
+            
+            if move_line_ids:
+                analytic_domain = [('id', 'in', list(move_line_ids))]
+
+        # Fungsi helper untuk build section dengan filter analytic
+        def build_section(account_types):
+            """Build data section dengan filter analytic."""
+            accounts = self.env['account.account'].search([
+                ('account_type', 'in', account_types),
+                ('company_id', '=', company.id)
+            ])
+            grouped = {}
+            
+            for account in accounts:
+                ag = account.group_id
+                group_key = ag.id if ag else 0
+                group_name = ag.name if ag else 'Unassigned'
+                group_code = ag.code_prefix_start if ag and ag.code_prefix_start else ''
+
+                if group_key not in grouped:
+                    grouped[group_key] = {
+                        'group_id': group_key,
+                        'group_name': group_name,
+                        'group_code': group_code,
+                        'opening_debit': 0.0,
+                        'opening_credit': 0.0,
+                        'opening_balance': 0.0,
+                        'period_debit': 0.0,
+                        'period_credit': 0.0,
+                        'period_balance': 0.0,
+                        'ending_debit': 0.0,
+                        'ending_credit': 0.0,
+                        'ending_balance': 0.0,
+                        'accounts': []
+                    }
+
+                # Opening balance
+                opening_debit = opening_credit = opening_balance = 0.0
+                opening_transactions = []
+                if date_from:
+                    domain_opening = [
+                        ('account_id', '=', account.id),
+                        ('move_id.state', '=', 'posted'),
+                        ('company_id', '=', company.id),
+                        ('date', '<', date_from),
+                    ]
+                    
+                    # Terapkan filter analytic jika ada
+                    if analytic_domain:
+                        domain_opening.extend(analytic_domain)
+                                        
+
+                    opening_lines = aml.search(domain_opening, order='date,id')
+                    
+                    # Fallback filter analytic_distribution jika tidak ada move_line_ids
+                    if analytic_account_id and not analytic_domain:
+                        opening_lines = opening_lines.filtered(
+                            lambda l: l.analytic_distribution and 
+                            any(str(aid) in l.analytic_distribution for aid in analytic_account_ids)
+                        )
+                    
+                    opening_debit = sum(opening_lines.mapped('debit'))
+                    opening_credit = sum(opening_lines.mapped('credit'))
+                    opening_balance = sum(opening_lines.mapped('balance'))
+                    opening_transactions = [{
+                        'date': str(l.date),
+                        'move_name': l.move_id.name,
+                        'account_code': account.code,
+                        'account_name': account.name,
+                        'label': l.name or '',
+                        'partner': l.partner_id.name if l.partner_id else '',
+                        'analytic_distribution': l.analytic_distribution or {},
+                        'debit': l.debit,
+                        'credit': l.credit,
+                        'balance': l.balance,
+                    } for l in opening_lines]
+
+                # Period transactions
+                domain_period = [
+                    ('account_id', '=', account.id),
+                    ('move_id.state', '=', 'posted'),
+                    ('company_id', '=', company.id)
+                ]
+                if date_from:
+                    domain_period.append(('date', '>=', date_from))
+                if date_to:
+                    domain_period.append(('date', '<=', date_to))
+                    
+                # Terapkan filter analytic jika ada
+                if analytic_domain:
+                    domain_period.extend(analytic_domain)
+                
+                period_lines = aml.search(domain_period, order='date,id')
+                
+                # Fallback filter analytic_distribution jika tidak ada move_line_ids
+                if analytic_account_id and not analytic_domain:
+                    period_lines = period_lines.filtered(
+                        lambda l: l.analytic_distribution and 
+                        any(str(aid) in l.analytic_distribution for aid in analytic_account_ids)
+                    )
+                
+                period_debit = sum(period_lines.mapped('debit'))
+                period_credit = sum(period_lines.mapped('credit'))
+                period_balance = sum(period_lines.mapped('balance'))
+
+                period_transactions = [{
+                    'date': str(l.date),
+                    'move_name': l.move_id.name,
+                    'account_code': account.code,
+                    'account_name': account.name,
+                    'label': l.name or '',
+                    'partner': l.partner_id.name if l.partner_id else '',
+                    'analytic_distribution': l.analytic_distribution or {},
+                    'debit': l.debit,
+                    'credit': l.credit,
+                    'balance': l.balance,
+                } for l in period_lines]
+
+                # Ending balance
+                ending_debit = opening_debit + period_debit
+                ending_credit = opening_credit + period_credit
+                ending_balance = opening_balance + period_balance
+
+                # Hanya tambahkan jika ada data
+                if opening_transactions or period_transactions or ending_balance != 0 or opening_balance != 0:
+                    account_data = {
+                        'account_id': account.id,
+                        'account_code': account.code,
+                        'account_name': account.name,
+                        'account_type': account.account_type,
+                        'opening_debit': opening_debit,
+                        'opening_credit': opening_credit,
+                        'opening_balance': opening_balance,
+                        'opening_transactions': opening_transactions,
+                        'opening_transaction_count': len(opening_transactions),
+                        'period_debit': period_debit,
+                        'period_credit': period_credit,
+                        'period_balance': period_balance,
+                        'period_transactions': period_transactions,
+                        'period_transaction_count': len(period_transactions),
+                        'ending_debit': ending_debit,
+                        'ending_credit': ending_credit,
+                        'ending_balance': ending_balance,
+                    }
+                    grouped[group_key]['accounts'].append(account_data)
+                    # Update group totals
+                    g = grouped[group_key]
+                    g['opening_debit'] += opening_debit
+                    g['opening_credit'] += opening_credit
+                    g['opening_balance'] += opening_balance
+                    g['period_debit'] += period_debit
+                    g['period_credit'] += period_credit
+                    g['period_balance'] += period_balance
+                    g['ending_debit'] += ending_debit
+                    g['ending_credit'] += ending_credit
+                    g['ending_balance'] += ending_balance
+
+            # Convert dict to sorted list
+            groups_list = [g for g in grouped.values() if g['accounts']]
+            groups_list.sort(key=lambda x: (x['group_code'], x['group_name']))
+            return groups_list
+
+        # Build semua section
+        asset_types = ['asset_receivable', 'asset_cash', 'asset_current', 'asset_non_current', 'asset_prepayments', 'asset_fixed']
+        liability_types = ['liability_payable', 'liability_credit_card', 'liability_current', 'liability_non_current']
+        equity_types = ['equity', 'equity_unaffected']
+        income_types = ['income', 'income_other']
+        expense_types = ['expense', 'expense_depreciation', 'expense_direct_cost']
+
+        asset_groups = build_section(asset_types)
+        liability_groups = build_section(liability_types)
+        equity_groups = build_section(equity_types)
+        income_groups = build_section(income_types)
+        expense_groups = build_section(expense_types)
+
+        # Calculate totals
+        total_assets_opening = sum(g['opening_balance'] for g in asset_groups)
+        total_assets_period = sum(g['period_balance'] for g in asset_groups)
+        total_assets_ending = sum(g['ending_balance'] for g in asset_groups)
+
+        total_liabilities_opening = sum(g['opening_balance'] for g in liability_groups)
+        total_liabilities_period = sum(g['period_balance'] for g in liability_groups)
+        total_liabilities_ending = sum(g['ending_balance'] for g in liability_groups)
+
+        total_equity_opening = sum(g['opening_balance'] for g in equity_groups)
+        total_equity_period = sum(g['period_balance'] for g in equity_groups)
+        total_equity_ending = sum(g['ending_balance'] for g in equity_groups)
+
+        total_income_debit = sum(g['period_debit'] for g in income_groups)
+        total_income_credit = sum(g['period_credit'] for g in income_groups)
+        income_net = total_income_credit - total_income_debit
+
+        total_expense_debit = sum(g['period_debit'] for g in expense_groups)
+        total_expense_credit = sum(g['period_credit'] for g in expense_groups)
+        expense_net = total_expense_credit - total_expense_debit
+
+        net_profit = income_net + expense_net
+        ending_liabilities_equity_pl = total_liabilities_ending + total_equity_ending + net_profit
+        balanced = abs(total_assets_ending - ending_liabilities_equity_pl) < 0.01
+
+        # Analytic account name
+        analytic_name = ''
+        if analytic_account_id:
+            if isinstance(analytic_account_id, (list, tuple)):
+                aa = self.env['account.analytic.account'].browse(analytic_account_id[0])
+            else:
+                aa = self.env['account.analytic.account'].browse(analytic_account_id)
+            analytic_name = aa.name if aa else ''
+
+        return {
+            'status': 'success',
+            'company': {
+                'id': company.id,
+                'name': company.name,
+                'currency': company.currency_id.name,
+                'currency_symbol': company.currency_id.symbol,
+            },
+            'filters': {
+                'date_from': date_from,
+                'date_to': date_to,
+                'analytic_account_id': analytic_account_id,
+                'analytic_account_name': analytic_name,
+            },
+            'assets': {
+                'groups': asset_groups,
+                'grand_total': {
+                    'opening_balance': total_assets_opening,
+                    'period_balance': total_assets_period,
+                    'ending_balance': total_assets_ending,
+                }
+            },
+            'liabilities': {
+                'groups': liability_groups,
+                'grand_total': {
+                    'opening_balance': total_liabilities_opening,
+                    'period_balance': total_liabilities_period,
+                    'ending_balance': total_liabilities_ending,
+                }
+            },
+            'equity': {
+                'groups': equity_groups,
+                'grand_total': {
+                    'opening_balance': total_equity_opening,
+                    'period_balance': total_equity_period,
+                    'ending_balance': total_equity_ending,
+                }
+            },
+            'income': {
+                'groups': income_groups,
+                'total_debit': total_income_debit,
+                'total_credit': total_income_credit,
+                'net': income_net,
+            },
+            'expense': {
+                'groups': expense_groups,
+                'total_debit': total_expense_debit,
+                'total_credit': total_expense_credit,
+                'net': expense_net,
+            },
+            'profit_loss': {
+                'net_profit': net_profit,
+                'is_profit': net_profit > 0,
+            },
+            'summary': {
+                'opening': {
+                    'assets': total_assets_opening,
+                    'liabilities': total_liabilities_opening,
+                    'equity': total_equity_opening,
+                },
+                'period': {
+                    'assets': total_assets_period,
+                    'liabilities': total_liabilities_period,
+                    'equity': total_equity_period,
+                    'income_net': income_net,
+                    'expense_net': expense_net,
+                    'net_profit': net_profit,
+                },
+                'ending': {
+                    'assets': total_assets_ending,
+                    'liabilities': total_liabilities_ending,
+                    'equity': total_equity_ending,
+                    'liabilities_equity_plus_pl': ending_liabilities_equity_pl,
+                    'balanced': balanced,
+                    'difference': total_assets_ending - ending_liabilities_equity_pl,
+                }
+            }
+        }
+    
+    @api.model
+    def get_analytic_accounts(self, company_id=False):
+        """
+        Ambil daftar analytic account untuk dropdown frontend.
+        Filter berdasarkan company_id jika diisi, atau ambil semua jika kosong.
+        """
+        _logger.info("=== GET ANALYTIC ACCOUNTS ===")
+        
+        domain = []
+        if company_id:
+            domain.append(('company_id', '=', company_id))
+        
+        analytic_accounts = self.env['account.analytic.account'].search(domain, order='name')
+        
+        result = []
+        for aa in analytic_accounts:
+            result.append({
+                'id': aa.id,
+                'name': aa.name,
+                'code': aa.code or '',
+                'company_id': aa.company_id.id if aa.company_id else False,
+                'company_name': aa.company_id.name if aa.company_id else '',
+                'active': aa.active,
+            })
+        
+        return {
+            'status': 'success',
+            'total': len(result),
+            'analytic_accounts': result,
+        }
+
+    @api.model
+    def get_filter_options(self, company_id=False):
+        """
+        Ambil semua opsi filter dalam satu call (companies + analytic accounts).
+        Frontend cukup panggil satu endpoint ini untuk populate dropdown.
+        """
+        _logger.info("=== GET FILTER OPTIONS ===")
+        
+        # Companies
+        companies = self.env['res.company'].search([])
+        company_list = []
+        for company in companies:
+            analytic_count = self.env['account.analytic.account'].search_count([
+                ('company_id', '=', company.id)
+            ])
+            company_list.append({
+                'id': company.id,
+                'name': company.name,
+                'currency': company.currency_id.name,
+                'currency_symbol': company.currency_id.symbol,
+                'active': company.id == self.env.company.id,
+                'analytic_account_count': analytic_count,
+            })
+        
+        # Analytic Accounts (filter by company_id if provided)
+        analytic_domain = []
+        if company_id:
+            analytic_domain.append(('company_id', '=', company_id))
+        
+        analytic_accounts = self.env['account.analytic.account'].search(analytic_domain, order='name')
+        analytic_list = []
+        for aa in analytic_accounts:
+            analytic_list.append({
+                'id': aa.id,
+                'name': aa.name,
+                'code': aa.code or '',
+                'company_id': aa.company_id.id if aa.company_id else False,
+                'company_name': aa.company_id.name if aa.company_id else '',
+                'active': aa.active,
+            })
+        
+        return {
+            'status': 'success',
+            'companies': {
+                'total': len(company_list),
+                'items': company_list,
+            },
+            'analytic_accounts': {
+                'total': len(analytic_list),
+                'items': analytic_list,
+                'filtered_by_company_id': company_id,
+            },
+        }
+
 
 

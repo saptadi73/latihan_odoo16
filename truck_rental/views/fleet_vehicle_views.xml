@@ -1,0 +1,19 @@
+<odoo>
+  <record id="view_fleet_vehicle_form_inherit" model="ir.ui.view">
+    <field name="name">fleet.vehicle.form.inherit</field>
+    <field name="model">fleet.vehicle</field>
+    <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+    <field name="arch" type="xml">
+      <!-- Tambahkan tab baru di notebook -->
+      <xpath expr="//notebook" position="inside">
+        <page string="Rental Info">
+          <group>
+            <group>
+              <field name="daily_rate" string="Daily Rental Rate"/>
+            </group>
+          </group>
+        </page>
+      </xpath>
+    </field>
+  </record>
+</odoo>
