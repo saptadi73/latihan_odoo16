@@ -1033,9 +1033,9 @@ class BalanceSheetReport(models.TransientModel):
         """
         Export detail asset dengan grouping berdasarkan account_group_name.
         DENGAN OPENING BALANCE: Hitung saldo sebelum date_from sebagai opening.
-        Returns: Asset grouped by account.group_id dengan opening, period, dan ending balance.
+        Tambahan: Detail transaksi opening (sebelum date_from) & transaksi periode (date_from..date_to) per account.
         """
-        _logger.info("=== EXPORT ASSET DETAIL BY GROUP WITH OPENING BALANCE ===")
+        _logger.info("=== EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS ===")
         
         if company_id:
             company = self.env['res.company'].browse(company_id)
@@ -1046,19 +1046,17 @@ class BalanceSheetReport(models.TransientModel):
         asset_types = ['asset_receivable', 'asset_cash', 'asset_current',
                        'asset_non_current', 'asset_prepayments', 'asset_fixed']
 
-        # Get all asset accounts
         asset_accounts = self.env['account.account'].search([
             ('account_type', 'in', asset_types),
             ('company_id', '=', company.id)
         ])
         
-        # Group by account_group_name
         grouped_data = {}
         
         for account in asset_accounts:
             account_group = account.group_id
             
-            # Tentukan group key
+            # Group key
             if account_group:
                 group_key = account_group.id
                 group_name = account_group.name
@@ -1068,7 +1066,6 @@ class BalanceSheetReport(models.TransientModel):
                 group_name = 'Unassigned'
                 group_code = ''
             
-            # Initialize group jika belum ada
             if group_key not in grouped_data:
                 grouped_data[group_key] = {
                     'group_id': group_key,
@@ -1086,65 +1083,93 @@ class BalanceSheetReport(models.TransientModel):
                     'accounts': []
                 }
             
-            # === HITUNG OPENING BALANCE (sebelum date_from) ===
-            opening_debit = 0.0
-            opening_credit = 0.0
-            opening_balance = 0.0
-            
+            # Opening balance (sebelum date_from)
+            opening_debit = opening_credit = opening_balance = 0.0
+            opening_transactions = []
             if date_from:
                 domain_opening = [
                     ('account_id', '=', account.id),
                     ('move_id.state', '=', 'posted'),
                     ('company_id', '=', company.id),
-                    ('date', '<', date_from)  # Sebelum periode
+                    ('date', '<', date_from)
                 ]
-                opening_lines = aml.search(domain_opening)
+                opening_lines = aml.search(domain_opening, order='date,id')
                 opening_debit = sum(opening_lines.mapped('debit'))
                 opening_credit = sum(opening_lines.mapped('credit'))
                 opening_balance = sum(opening_lines.mapped('balance'))
+                
+                # Detail transaksi opening
+                opening_transactions = [{
+                    'date': str(l.date),
+                    'move_name': l.move_id.name,
+                    'account_code': account.code,
+                    'account_name': account.name,
+                    'label': l.name or '',
+                    'partner': l.partner_id.name if l.partner_id else '',
+                    'debit': l.debit,
+                    'credit': l.credit,
+                    'balance': l.balance,
+                } for l in opening_lines]
             
-            # === HITUNG PERIOD MOVEMENT (dari date_from sampai date_to) ===
+            # Period movement (date_from..date_to)
             domain_period = [
                 ('account_id', '=', account.id),
                 ('move_id.state', '=', 'posted'),
                 ('company_id', '=', company.id)
             ]
-            
             if date_from:
                 domain_period.append(('date', '>=', date_from))
             if date_to:
                 domain_period.append(('date', '<=', date_to))
             
-            period_lines = aml.search(domain_period)
+            period_lines = aml.search(domain_period, order='date,id')
             period_debit = sum(period_lines.mapped('debit'))
             period_credit = sum(period_lines.mapped('credit'))
             period_balance = sum(period_lines.mapped('balance'))
             
-            # === TOTAL = OPENING + PERIOD ===
+            # Ending = Opening + Period
             ending_debit = opening_debit + period_debit
             ending_credit = opening_credit + period_credit
             ending_balance = opening_balance + period_balance
             
-            # Hanya tambahkan jika ada transaksi (opening atau period)
-            if ending_balance != 0 or opening_balance != 0:
+            # Detail transaksi periode
+            period_transactions = [{
+                'date': str(l.date),
+                'move_name': l.move_id.name,
+                'account_code': account.code,
+                'account_name': account.name,
+                'label': l.name or '',
+                'partner': l.partner_id.name if l.partner_id else '',
+                'debit': l.debit,
+                'credit': l.credit,
+                'balance': l.balance,
+            } for l in period_lines]
+            
+            if ending_balance != 0 or opening_balance != 0 or period_lines or opening_transactions:
                 account_data = {
                     'account_id': account.id,
                     'account_code': account.code,
                     'account_name': account.name,
                     'account_type': account.account_type,
+                    # Opening
                     'opening_debit': opening_debit,
                     'opening_credit': opening_credit,
                     'opening_balance': opening_balance,
+                    'opening_transactions': opening_transactions,
+                    'opening_transaction_count': len(opening_transactions),
+                    # Period
                     'period_debit': period_debit,
                     'period_credit': period_credit,
                     'period_balance': period_balance,
+                    'period_transactions': period_transactions,
+                    'period_transaction_count': len(period_transactions),
+                    # Ending
                     'ending_debit': ending_debit,
                     'ending_credit': ending_credit,
                     'ending_balance': ending_balance,
                 }
                 grouped_data[group_key]['accounts'].append(account_data)
                 
-                # Sum group totals
                 grouped_data[group_key]['opening_debit'] += opening_debit
                 grouped_data[group_key]['opening_credit'] += opening_credit
                 grouped_data[group_key]['opening_balance'] += opening_balance
@@ -1155,11 +1180,9 @@ class BalanceSheetReport(models.TransientModel):
                 grouped_data[group_key]['ending_credit'] += ending_credit
                 grouped_data[group_key]['ending_balance'] += ending_balance
         
-        # Convert dict to sorted list (hanya group yang punya account)
         groups_list = [g for g in grouped_data.values() if g['accounts']]
         groups_list.sort(key=lambda x: (x['group_code'], x['group_name']))
         
-        # Calculate grand totals
         grand_total = {
             'opening_debit': sum(g['opening_debit'] for g in groups_list),
             'opening_credit': sum(g['opening_credit'] for g in groups_list),
@@ -1187,3 +1210,660 @@ class BalanceSheetReport(models.TransientModel):
             'groups': groups_list,
             'grand_total': grand_total,
         }
+    @api.model
+    def asset_Liability_group(self, date_from=False, date_to=False, company_id=False):
+        """
+        Export detail asset dengan grouping berdasarkan account_group_name.
+        DENGAN OPENING BALANCE: Hitung saldo sebelum date_from sebagai opening.
+        Tambahan: Detail transaksi opening (sebelum date_from) & transaksi periode (date_from..date_to) per account.
+        """
+        _logger.info("=== EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS ===")
+        
+        if company_id:
+            company = self.env['res.company'].browse(company_id)
+        else:
+            company = self.env.company
+
+        aml = self.env['account.move.line']
+        liability_types = ['liability_payable', 'liability_credit_card',
+                           'liability_current', 'liability_non_current']
+
+        liability_accounts = self.env['account.account'].search([
+            ('account_type', 'in', liability_types),
+            ('company_id', '=', company.id)
+        ])
+        
+        grouped_data = {}
+        
+        for account in liability_accounts:
+            account_group = account.group_id
+            
+            # Group key
+            if account_group:
+                group_key = account_group.id
+                group_name = account_group.name
+                group_code = account_group.code_prefix_start or ''
+            else:
+                group_key = 0
+                group_name = 'Unassigned'
+                group_code = ''
+            
+            if group_key not in grouped_data:
+                grouped_data[group_key] = {
+                    'group_id': group_key,
+                    'group_name': group_name,
+                    'group_code': group_code,
+                    'opening_debit': 0.0,
+                    'opening_credit': 0.0,
+                    'opening_balance': 0.0,
+                    'period_debit': 0.0,
+                    'period_credit': 0.0,
+                    'period_balance': 0.0,
+                    'ending_debit': 0.0,
+                    'ending_credit': 0.0,
+                    'ending_balance': 0.0,
+                    'accounts': []
+                }
+            
+            # Opening balance (sebelum date_from)
+            opening_debit = opening_credit = opening_balance = 0.0
+            opening_transactions = []
+            if date_from:
+                domain_opening = [
+                    ('account_id', '=', account.id),
+                    ('move_id.state', '=', 'posted'),
+                    ('company_id', '=', company.id),
+                    ('date', '<', date_from)
+                ]
+                opening_lines = aml.search(domain_opening, order='date,id')
+                opening_debit = sum(opening_lines.mapped('debit'))
+                opening_credit = sum(opening_lines.mapped('credit'))
+                opening_balance = sum(opening_lines.mapped('balance'))
+                
+                # Detail transaksi opening
+                opening_transactions = [{
+                    'date': str(l.date),
+                    'move_name': l.move_id.name,
+                    'account_code': account.code,
+                    'account_name': account.name,
+                    'label': l.name or '',
+                    'partner': l.partner_id.name if l.partner_id else '',
+                    'debit': l.debit,
+                    'credit': l.credit,
+                    'balance': l.balance,
+                } for l in opening_lines]
+            
+            # Period movement (date_from..date_to)
+            domain_period = [
+                ('account_id', '=', account.id),
+                ('move_id.state', '=', 'posted'),
+                ('company_id', '=', company.id)
+            ]
+            if date_from:
+                domain_period.append(('date', '>=', date_from))
+            if date_to:
+                domain_period.append(('date', '<=', date_to))
+            
+            period_lines = aml.search(domain_period, order='date,id')
+            period_debit = sum(period_lines.mapped('debit'))
+            period_credit = sum(period_lines.mapped('credit'))
+            period_balance = sum(period_lines.mapped('balance'))
+            
+            # Ending = Opening + Period
+            ending_debit = opening_debit + period_debit
+            ending_credit = opening_credit + period_credit
+            ending_balance = opening_balance + period_balance
+            
+            # Detail transaksi periode
+            period_transactions = [{
+                'date': str(l.date),
+                'move_name': l.move_id.name,
+                'account_code': account.code,
+                'account_name': account.name,
+                'label': l.name or '',
+                'partner': l.partner_id.name if l.partner_id else '',
+                'debit': l.debit,
+                'credit': l.credit,
+                'balance': l.balance,
+            } for l in period_lines]
+            
+            if ending_balance != 0 or opening_balance != 0 or period_lines or opening_transactions:
+                account_data = {
+                    'account_id': account.id,
+                    'account_code': account.code,
+                    'account_name': account.name,
+                    'account_type': account.account_type,
+                    # Opening
+                    'opening_debit': opening_debit,
+                    'opening_credit': opening_credit,
+                    'opening_balance': opening_balance,
+                    'opening_transactions': opening_transactions,
+                    'opening_transaction_count': len(opening_transactions),
+                    # Period
+                    'period_debit': period_debit,
+                    'period_credit': period_credit,
+                    'period_balance': period_balance,
+                    'period_transactions': period_transactions,
+                    'period_transaction_count': len(period_transactions),
+                    # Ending
+                    'ending_debit': ending_debit,
+                    'ending_credit': ending_credit,
+                    'ending_balance': ending_balance,
+                }
+                grouped_data[group_key]['accounts'].append(account_data)
+                
+                grouped_data[group_key]['opening_debit'] += opening_debit
+                grouped_data[group_key]['opening_credit'] += opening_credit
+                grouped_data[group_key]['opening_balance'] += opening_balance
+                grouped_data[group_key]['period_debit'] += period_debit
+                grouped_data[group_key]['period_credit'] += period_credit
+                grouped_data[group_key]['period_balance'] += period_balance
+                grouped_data[group_key]['ending_debit'] += ending_debit
+                grouped_data[group_key]['ending_credit'] += ending_credit
+                grouped_data[group_key]['ending_balance'] += ending_balance
+        
+        groups_list = [g for g in grouped_data.values() if g['accounts']]
+        groups_list.sort(key=lambda x: (x['group_code'], x['group_name']))
+        
+        grand_total = {
+            'opening_debit': sum(g['opening_debit'] for g in groups_list),
+            'opening_credit': sum(g['opening_credit'] for g in groups_list),
+            'opening_balance': sum(g['opening_balance'] for g in groups_list),
+            'period_debit': sum(g['period_debit'] for g in groups_list),
+            'period_credit': sum(g['period_credit'] for g in groups_list),
+            'period_balance': sum(g['period_balance'] for g in groups_list),
+            'ending_debit': sum(g['ending_debit'] for g in groups_list),
+            'ending_credit': sum(g['ending_credit'] for g in groups_list),
+            'ending_balance': sum(g['ending_balance'] for g in groups_list),
+        }
+        
+        return {
+            'status': 'success',
+            'company': {
+                'id': company.id,
+                'name': company.name,
+                'currency': company.currency_id.name,
+            },
+            'filters': {
+                'date_from': date_from,
+                'date_to': date_to,
+            },
+            'total_groups': len(groups_list),
+            'groups': groups_list,
+            'grand_total': grand_total,
+        }
+    @api.model
+    def equity_detail_group(self, date_from=False, date_to=False, company_id=False):
+        """
+        Export detail asset dengan grouping berdasarkan account_group_name.
+        DENGAN OPENING BALANCE: Hitung saldo sebelum date_from sebagai opening.
+        Tambahan: Detail transaksi opening (sebelum date_from) & transaksi periode (date_from..date_to) per account.
+        """
+        _logger.info("=== EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS ===")
+        
+        if company_id:
+            company = self.env['res.company'].browse(company_id)
+        else:
+            company = self.env.company
+
+        aml = self.env['account.move.line']
+        equity_types = ['equity']
+
+        equity_accounts = self.env['account.account'].search([
+            ('account_type', 'in', equity_types),
+            ('company_id', '=', company.id)
+        ])
+        
+        grouped_data = {}
+        
+        for account in equity_accounts:
+            account_group = account.group_id
+            
+            # Group key
+            if account_group:
+                group_key = account_group.id
+                group_name = account_group.name
+                group_code = account_group.code_prefix_start or ''
+            else:
+                group_key = 0
+                group_name = 'Unassigned'
+                group_code = ''
+            
+            if group_key not in grouped_data:
+                grouped_data[group_key] = {
+                    'group_id': group_key,
+                    'group_name': group_name,
+                    'group_code': group_code,
+                    'opening_debit': 0.0,
+                    'opening_credit': 0.0,
+                    'opening_balance': 0.0,
+                    'period_debit': 0.0,
+                    'period_credit': 0.0,
+                    'period_balance': 0.0,
+                    'ending_debit': 0.0,
+                    'ending_credit': 0.0,
+                    'ending_balance': 0.0,
+                    'accounts': []
+                }
+            
+            # Opening balance (sebelum date_from)
+            opening_debit = opening_credit = opening_balance = 0.0
+            opening_transactions = []
+            if date_from:
+                domain_opening = [
+                    ('account_id', '=', account.id),
+                    ('move_id.state', '=', 'posted'),
+                    ('company_id', '=', company.id),
+                    ('date', '<', date_from)
+                ]
+                opening_lines = aml.search(domain_opening, order='date,id')
+                opening_debit = sum(opening_lines.mapped('debit'))
+                opening_credit = sum(opening_lines.mapped('credit'))
+                opening_balance = sum(opening_lines.mapped('balance'))
+                
+                # Detail transaksi opening
+                opening_transactions = [{
+                    'date': str(l.date),
+                    'move_name': l.move_id.name,
+                    'account_code': account.code,
+                    'account_name': account.name,
+                    'label': l.name or '',
+                    'partner': l.partner_id.name if l.partner_id else '',
+                    'debit': l.debit,
+                    'credit': l.credit,
+                    'balance': l.balance,
+                } for l in opening_lines]
+            
+            # Period movement (date_from..date_to)
+            domain_period = [
+                ('account_id', '=', account.id),
+                ('move_id.state', '=', 'posted'),
+                ('company_id', '=', company.id)
+            ]
+            if date_from:
+                domain_period.append(('date', '>=', date_from))
+            if date_to:
+                domain_period.append(('date', '<=', date_to))
+            
+            period_lines = aml.search(domain_period, order='date,id')
+            period_debit = sum(period_lines.mapped('debit'))
+            period_credit = sum(period_lines.mapped('credit'))
+            period_balance = sum(period_lines.mapped('balance'))
+            
+            # Ending = Opening + Period
+            ending_debit = opening_debit + period_debit
+            ending_credit = opening_credit + period_credit
+            ending_balance = opening_balance + period_balance
+            
+            # Detail transaksi periode
+            period_transactions = [{
+                'date': str(l.date),
+                'move_name': l.move_id.name,
+                'account_code': account.code,
+                'account_name': account.name,
+                'label': l.name or '',
+                'partner': l.partner_id.name if l.partner_id else '',
+                'debit': l.debit,
+                'credit': l.credit,
+                'balance': l.balance,
+            } for l in period_lines]
+            
+            if ending_balance != 0 or opening_balance != 0 or period_lines or opening_transactions:
+                account_data = {
+                    'account_id': account.id,
+                    'account_code': account.code,
+                    'account_name': account.name,
+                    'account_type': account.account_type,
+                    # Opening
+                    'opening_debit': opening_debit,
+                    'opening_credit': opening_credit,
+                    'opening_balance': opening_balance,
+                    'opening_transactions': opening_transactions,
+                    'opening_transaction_count': len(opening_transactions),
+                    # Period
+                    'period_debit': period_debit,
+                    'period_credit': period_credit,
+                    'period_balance': period_balance,
+                    'period_transactions': period_transactions,
+                    'period_transaction_count': len(period_transactions),
+                    # Ending
+                    'ending_debit': ending_debit,
+                    'ending_credit': ending_credit,
+                    'ending_balance': ending_balance,
+                }
+                grouped_data[group_key]['accounts'].append(account_data)
+                
+                grouped_data[group_key]['opening_debit'] += opening_debit
+                grouped_data[group_key]['opening_credit'] += opening_credit
+                grouped_data[group_key]['opening_balance'] += opening_balance
+                grouped_data[group_key]['period_debit'] += period_debit
+                grouped_data[group_key]['period_credit'] += period_credit
+                grouped_data[group_key]['period_balance'] += period_balance
+                grouped_data[group_key]['ending_debit'] += ending_debit
+                grouped_data[group_key]['ending_credit'] += ending_credit
+                grouped_data[group_key]['ending_balance'] += ending_balance
+        
+        groups_list = [g for g in grouped_data.values() if g['accounts']]
+        groups_list.sort(key=lambda x: (x['group_code'], x['group_name']))
+        
+        grand_total = {
+            'opening_debit': sum(g['opening_debit'] for g in groups_list),
+            'opening_credit': sum(g['opening_credit'] for g in groups_list),
+            'opening_balance': sum(g['opening_balance'] for g in groups_list),
+            'period_debit': sum(g['period_debit'] for g in groups_list),
+            'period_credit': sum(g['period_credit'] for g in groups_list),
+            'period_balance': sum(g['period_balance'] for g in groups_list),
+            'ending_debit': sum(g['ending_debit'] for g in groups_list),
+            'ending_credit': sum(g['ending_credit'] for g in groups_list),
+            'ending_balance': sum(g['ending_balance'] for g in groups_list),
+        }
+        
+        return {
+            'status': 'success',
+            'company': {
+                'id': company.id,
+                'name': company.name,
+                'currency': company.currency_id.name,
+            },
+            'filters': {
+                'date_from': date_from,
+                'date_to': date_to,
+            },
+            'total_groups': len(groups_list),
+            'groups': groups_list,
+            'grand_total': grand_total,
+        }
+    @api.model
+    def profit_loss_detail_group(self, date_from=False, date_to=False, company_id=False):
+        """
+        Profit & Loss grouped by parent account_group_name.
+        - Opening: transaksi sebelum date_from (opsional jika date_from ada)
+        - Period: transaksi date_from..date_to
+        - Ending: opening + period (untuk tampilan kumulatif)
+        - Net Profit: income_net + expense_net (expense_net negatif)
+        """
+        _logger.info("=== EXPORT PROFIT & LOSS BY GROUP WITH OPENING & PERIOD TRANSACTIONS ===")
+
+        company = self.env['res.company'].browse(company_id) if company_id else self.env.company
+        aml = self.env['account.move.line']
+
+        income_types = ['income', 'income_other']
+        expense_types = ['expense', 'expense_depreciation', 'expense_direct_cost']
+
+        account_model = self.env['account.account']
+        income_accounts = account_model.search([
+            ('account_type', 'in', income_types),
+            ('company_id', '=', company.id)
+        ])
+        expense_accounts = account_model.search([
+            ('account_type', 'in', expense_types),
+            ('company_id', '=', company.id)
+        ])
+
+        def build_grouped(accounts):
+            grouped = {}
+            for account in accounts:
+                ag = account.group_id
+                group_key = ag.id if ag else 0
+                group_name = ag.name if ag else 'Unassigned'
+                group_code = ag.code_prefix_start if ag and ag.code_prefix_start else ''
+
+                if group_key not in grouped:
+                    grouped[group_key] = {
+                        'group_id': group_key,
+                        'group_name': group_name,
+                        'group_code': group_code,
+                        'opening_debit': 0.0,
+                        'opening_credit': 0.0,
+                        'opening_balance': 0.0,
+                        'period_debit': 0.0,
+                        'period_credit': 0.0,
+                        'period_balance': 0.0,
+                        'ending_debit': 0.0,
+                        'ending_credit': 0.0,
+                        'ending_balance': 0.0,
+                        'accounts': []
+                    }
+
+                # Opening (sebelum date_from)
+                opening_debit = opening_credit = opening_balance = 0.0
+                opening_transactions = []
+                if date_from:
+                    domain_opening = [
+                        ('account_id', '=', account.id),
+                        ('move_id.state', '=', 'posted'),
+                        ('company_id', '=', company.id),
+                        ('date', '<', date_from),
+                    ]
+                    opening_lines = aml.search(domain_opening, order='date,id')
+                    opening_debit = sum(opening_lines.mapped('debit'))
+                    opening_credit = sum(opening_lines.mapped('credit'))
+                    opening_balance = sum(opening_lines.mapped('balance'))
+                    opening_transactions = [{
+                        'date': str(l.date),
+                        'move_name': l.move_id.name,
+                        'account_code': account.code,
+                        'account_name': account.name,
+                        'label': l.name or '',
+                        'partner': l.partner_id.name if l.partner_id else '',
+                        'debit': l.debit,
+                        'credit': l.credit,
+                        'balance': l.balance,
+                    } for l in opening_lines]
+
+                # Period (date_from..date_to)
+                domain_period = [
+                    ('account_id', '=', account.id),
+                    ('move_id.state', '=', 'posted'),
+                    ('company_id', '=', company.id)
+                ]
+                if date_from:
+                    domain_period.append(('date', '>=', date_from))
+                if date_to:
+                    domain_period.append(('date', '<=', date_to))
+
+                period_lines = aml.search(domain_period, order='date,id')
+                period_debit = sum(period_lines.mapped('debit'))
+                period_credit = sum(period_lines.mapped('credit'))
+                period_balance = sum(period_lines.mapped('balance'))
+
+                # Ending kumulatif
+                ending_debit = opening_debit + period_debit
+                ending_credit = opening_credit + period_credit
+                ending_balance = opening_balance + period_balance
+
+                period_transactions = [{
+                    'date': str(l.date),
+                    'move_name': l.move_id.name,
+                    'account_code': account.code,
+                    'account_name': account.name,
+                    'label': l.name or '',
+                    'partner': l.partner_id.name if l.partner_id else '',
+                    'debit': l.debit,
+                    'credit': l.credit,
+                    'balance': l.balance,
+                } for l in period_lines]
+
+                if opening_transactions or period_transactions or ending_balance or opening_balance:
+                    grouped[group_key]['accounts'].append({
+                        'account_id': account.id,
+                        'account_code': account.code,
+                        'account_name': account.name,
+                        'account_type': account.account_type,
+                        # Opening
+                        'opening_debit': opening_debit,
+                        'opening_credit': opening_credit,
+                        'opening_balance': opening_balance,
+                        'opening_transactions': opening_transactions,
+                        'opening_transaction_count': len(opening_transactions),
+                        # Period
+                        'period_debit': period_debit,
+                        'period_credit': period_credit,
+                        'period_balance': period_balance,
+                        'period_transactions': period_transactions,
+                        'period_transaction_count': len(period_transactions),
+                        # Ending
+                        'ending_debit': ending_debit,
+                        'ending_credit': ending_credit,
+                        'ending_balance': ending_balance,
+                        # Net period (credit - debit)
+                        'period_net': period_credit - period_debit,
+                    })
+
+                    g = grouped[group_key]
+                    g['opening_debit'] += opening_debit
+                    g['opening_credit'] += opening_credit
+                    g['opening_balance'] += opening_balance
+                    g['period_debit'] += period_debit
+                    g['period_credit'] += period_credit
+                    g['period_balance'] += period_balance
+                    g['ending_debit'] += ending_debit
+                    g['ending_credit'] += ending_credit
+                    g['ending_balance'] += ending_balance
+
+            # Kembalikan list terurut
+            groups_list = [g for g in grouped.values() if g['accounts']]
+            groups_list.sort(key=lambda x: (x['group_code'], x['group_name']))
+            return groups_list
+
+        # Bangun grup Income dan Expense
+        income_groups = build_grouped(income_accounts)
+        expense_groups = build_grouped(expense_accounts)
+
+        # Totals period dan Net Profit (rumus BENAR)
+        total_income_debit = sum(g['period_debit'] for g in income_groups)
+        total_income_credit = sum(g['period_credit'] for g in income_groups)
+        income_net = total_income_credit - total_income_debit  # income positif
+
+        total_expense_debit = sum(g['period_debit'] for g in expense_groups)
+        total_expense_credit = sum(g['period_credit'] for g in expense_groups)
+        expense_net = total_expense_credit - total_expense_debit  # expense negatif
+
+        net_profit = income_net + expense_net  # expense_net sudah negatif
+
+        _logger.info(f"[P&L GROUP] income_net={income_net:.2f} expense_net={expense_net:.2f} net_profit={net_profit:.2f}")
+
+        return {
+            'status': 'success',
+            'company': {
+                'id': company.id,
+                'name': company.name,
+                'currency': company.currency_id.name,
+            },
+            'filters': {
+                'date_from': date_from,
+                'date_to': date_to,
+            },
+            'income': {
+                'groups': income_groups,
+                'total_debit': total_income_debit,
+                'total_credit': total_income_credit,
+                'net': income_net,
+            },
+            'expense': {
+                'groups': expense_groups,
+                'total_debit': total_expense_debit,
+                'total_credit': total_expense_credit,
+                'net': expense_net,
+            },
+            'profit_loss': {
+                'net_profit': net_profit,
+                'is_profit': net_profit > 0,
+                'formula': 'income_net + expense_net (expense_net negatif)',
+            }
+        }
+    
+    @api.model
+    def financial_report_combined(self, date_from=False, date_to=False, company_id=False):
+        """
+        Gabungan: Asset, Liability, Profit & Loss, dan Equity dalam satu payload.
+        Menggunakan fungsi yang sudah ada: asset_detail_group, asset_Liability_group, profit_loss_detail_group, equity_detail_group.
+        Termasuk ringkasan grand totals dan konsistensi balance (Assets vs Liabilities+Equity+P&L).
+        """
+        _logger.info("=== EXPORT FINANCIAL REPORT COMBINED ===")
+        company = self.env['res.company'].browse(company_id) if company_id else self.env.company
+
+        # Ambil masing-masing bagian
+        assets = self.asset_detail_group(date_from=date_from, date_to=date_to, company_id=company.id)
+        liabilities = self.asset_Liability_group(date_from=date_from, date_to=date_to, company_id=company.id)
+        equity = self.equity_detail_group(date_from=date_from, date_to=date_to, company_id=company.id)
+        pl = self.profit_loss_detail_group(date_from=date_from, date_to=date_to, company_id=company.id)
+
+        # Ringkasan totals
+        totals = {
+            'assets': assets['grand_total'],
+            'liabilities': liabilities['grand_total'],
+            'equity': equity['grand_total'],
+            'income': {
+                'total_debit': pl['income']['total_debit'],
+                'total_credit': pl['income']['total_credit'],
+                'net': pl['income']['net'],
+            },
+            'expense': {
+                'total_debit': pl['expense']['total_debit'],
+                'total_credit': pl['expense']['total_credit'],
+                'net': pl['expense']['net'],
+            },
+            'profit_loss': pl['profit_loss'],
+        }
+
+        # Konsistensi Balance:
+        # Ending Assets harus sama dengan (Ending Liabilities + Ending Equity + P&L hasil periode, tanda liability/equity positif)
+        ending_assets = totals['assets']['ending_balance']
+        ending_liabilities = totals['liabilities']['ending_balance']
+        ending_equity = totals['equity']['ending_balance']
+        # P&L dari periode: net_profit (positif = laba, negatif = rugi)
+        net_profit = totals['profit_loss']['net_profit']
+
+        # Total L+E (+/- P&L). Karena di balance sheet P&L disajikan sebagai liability (credit → negatif balance),
+        # untuk ringkasan kita gunakan penjumlahan aritmetika biasa: liabilities + equity + net_profit
+        ending_liabilities_equity_pl = ending_liabilities + ending_equity + net_profit
+        balanced = abs(ending_assets - ending_liabilities_equity_pl) < 0.01
+
+        summary = {
+            'opening': {
+                'assets': totals['assets']['opening_balance'],
+                'liabilities': totals['liabilities']['opening_balance'],
+                'equity': totals['equity']['opening_balance'],
+            },
+            'period': {
+                'assets': totals['assets']['period_balance'],
+                'liabilities': totals['liabilities']['period_balance'],
+                'equity': totals['equity']['period_balance'],
+                'income_net': totals['income']['net'],
+                'expense_net': totals['expense']['net'],
+                'net_profit': net_profit,  # income_net + expense_net (expense_net negatif)
+            },
+            'ending': {
+                'assets': ending_assets,
+                'liabilities': ending_liabilities,
+                'equity': ending_equity,
+                'liabilities_equity_plus_pl': ending_liabilities_equity_pl,
+                'balanced': balanced,
+                'difference': ending_assets - ending_liabilities_equity_pl,
+            }
+        }
+
+        return {
+            'status': 'success',
+            'company': {
+                'id': company.id,
+                'name': company.name,
+                'currency': company.currency_id.name,
+                'currency_symbol': company.currency_id.symbol,
+            },
+            'filters': {
+                'date_from': date_from,
+                'date_to': date_to,
+            },
+            # Detail per bagian
+            'assets': assets,
+            'liabilities': liabilities,
+            'equity': equity,
+            'profit_loss': pl,
+            # Ringkasan gabungan
+            'totals': totals,
+            'summary': summary,
+        }
+
+

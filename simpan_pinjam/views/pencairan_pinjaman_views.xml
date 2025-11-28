@@ -21,16 +21,32 @@
             <field name="model">simpan_pinjam.pencairan_pinjaman</field>
             <field name="arch" type="xml">
                 <form string="Pencairan Pinjaman">
+                    <header>
+                        <button name="action_open_move" type="object" class="oe_stat_button"
+                                attrs="{'invisible': [('move_id','=',False)]}">
+                            <field name="move_id" widget="statinfo" string="Journal Entry"/>
+                        </button>
+                    </header>
                     <sheet>
                         <group>
                             <field name="nasabah_id"/>
                             <field name="pinjaman_id" domain="[('nasabah_id', '=', nasabah_id)]"/>
                             <field name="tanggal_pencairan"/>
+                            <field name="metode_pencairan"/>
+                        </group>
+                        <group>
                             <field name="jumlah_pencairan"/>
                             <field name="biaya_administrasi"/>
                             <field name="biaya_provisi"/>
-                            <field name="total_pencairan"/>
-                            <field name="metode_pencairan"/>
+                            <field name="total_pencairan" readonly="1"/>
+                        </group>
+                        <group string="Accounting">
+                            <field name="journal_id"/>
+                            <field name="bank_account_id"/>
+                            <field name="receivable_account_id"/>
+                            <field name="admin_fee_account_id"/>
+                            <field name="provisi_fee_account_id"/>
+                            <field name="move_id" readonly="1"/>
                         </group>
                     </sheet>
                 </form>

@@ -184,25 +184,80 @@ class FinancialReportsAPIController(http.Controller):
             )
             return data
         except Exception as e:
-            _logger.error(f"Error: {str(e)}", exc_info=True)
+            _logger.error(f"/api/export/income_expense_detail error: {str(e)}", exc_info=True)
             return {'status': 'error', 'message': str(e)}
 
-    @http.route('/api/asset_report/by_company', type='json', auth='user', methods=['POST'], csrf=False)
-    def asset_detail_grouped_by_company(self, **kwargs):
-        """Get asset detail grouped by company"""
+    @http.route('/api/asset/detail_group', type='json', auth='user', methods=['POST'], csrf=False)
+    def asset_detail_group(self, **kwargs):
+        """Asset detail grouped by account_group_name dengan opening balance dan transaksi periode"""
         try:
-            company_id = kwargs.get('company_id')
-            if not company_id:
-                return {'status': 'error', 'message': 'company_id is required'}
-
             report_obj = request.env['account.balance.sheet.report']
             data = report_obj.asset_detail_group(
                 date_from=kwargs.get('date_from'),
                 date_to=kwargs.get('date_to'),
                 company_id=kwargs.get('company_id')
             )
-
             return data
         except Exception as e:
-            _logger.error(f"Error: {str(e)}", exc_info=True)
+            _logger.error(f"/api/asset/detail_group error: {str(e)}", exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+    
+    @http.route('/api/liability/liability_group', type='json', auth='user', methods=['POST'], csrf=False)
+    def asset_liability_group(self, **kwargs):
+        """Asset & Liability grouped by account_group_name dengan opening balance dan transaksi periode"""
+        try:
+            report_obj = request.env['account.balance.sheet.report']
+            data = report_obj.asset_Liability_group(
+                date_from=kwargs.get('date_from'),
+                date_to=kwargs.get('date_to'),
+                company_id=kwargs.get('company_id')
+            )
+            return data
+        except Exception as e:
+            _logger.error(f"/api/asset/liability_group error: {str(e)}", exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+
+    @http.route('/api/pl/detail_group', type='json', auth='user', methods=['POST'], csrf=False)
+    def profit_loss_detail_group(self, **kwargs):
+        """Profit & Loss grouped by account_group_name dengan opening & period transactions"""
+        try:
+            report_obj = request.env['account.balance.sheet.report']
+            data = report_obj.profit_loss_detail_group(
+                date_from=kwargs.get('date_from'),
+                date_to=kwargs.get('date_to'),
+                company_id=kwargs.get('company_id')
+            )
+            return data
+        except Exception as e:
+            _logger.error(f"/api/pl/detail_group error: {str(e)}", exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+    
+    @http.route('/api/equity/detail_group', type='json', auth='user', methods=['POST'], csrf=False)
+    def equity_group(self, **kwargs):
+        """Asset & Liability grouped by account_group_name dengan opening balance dan transaksi periode"""
+        try:
+            report_obj = request.env['account.balance.sheet.report']
+            data = report_obj.equity_detail_group(
+                date_from=kwargs.get('date_from'),
+                date_to=kwargs.get('date_to'),
+                company_id=kwargs.get('company_id')
+            )
+            return data
+        except Exception as e:
+            _logger.error(f"/api/equity/detail_group error: {str(e)}", exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+
+    @http.route('/api/financial/combined', type='json', auth='user', methods=['POST'], csrf=False)
+    def financial_report_combined(self, **kwargs):
+        """Endpoint gabungan: Asset, Liability, Profit & Loss, Equity dalam satu response"""
+        try:
+            report_obj = request.env['account.balance.sheet.report']
+            data = report_obj.financial_report_combined(
+                date_from=kwargs.get('date_from'),
+                date_to=kwargs.get('date_to'),
+                company_id=kwargs.get('company_id')
+            )
+            return data
+        except Exception as e:
+            _logger.error(f"/api/financial/combined error: {str(e)}", exc_info=True)
             return {'status': 'error', 'message': str(e)}

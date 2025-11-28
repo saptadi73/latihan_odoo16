@@ -13,6 +13,8 @@
                     <field name="tenor"/>
                     <field name="bunga"/>
                     <field name="pembayaran_per_bulan"/>
+                    <field name="pembayaran_bunga_pinjaman_per_bulan"/>
+                    <field name="pembayaran_pokok_pinjaman_per_bulan"/>
                     <field name="status"/>
                     <templates>
                         <t t-name="kanban-box">
@@ -28,6 +30,8 @@
                                         <li>Bunga: <field name="bunga"/>%</li>
                                         <li>Status: <field name="status"/></li>
                                         <li>Pembayaran/Bulan: <field name="pembayaran_per_bulan"/></li>
+                                        <li>Pembayaran Bunga/Bulan: <field name="pembayaran_bunga_pinjaman_per_bulan"/></li>
+                                        <li>Pembayaran Pokok/Bulan: <field name="pembayaran_pokok_pinjaman_per_bulan"/></li>
                                     </ul>
                                 </div>
                             </div>
@@ -49,6 +53,8 @@
                     <field name="tenor"/>
                     <field name="bunga"/>
                     <field name="pembayaran_per_bulan"/>
+                    <field name="pembayaran_bunga_pinjaman_per_bulan"/>
+                    <field name="pembayaran_pokok_pinjaman_per_bulan"/>
                     <field name="status"/>
                 </tree>
             </field>
@@ -81,6 +87,8 @@
                             <field name="tenor" string="Tenor (Bulan)"/>
                             <field name="bunga" string="Bunga (%)"/>
                             <field name="pembayaran_per_bulan" string="Pembayaran per Bulan"/>
+                            <field name="pembayaran_bunga_pinjaman_per_bulan" string="Pembayaran Bunga per Bulan"/>
+                            <field name="pembayaran_pokok_pinjaman_per_bulan" string="Pembayaran Pokok per Bulan"/>
                             <field name="status" string="Status Pinjaman"/>
                         </group>
                     </sheet>

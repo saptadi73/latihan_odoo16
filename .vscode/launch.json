@@ -12,7 +12,7 @@
             "args": [
                 "--config=C:\\latihanodoo\\odoo.conf",
                 "--database=kanjabung",
-                "--init=dynamic_accounts_report",                // "--database=mynilamku",
+                // "--init=dynamic_accounts_report",                // "--database=mynilamku",
                 // "--init=mynilamku"
             ],
             "cwd": "${workspaceFolder}",

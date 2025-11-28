@@ -1,6 +1,6 @@
 {
     'name': 'Aplikasi Simpan Pinjam',
-    'version': '1.0',
+    'version': '1.5',
     'description': 'Aplikasi Simpan Pinjam untuk mengelola data nasabah, simpanan, pinjaman, pembayaran, dan pencairan pinjaman.',
     'summary': 'Aplikasi Simpan Pinjam yang lengkap untuk koperasi atau lembaga keuangan mikro.',
     'author': 'Saptadi Nurfarid',
@@ -9,6 +9,7 @@
     'category': 'Koperasi',
     'depends': [
         'base',
+        'account',
     ],
     'data': [
         'security/ir.model.access.csv',

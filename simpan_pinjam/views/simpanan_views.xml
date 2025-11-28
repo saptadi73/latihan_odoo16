@@ -53,13 +53,30 @@
         <field name="model">simpan_pinjam.simpanan</field>
         <field name="arch" type="xml">
             <form string="Simpanan">
+                <header>
+                  <!-- Smart button: open move_id via model method -->
+                  <button type="object" name="action_open_move" class="oe_stat_button"
+                          attrs="{'invisible': [('move_id','=',False)]}">
+                    <field name="move_id" widget="statinfo" string="Journal Entry"/>
+                  </button>
+                </header>
                 <sheet>
-                    <group>
-                        <field name="nasabah_id"/>
-                        <field name="jenis_simpanan"/>
-                        <field name="jumlah_simpanan"/>
-                        <field name="tanggal_simpanan"/>
-                    </group>
+                  <group>
+                    <field name="nasabah_id" />
+                    <field name="jenis_simpanan" />
+                    <field name="jumlah_simpanan" />
+                    <field name="tanggal_simpanan" />
+                  </group>
+                  <notebook>
+                    <page string="Accounting">
+                      <group>
+                        <field name="journal_id" options="{'no_open': True}" />
+                        <field name="bank_account_id" />
+                        <field name="equity_account_id" />
+                        <field name="move_id" readonly="1" />
+                      </group>
+                    </page>
+                  </notebook>
                 </sheet>
             </form>
         </field>
