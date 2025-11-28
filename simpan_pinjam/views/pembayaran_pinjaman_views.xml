@@ -60,6 +60,8 @@
                         <field name="pinjaman_id" domain="[('nasabah_id', '=', nasabah_id)]"/>
                         <field name="tanggal_pembayaran"/>
                         <field name="jumlah_pembayaran"/>
+                        <field name="pembayaran_pokok_per_bulan"/>
+                        <field name="pembayaran_bunga_per_bulan"/>
                         <field name="metode_pembayaran"/>
                     </group>
                 </sheet>
