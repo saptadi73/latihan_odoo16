@@ -74,6 +74,13 @@ class PembayaranPinjaman(models.Model):
     # (Opsional) Backward compatibility; tidak lagi dipakai
     move_id = fields.Many2one('account.move', string='Journal Entry', readonly=True)
 
+    # Tambahkan opsi Analytic untuk JE bunga
+    analytic_account_id = fields.Many2one(
+        'account.analytic.account',
+        string='Analytic Account (Pendapatan Bunga)',
+        help='Jika diisi, journal pendapatan bunga akan diberi analytic 100%.'
+    )
+
     def _get_default_misc_journal(self):
         return self.env['account.journal'].search(
             [('type', '=', 'general'), ('company_id', '=', self.env.company.id)], limit=1)
@@ -112,6 +119,12 @@ class PembayaranPinjaman(models.Model):
         # 1) Jurnal Bunga: DR Bank, CR Pendapatan Bunga
         if self.pembayaran_bunga > 0 and not self.move_interest_id:
             ref_bunga = f"{base_ref} - Bunga"
+            # siapkan analytic_distribution jika analytic diisi
+            analytic_dist = False
+            if self.analytic_account_id:
+                # Odoo 16: gunakan analytic_distribution (persentase 100)
+                analytic_dist = {self.analytic_account_id.id: 100}
+
             move_bunga = self.env['account.move'].create({
                 'move_type': 'entry',
                 'journal_id': journal.id,
@@ -131,6 +144,8 @@ class PembayaranPinjaman(models.Model):
                         'partner_id': partner_id,
                         'debit': 0.0,
                         'credit': self.pembayaran_bunga,
+                        # tambahkan analytic (opsional)
+                        'analytic_distribution': analytic_dist if analytic_dist else False,
                     }),
                 ],
             })

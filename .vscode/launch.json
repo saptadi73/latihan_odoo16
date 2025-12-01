@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Odoo16ce 3PL",
+            "name": "Odoo16c Demo Kanjabung",
             "type": "python",
             "request": "launch",
             "stopOnEntry": false,
@@ -11,7 +11,8 @@
             "program": "C:/odoo16c/server/odoo-bin",
             "args": [
                 "--config=C:\\latihanodoo\\odoo.conf",
-                "--database=kanjabung",
+                // "--database=kanjabung",
+                // "--database=konsolidasi",
                 // "--init=dynamic_accounts_report",                // "--database=mynilamku",
                 // "--init=mynilamku"
             ],

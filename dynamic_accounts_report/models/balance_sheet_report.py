@@ -1866,39 +1866,46 @@ class BalanceSheetReport(models.TransientModel):
             'summary': summary,
         }
     @api.model
-    def financial_report_combined_analytic(self, date_from=False, date_to=False, company_id=False, analytic_account_id=False):
+    def financial_report_combined_analytic(self, date_from=False, date_to=False, company_id=False, analytic_account_ids=False):
         """
-        Gabungan: Asset, Liability, Profit & Loss, dan Equity dengan filter analytic_account_id.
+        Gabungan: Asset, Liability, Profit & Loss, dan Equity dengan filter MULTIPLE analytic_account_ids.
         """
-        _logger.info("=== EXPORT FINANCIAL REPORT COMBINED WITH ANALYTIC FILTER ===")
+        _logger.info("=== EXPORT FINANCIAL REPORT COMBINED WITH ANALYTIC FILTER (MULTI) ===")
         company = self.env['res.company'].browse(company_id) if company_id else self.env.company
         aml = self.env['account.move.line']
 
-        # Filter analytic - INISIALISASI DI AWAL
+        # Normalisasi analytic_account_ids menjadi list - PERBAIKAN TIPE
         analytic_domain = []
-        analytic_account_ids = []  # ← TAMBAHKAN INI
+        normalized_ids = []  # Inisialisasi sebagai list kosong
+        analytic_names = []  # ← TAMBAHKAN INI (fix error line 2097)
         
-        if analytic_account_id:
-            # Normalisasi analytic_account_id menjadi list
-            if not isinstance(analytic_account_id, (list, tuple)):
-                analytic_account_ids = [analytic_account_id]
-            else:
-                analytic_account_ids = analytic_account_id
+        if analytic_account_ids:
+            if isinstance(analytic_account_ids, int):
+                normalized_ids = [analytic_account_ids]
+            elif isinstance(analytic_account_ids, (list, tuple)):
+                # Filter hanya int yang valid - PERBAIKAN (fix error line 1892)
+                normalized_ids = [int(aid) for aid in analytic_account_ids if aid is not None and str(aid).strip().isdigit()]
             
-            # Gunakan pendekatan yang sama seperti di fungsi _get_report_lines
-            aal = self.env['account.analytic.line'].search([
-                ('account_id', 'in', analytic_account_ids),
-                ('company_id', '=', company.id),
-            ])
-            move_line_ids = set(aal.mapped('move_line_id').ids)
-            _logger.info(f"Analytic filter: {len(move_line_ids)} move lines via analytic lines")
-            
-            if move_line_ids:
-                analytic_domain = [('id', 'in', list(move_line_ids))]
+            # Pastikan normalized_ids berisi nilai yang valid
+            if normalized_ids:
+                # Ambil analytic account names
+                aa_records = self.env['account.analytic.account'].browse(normalized_ids)
+                analytic_names = [aa.name for aa in aa_records if aa.exists()]
+                
+                # Ambil move_line_ids yang terkait dengan analytic accounts
+                aal = self.env['account.analytic.line'].search([
+                    ('account_id', 'in', normalized_ids),
+                    ('company_id', '=', company.id),
+                ])
+                move_line_ids = list(set(aal.mapped('move_line_id').ids))
+                _logger.info(f"Analytic filter: {len(normalized_ids)} accounts ({analytic_names}), {len(move_line_ids)} move lines")
+                
+                if move_line_ids:
+                    analytic_domain = [('id', 'in', move_line_ids)]
 
         # Fungsi helper untuk build section dengan filter analytic
         def build_section(account_types):
-            """Build data section dengan filter analytic."""
+            """Build data section dengan filter multi-analytic."""
             accounts = self.env['account.account'].search([
                 ('account_type', 'in', account_types),
                 ('company_id', '=', company.id)
@@ -1937,20 +1944,15 @@ class BalanceSheetReport(models.TransientModel):
                         ('move_id.state', '=', 'posted'),
                         ('company_id', '=', company.id),
                         ('date', '<', date_from),
-                    ]
+                    ] + analytic_domain
                     
-                    # Terapkan filter analytic jika ada
-                    if analytic_domain:
-                        domain_opening.extend(analytic_domain)
-                                        
-
                     opening_lines = aml.search(domain_opening, order='date,id')
                     
-                    # Fallback filter analytic_distribution jika tidak ada move_line_ids
-                    if analytic_account_id and not analytic_domain:
+                    # Fallback: filter manual via analytic_distribution jika tidak ada via AAL
+                    if normalized_ids and not analytic_domain:
                         opening_lines = opening_lines.filtered(
                             lambda l: l.analytic_distribution and 
-                            any(str(aid) in l.analytic_distribution for aid in analytic_account_ids)
+                            any(str(aid) in (l.analytic_distribution or {}) for aid in normalized_ids)
                         )
                     
                     opening_debit = sum(opening_lines.mapped('debit'))
@@ -1974,23 +1976,20 @@ class BalanceSheetReport(models.TransientModel):
                     ('account_id', '=', account.id),
                     ('move_id.state', '=', 'posted'),
                     ('company_id', '=', company.id)
-                ]
+                ] + analytic_domain
+                
                 if date_from:
                     domain_period.append(('date', '>=', date_from))
                 if date_to:
                     domain_period.append(('date', '<=', date_to))
-                    
-                # Terapkan filter analytic jika ada
-                if analytic_domain:
-                    domain_period.extend(analytic_domain)
                 
                 period_lines = aml.search(domain_period, order='date,id')
                 
-                # Fallback filter analytic_distribution jika tidak ada move_line_ids
-                if analytic_account_id and not analytic_domain:
+                # Fallback: filter manual via analytic_distribution
+                if normalized_ids and not analytic_domain:
                     period_lines = period_lines.filtered(
                         lambda l: l.analytic_distribution and 
-                        any(str(aid) in l.analytic_distribution for aid in analytic_account_ids)
+                        any(str(aid) in (l.analytic_distribution or {}) for aid in normalized_ids)
                     )
                 
                 period_debit = sum(period_lines.mapped('debit'))
@@ -2015,9 +2014,8 @@ class BalanceSheetReport(models.TransientModel):
                 ending_credit = opening_credit + period_credit
                 ending_balance = opening_balance + period_balance
 
-                # Hanya tambahkan jika ada data
                 if opening_transactions or period_transactions or ending_balance != 0 or opening_balance != 0:
-                    account_data = {
+                    grouped[group_key]['accounts'].append({
                         'account_id': account.id,
                         'account_code': account.code,
                         'account_name': account.name,
@@ -2035,9 +2033,8 @@ class BalanceSheetReport(models.TransientModel):
                         'ending_debit': ending_debit,
                         'ending_credit': ending_credit,
                         'ending_balance': ending_balance,
-                    }
-                    grouped[group_key]['accounts'].append(account_data)
-                    # Update group totals
+                    })
+                    
                     g = grouped[group_key]
                     g['opening_debit'] += opening_debit
                     g['opening_credit'] += opening_credit
@@ -2049,25 +2046,17 @@ class BalanceSheetReport(models.TransientModel):
                     g['ending_credit'] += ending_credit
                     g['ending_balance'] += ending_balance
 
-            # Convert dict to sorted list
             groups_list = [g for g in grouped.values() if g['accounts']]
             groups_list.sort(key=lambda x: (x['group_code'], x['group_name']))
             return groups_list
+        # Build sections
+        asset_groups = build_section(['asset_receivable', 'asset_cash', 'asset_current', 'asset_non_current', 'asset_prepayments', 'asset_fixed'])
+        liability_groups = build_section(['liability_payable', 'liability_credit_card', 'liability_current', 'liability_non_current'])
+        equity_groups = build_section(['equity', 'equity_unaffected'])
+        income_groups = build_section(['income', 'income_other'])
+        expense_groups = build_section(['expense', 'expense_depreciation', 'expense_direct_cost'])
 
-        # Build semua section
-        asset_types = ['asset_receivable', 'asset_cash', 'asset_current', 'asset_non_current', 'asset_prepayments', 'asset_fixed']
-        liability_types = ['liability_payable', 'liability_credit_card', 'liability_current', 'liability_non_current']
-        equity_types = ['equity', 'equity_unaffected']
-        income_types = ['income', 'income_other']
-        expense_types = ['expense', 'expense_depreciation', 'expense_direct_cost']
-
-        asset_groups = build_section(asset_types)
-        liability_groups = build_section(liability_types)
-        equity_groups = build_section(equity_types)
-        income_groups = build_section(income_types)
-        expense_groups = build_section(expense_types)
-
-        # Calculate totals
+        # Totals
         total_assets_opening = sum(g['opening_balance'] for g in asset_groups)
         total_assets_period = sum(g['period_balance'] for g in asset_groups)
         total_assets_ending = sum(g['ending_balance'] for g in asset_groups)
@@ -2092,15 +2081,6 @@ class BalanceSheetReport(models.TransientModel):
         ending_liabilities_equity_pl = total_liabilities_ending + total_equity_ending + net_profit
         balanced = abs(total_assets_ending - ending_liabilities_equity_pl) < 0.01
 
-        # Analytic account name
-        analytic_name = ''
-        if analytic_account_id:
-            if isinstance(analytic_account_id, (list, tuple)):
-                aa = self.env['account.analytic.account'].browse(analytic_account_id[0])
-            else:
-                aa = self.env['account.analytic.account'].browse(analytic_account_id)
-            analytic_name = aa.name if aa else ''
-
         return {
             'status': 'success',
             'company': {
@@ -2112,8 +2092,8 @@ class BalanceSheetReport(models.TransientModel):
             'filters': {
                 'date_from': date_from,
                 'date_to': date_to,
-                'analytic_account_id': analytic_account_id,
-                'analytic_account_name': analytic_name,
+                'analytic_account_ids': normalized_ids,
+                'analytic_account_names': analytic_names,  # ← Sekarang sudah terdefinisi
             },
             'assets': {
                 'groups': asset_groups,

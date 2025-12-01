@@ -22,7 +22,7 @@
 
 {
     'name': 'Dynamic Financial Reports V16',
-    'version': '16.0.1.0.30',
+    'version': '16.0.1.1.3',
     'category': 'Accounting',
     'live_test_url': 'https://www.youtube.com/watch?v=gVQi9q9Rs-E&t=5s',
     'summary': """Dynamic Financial Reports with drill 
@@ -50,6 +50,8 @@
         'report/partner_ledger.xml',
         'report/ageing.xml',
         'report/daybook.xml',
+        'security/ir.model.access.csv',
+        'views/consolidation_views.xml',
     ],
     'assets': {
         'web.assets_backend': [

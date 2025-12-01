@@ -1,10 +1,56 @@
 <odoo>
     <data>
-        <record id="pencairan_pinjaman_tree_view" model="ir.ui.view">
-            <field name="name">pencairan_pinjaman.tree.view</field>
+        <record id="view_pencairan_pinjaman_form" model="ir.ui.view">
+            <field name="name">simpan_pinjam.pencairan_pinjaman.form</field>
             <field name="model">simpan_pinjam.pencairan_pinjaman</field>
             <field name="arch" type="xml">
-                <tree string="Pencairan Pinjaman">
+                <form string="Pencairan Pinjaman">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nasabah_id"/>
+                                <field name="pinjaman_id"/>
+                                <field name="tanggal_pencairan"/>
+                                <field name="metode_pencairan"/>
+                            </group>
+                            <group>
+                                <field name="jumlah_pencairan"/>
+                                <field name="biaya_administrasi"/>
+                                <field name="biaya_provisi"/>
+                                <field name="total_pencairan" readonly="1"/>
+                            </group>
+                        </group>
+
+                        <group string="Akunting">
+                            <group>
+                                <field name="journal_id"/>
+                                <field name="bank_account_id"/>
+                                <field name="receivable_account_id"/>
+                            </group>
+                            <group string="Pendapatan Biaya">
+                                <field name="admin_fee_account_id"/>
+                                <field name="provisi_fee_account_id"/>
+                            </group>
+                            <group string="Analytic (Opsional)">
+                                <field name="admin_fee_analytic_id" options="{'no_create_edit': False}"/>
+                                <field name="provisi_fee_analytic_id" options="{'no_create_edit': False}"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <field name="move_id" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- (Opsional) tree view -->
+        <record id="view_pencairan_pinjaman_tree" model="ir.ui.view">
+            <field name="name">simpan_pinjam.pencairan_pinjaman.tree</field>
+            <field name="model">simpan_pinjam.pencairan_pinjaman</field>
+            <field name="arch" type="xml">
+                <tree>
                     <field name="nasabah_id"/>
                     <field name="pinjaman_id"/>
                     <field name="tanggal_pencairan"/>
@@ -12,51 +58,20 @@
                     <field name="biaya_administrasi"/>
                     <field name="biaya_provisi"/>
                     <field name="total_pencairan"/>
-                    <field name="metode_pencairan"/>
+                    <field name="journal_id"/>
+                    <field name="move_id"/>
                 </tree>
             </field>
         </record>
-        <record id="pencairan_pinjaman_form_view" model="ir.ui.view">
-            <field name="name">pencairan_pinjaman.form.view</field>
-            <field name="model">simpan_pinjam.pencairan_pinjaman</field>
-            <field name="arch" type="xml">
-                <form string="Pencairan Pinjaman">
-                    <header>
-                        <button name="action_open_move" type="object" class="oe_stat_button"
-                                attrs="{'invisible': [('move_id','=',False)]}">
-                            <field name="move_id" widget="statinfo" string="Journal Entry"/>
-                        </button>
-                    </header>
-                    <sheet>
-                        <group>
-                            <field name="nasabah_id"/>
-                            <field name="pinjaman_id" domain="[('nasabah_id', '=', nasabah_id)]"/>
-                            <field name="tanggal_pencairan"/>
-                            <field name="metode_pencairan"/>
-                        </group>
-                        <group>
-                            <field name="jumlah_pencairan"/>
-                            <field name="biaya_administrasi"/>
-                            <field name="biaya_provisi"/>
-                            <field name="total_pencairan" readonly="1"/>
-                        </group>
-                        <group string="Accounting">
-                            <field name="journal_id"/>
-                            <field name="bank_account_id"/>
-                            <field name="receivable_account_id"/>
-                            <field name="admin_fee_account_id"/>
-                            <field name="provisi_fee_account_id"/>
-                            <field name="move_id" readonly="1"/>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+
+        <!-- (Opsional) action jika belum ada -->
         <record id="action_pencairan_pinjaman" model="ir.actions.act_window">
             <field name="name">Pencairan Pinjaman</field>
             <field name="res_model">simpan_pinjam.pencairan_pinjaman</field>
-            <field name="view_mode">kanban,tree,form</field>
-            <field name="help">Klik untuk menambahkan Pencairan Pinjaman baru.</field>
+            <field name="view_mode">tree,form</field>
         </record>
+
+        <!-- (Opsional) menu jika diperlukan -->
+        <!-- <menuitem id="menu_pencairan_pinjaman" name="Pencairan Pinjaman" parent="account.menu_finance" action="action_pencairan_pinjaman"/> -->
     </data>
 </odoo>

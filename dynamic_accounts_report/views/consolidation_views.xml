@@ -1,0 +1,96 @@
+<odoo>
+  <!-- Action untuk membuka daftar konsolidasi -->
+  <record id="action_account_consolidation" model="ir.actions.act_window">
+    <field name="name">Account Consolidation</field>
+    <field name="res_model">account.consolidation</field>
+    <field name="view_mode">tree,form</field>
+    <field name="target">current</field>
+    <field name="context">{}</field>
+  </record>
+
+  <!-- Menu di bawah Accounting / Configuration (atau ganti parent sesuai kebutuhan) -->
+  <menuitem id="menu_account_consolidation_root"
+            name="Account Consolidation"
+            parent="account.menu_finance_configuration"
+            action="action_account_consolidation"
+            sequence="90"/>
+
+  <!-- Tree view -->
+  <record id="view_account_consolidation_tree" model="ir.ui.view">
+    <field name="name">account.consolidation.tree</field>
+    <field name="model">account.consolidation</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+        <field name="date_from"/>
+        <field name="date_to"/>
+        <field name="state"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Form view -->
+  <record id="view_account_consolidation_form" model="ir.ui.view">
+    <field name="name">account.consolidation.form</field>
+    <field name="model">account.consolidation</field>
+    <field name="arch" type="xml">
+      <form string="Account Consolidation">
+        <header>
+          <button name="action_consolidate" 
+                  type="object" 
+                  string="Process Consolidation" 
+                  class="oe_highlight" 
+                  states="draft"/>
+          <button name="action_reset_to_draft" 
+                  type="object" 
+                  string="Reset to Draft" 
+                  states="done"/>
+          <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+        </header>
+        <sheet>
+          <group>
+            <group>
+              <field name="name"/>
+              <field name="date_from"/>
+              <field name="date_to"/>
+            </group>
+            <group>
+              <field name="company_ids" widget="many2many_tags"/>
+              <field name="elimination_account_ids" widget="many2many_tags" 
+                     domain="[('company_id', 'in', company_ids)]"
+                     options="{'no_create_edit': True}"/>
+            </group>
+          </group>
+          <notebook>
+            <page string="Instructions">
+              <div class="o_form_label">
+                <h3>Steps to Consolidate:</h3>
+                <ol>
+                  <li>Enter a name for this consolidation (e.g., "Q4 2024 Consolidation")</li>
+                  <li>Select date range (date_from and date_to)</li>
+                  <li>Select multiple companies to consolidate</li>
+                  <li>Mark intercompany elimination accounts (e.g., Intercompany AR/AP)</li>
+                  <li>Click "Process Consolidation" button</li>
+                </ol>
+              </div>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Update action dengan views -->
+  <record id="action_account_consolidation_views" model="ir.actions.act_window.view">
+    <field name="sequence" eval="1"/>
+    <field name="view_mode">tree</field>
+    <field name="act_window_id" ref="action_account_consolidation"/>
+    <field name="view_id" ref="view_account_consolidation_tree"/>
+  </record>
+  <record id="action_account_consolidation_views_form" model="ir.actions.act_window.view">
+    <field name="sequence" eval="2"/>
+    <field name="view_mode">form</field>
+    <field name="act_window_id" ref="action_account_consolidation"/>
+    <field name="view_id" ref="view_account_consolidation_form"/>
+  </record>
+</odoo>

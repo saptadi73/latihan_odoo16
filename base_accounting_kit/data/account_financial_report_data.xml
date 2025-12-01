@@ -95,7 +95,7 @@
 
 
             <field name="type">account_type</field>
-            <field name="account_type_ids">asset</field>
+            <field name="account_type_ids">income_other</field>
 
         </record>
 
@@ -116,7 +116,7 @@
                    ref="account_financial_report_liabilitysum0"/>
             <field name="display_detail">detail_with_hierarchy</field>
             <field name="type">account_type</field>
-            <field name="account_type_ids">liability</field>
+            <field name="account_type_ids">income_other</field>
 
         </record>
 

@@ -45,6 +45,16 @@ class PencairanPinjaman(models.Model):
         'account.account', string='Akun Pendapatan Provisi',
         domain=[('account_type', 'in', ['income', 'income_other'])]
     )
+    admin_fee_analytic_id = fields.Many2one(
+        'account.analytic.account',
+        string='Analytic (Pendapatan Administrasi)',
+        help='Opsional: isi untuk memberi analytic 100% pada pendapatan administrasi.'
+    )
+    provisi_fee_analytic_id = fields.Many2one(
+        'account.analytic.account',
+        string='Analytic (Pendapatan Provisi)',
+        help='Opsional: isi untuk memberi analytic 100% pada pendapatan provisi.'
+    )
     move_id = fields.Many2one('account.move', string='Journal Entry', readonly=True)
 
     @api.depends('jumlah_pencairan', 'biaya_administrasi', 'biaya_provisi')
@@ -123,21 +133,35 @@ class PencairanPinjaman(models.Model):
             'debit': 0.0,
             'credit': total_pencairan,
         }))
+
+        # Biaya Administrasi
         if self.biaya_administrasi > 0:
+            admin_analytic = False
+            if self.admin_fee_analytic_id:
+                admin_analytic = {self.admin_fee_analytic_id.id: 100}  # 100% ke analytic
             lines.append((0, 0, {
                 'name': ref + ' - Adm',
                 'account_id': self.admin_fee_account_id.id,
                 'partner_id': partner_id,
                 'debit': 0.0,
                 'credit': self.biaya_administrasi,
+                # Tambahkan analytic (opsional)
+                'analytic_distribution': admin_analytic if admin_analytic else False,
             }))
+
+        # Biaya Provisi
         if self.biaya_provisi > 0:
+            provisi_analytic = False
+            if self.provisi_fee_analytic_id:
+                provisi_analytic = {self.provisi_fee_analytic_id.id: 100}  # 100% ke analytic
             lines.append((0, 0, {
                 'name': ref + ' - Provisi',
                 'account_id': self.provisi_fee_account_id.id,
                 'partner_id': partner_id,
                 'debit': 0.0,
                 'credit': self.biaya_provisi,
+                # Tambahkan analytic (opsional)
+                'analytic_distribution': provisi_analytic if provisi_analytic else False,
             }))
 
         total_debit = sum(l[2]['debit'] for l in lines)

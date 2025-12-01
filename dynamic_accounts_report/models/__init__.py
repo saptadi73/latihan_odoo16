@@ -23,3 +23,4 @@ from . import move_line
 from . import account_account_custom
 from . import balance_sheet_report
 from . import profit_loss_report
+from . import consolidation

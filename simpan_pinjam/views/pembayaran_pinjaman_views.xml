@@ -50,20 +50,10 @@
     </record>
 
     <record id="view_pembayaran_pinjaman_form" model="ir.ui.view">
-    <field name="name">pembayaran.pinjaman.form</field>
+    <field name="name">simpan_pinjam.pembayaran_pinjaman.form</field>
     <field name="model">simpan_pinjam.pembayaran_pinjaman</field>
     <field name="arch" type="xml">
       <form string="Pembayaran Pinjaman">
-        <header>
-          <button name="action_open_interest_move" type="object" class="oe_stat_button"
-                  attrs="{'invisible': [('move_interest_id','=',False)]}">
-            <field name="move_interest_id" widget="statinfo" string="JE Bunga"/>
-          </button>
-          <button name="action_open_principal_move" type="object" class="oe_stat_button"
-                  attrs="{'invisible': [('move_principal_id','=',False)]}">
-            <field name="move_principal_id" widget="statinfo" string="JE Pokok"/>
-          </button>
-        </header>
         <sheet>
           <group>
             <group>
@@ -78,14 +68,34 @@
               <field name="jumlah_pembayaran" readonly="1"/>
             </group>
           </group>
-          <group string="Accounting">
-            <field name="journal_id"/>
-            <field name="bank_account_id"/>
-            <field name="receivable_account_id"/>
-            <field name="interest_income_account_id"/>
-            <field name="move_interest_id" readonly="1"/>
-            <field name="move_principal_id" readonly="1"/>
-            <field name="move_id" readonly="1" attrs="{'invisible': 1}"/>
+
+          <group string="Akunting">
+            <group>
+              <field name="journal_id"/>
+              <field name="bank_account_id"/>
+            </group>
+            <group>
+              <field name="receivable_account_id"/>
+              <field name="interest_income_account_id"/>
+            </group>
+            <group string="Analytic (Opsional)">
+              <field name="analytic_account_id" options="{'no_create_edit': False}"/>
+            </group>
+          </group>
+
+          <group string="Journal Entries">
+            <group>
+              <field name="move_interest_id" readonly="1"/>
+              <button name="action_open_interest_move" type="object" string="Buka JE Bunga" class="oe_link" attrs="{'invisible': [('move_interest_id','=',False)]}"/>
+            </group>
+            <group>
+              <field name="move_principal_id" readonly="1"/>
+              <button name="action_open_principal_move" type="object" string="Buka JE Pokok" class="oe_link" attrs="{'invisible': [('move_principal_id','=',False)]}"/>
+            </group>
+            <group>
+              <field name="move_id" readonly="1"/>
+              <button name="action_open_move" type="object" string="Buka JE (Legacy)" class="oe_link" attrs="{'invisible': [('move_id','=',False)]}"/>
+            </group>
           </group>
         </sheet>
       </form>
@@ -95,8 +105,10 @@
     <record id="action_pembayaran_pinjaman" model="ir.actions.act_window">
         <field name="name">Pembayaran Pinjaman</field>
         <field name="res_model">simpan_pinjam.pembayaran_pinjaman</field>
-        <field name="view_mode">kanban,tree,form</field>
-        <field name="help">Klik untuk menambahkan Pembayaran Pinjaman baru.</field>
+        <field name="view_mode">tree,form</field>
     </record>
+
+    <!-- (Opsional) menu jika diperlukan -->
+    <!-- <menuitem id="menu_pembayaran_pinjaman" name="Pembayaran Pinjaman" parent="account.menu_finance" action="action_pembayaran_pinjaman"/> -->
   </data>
 </odoo>

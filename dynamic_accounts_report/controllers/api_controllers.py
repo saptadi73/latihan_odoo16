@@ -281,38 +281,75 @@ class FinancialReportsAPIController(http.Controller):
             )
             return data
         except Exception as e:
-            _logger.error(f"/api/financial/combined error: {str(e)}", exc_info=True)
+            _logger.error(f"Error: {str(e)}", exc_info=True)
             return {'status': 'error', 'message': str(e)}
 
-    @http.route('/api/financial/combined_analytic', type='json', auth='user', methods=['POST'], csrf=False)
-    def financial_report_combined_analytic(self, **kwargs):
-        """Endpoint gabungan: Asset, Liability, P&L, Equity dengan filter analytic_account_id"""
+    @http.route('/api/consolidation/balance_sheet', type='json', auth='user', methods=['POST'], csrf=False)
+    def get_consolidated_balance_sheet(self, **kwargs):
+        """Consolidation: Multi-Company Balance Sheet with Intercompany Elimination"""
         try:
-            report_obj = request.env['account.balance.sheet.report']
-            data = report_obj.financial_report_combined_analytic(
+            _logger.info(f"=== CONSOLIDATION REQUEST: {kwargs}")
+            consolidation_obj = request.env['account.consolidation']
+            data = consolidation_obj.get_consolidated_balance_sheet(
                 date_from=kwargs.get('date_from'),
                 date_to=kwargs.get('date_to'),
-                company_id=kwargs.get('company_id'),
-                analytic_account_id=kwargs.get('analytic_account_id')
+                company_ids=kwargs.get('company_ids'),  # [1, 2, 3]
+                elimination_account_ids=kwargs.get('elimination_account_ids'),  # [100, 101]
+                analytic_account_ids=kwargs.get('analytic_account_ids')
             )
             return data
         except Exception as e:
-            _logger.error(f"/api/financial/combined_analytic error: {str(e)}", exc_info=True)
+            _logger.error(f"/api/consolidation/balance_sheet error: {str(e)}", exc_info=True)
             return {'status': 'error', 'message': str(e)}
-    
-    @http.route('/api/financial/reports_combined_analytic', type='json', auth='user', methods=['POST'], csrf=False)
-    def financial_reports_combined_analytic(self, **kwargs):
-        """Endpoint gabungan dengan filter analytic_account_id dan export detail move lines"""
+
+    @http.route('/api/consolidation/balance_sheet_grouped', type='json', auth='user', methods=['POST'], csrf=False)
+    def get_consolidated_balance_sheet_grouped(self, **kwargs):
+        """Consolidation: Balance Sheet grouped by account.group with intercompany elimination"""
         try:
-            report_obj = request.env['account.balance.sheet.report']
-            data = report_obj.financial_report_combined_analytic(
+            _logger.info(f"=== CONSOLIDATION GROUPED REQUEST: {kwargs}")
+            consolidation_obj = request.env['account.consolidation']
+            data = consolidation_obj.get_consolidated_balance_sheet_grouped(
                 date_from=kwargs.get('date_from'),
                 date_to=kwargs.get('date_to'),
-                company_id=kwargs.get('company_id'),
-                analytic_account_id=kwargs.get('analytic_account_id')
+                company_ids=kwargs.get('company_ids'),
+                elimination_account_ids=kwargs.get('elimination_account_ids'),
+                analytic_account_ids=kwargs.get('analytic_account_ids'),
             )
             return data
         except Exception as e:
-            _logger.error(f"/api/financial/reports_combined_analytic error: {str(e)}", exc_info=True)
+            _logger.error(f"/api/consolidation/balance_sheet_grouped error: {str(e)}", exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+
+    @http.route('/api/consolidation/by_id', type='json', auth='user', methods=['POST'], csrf=False)
+    def get_consolidation_by_id(self, **kwargs):
+        """Get consolidation result by record ID"""
+        try:
+            consolidation_id = kwargs.get('consolidation_id')
+            if not consolidation_id:
+                return {'status': 'error', 'message': 'consolidation_id is required'}
+            
+            consolidation_obj = request.env['account.consolidation']
+            data = consolidation_obj.get_consolidation_by_id(consolidation_id)
+            return data
+        except Exception as e:
+            _logger.error(f"/api/consolidation/by_id error: {str(e)}", exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+
+    @http.route('/api/consolidation/process', type='json', auth='user', methods=['POST'], csrf=False)
+    def process_consolidation(self, **kwargs):
+        """Process consolidation and save state"""
+        try:
+            consolidation_id = kwargs.get('consolidation_id')
+            if not consolidation_id:
+                return {'status': 'error', 'message': 'consolidation_id is required'}
+            
+            record = request.env['account.consolidation'].browse(consolidation_id)
+            if not record.exists():
+                return {'status': 'error', 'message': 'Consolidation record not found'}
+            
+            record.action_consolidate()
+            return {'status': 'success', 'message': 'Consolidation processed successfully'}
+        except Exception as e:
+            _logger.error(f"/api/consolidation/process error: {str(e)}", exc_info=True)
             return {'status': 'error', 'message': str(e)}
 
