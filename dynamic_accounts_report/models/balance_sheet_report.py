@@ -146,25 +146,50 @@ class BalanceSheetReport(models.TransientModel):
     
     @api.model
     def get_available_companies(self):
-        """Ambil daftar semua company yang tersedia"""
+        """Return daftar companies untuk dropdown"""
         companies = self.env['res.company'].search([])
-        
-        result = []
-        for company in companies:
-            result.append({
-                'id': company.id,
-                'name': company.name,
-                'currency': company.currency_id.name,
-                'currency_symbol': company.currency_id.symbol,
-                'active': company.id == self.env.company.id,
-            })
-        
         return {
             'status': 'success',
-            'total': len(result),
-            'companies': result
+            'total': len(companies),
+            'companies': [{'id': c.id, 'name': c.name} for c in companies]
         }
-    
+
+    @api.model
+    def get_accounts_list(self, company_id=False, search=False, limit=200):
+        """
+        Ambil daftar account tanpa wajib account_type.
+        Optional:
+          - company_id: int (default current company)
+          - search: str (filter by code or name, case-insensitive)
+          - limit: int (default 200)
+        Returns:
+          { status, company, total, accounts: [{id, code, name, type, type_label}] }
+        """
+        company = self.env['res.company'].browse(company_id) if company_id else self.env.company
+
+        domain = [('company_id', '=', company.id)]
+        if search:
+            domain += ['|', ('code', 'ilike', search), ('name', 'ilike', search)]
+
+        accounts = self.env['account.account'].search(domain, order='code', limit=int(limit) if limit else False)
+
+        # Ambil selection account_type untuk label
+        selection = dict(self.env['account.account']._fields['account_type'].selection)
+        result = [{
+            'id': acc.id,
+            'code': acc.code,
+            'name': acc.name,
+            'type': acc.account_type,
+            'type_label': selection.get(acc.account_type, ''),
+        } for acc in accounts]
+
+        return {
+            'status': 'success',
+            'company': {'id': company.id, 'name': company.name},
+            'total': len(result),
+            'accounts': result
+        }
+
     def _get_report_lines(self, filters, company):
         """Ambil data akun move lines dengan filter company + analytic"""
         domain = [
@@ -1868,382 +1893,306 @@ class BalanceSheetReport(models.TransientModel):
     @api.model
     def financial_report_combined_analytic(self, date_from=False, date_to=False, company_id=False, analytic_account_ids=False):
         """
-        Gabungan: Asset, Liability, Profit & Loss, dan Equity dengan filter MULTIPLE analytic_account_ids.
+        Financial report dengan filter analytic accounts.
+        Similar to financial_report_combined but filtered by analytic.
         """
-        _logger.info("=== EXPORT FINANCIAL REPORT COMBINED WITH ANALYTIC FILTER (MULTI) ===")
-        company = self.env['res.company'].browse(company_id) if company_id else self.env.company
-        aml = self.env['account.move.line']
+        if not company_id:
+            return {'status': 'error', 'message': 'company_id is required'}
 
-        # Normalisasi analytic_account_ids menjadi list - PERBAIKAN TIPE
-        analytic_domain = []
-        normalized_ids = []  # Inisialisasi sebagai list kosong
-        analytic_names = []  # ← TAMBAHKAN INI (fix error line 2097)
-        
+        # Normalisasi analytic_account_ids
+        analytic_ids = []
         if analytic_account_ids:
             if isinstance(analytic_account_ids, int):
-                normalized_ids = [analytic_account_ids]
+                analytic_ids = [analytic_account_ids]
             elif isinstance(analytic_account_ids, (list, tuple)):
-                # Filter hanya int yang valid - PERBAIKAN (fix error line 1892)
-                normalized_ids = [int(aid) for aid in analytic_account_ids if aid is not None and str(aid).strip().isdigit()]
-            
-            # Pastikan normalized_ids berisi nilai yang valid
-            if normalized_ids:
-                # Ambil analytic account names
-                aa_records = self.env['account.analytic.account'].browse(normalized_ids)
-                analytic_names = [aa.name for aa in aa_records if aa.exists()]
-                
-                # Ambil move_line_ids yang terkait dengan analytic accounts
-                aal = self.env['account.analytic.line'].search([
-                    ('account_id', 'in', normalized_ids),
-                    ('company_id', '=', company.id),
-                ])
-                move_line_ids = list(set(aal.mapped('move_line_id').ids))
-                _logger.info(f"Analytic filter: {len(normalized_ids)} accounts ({analytic_names}), {len(move_line_ids)} move lines")
-                
-                if move_line_ids:
-                    analytic_domain = [('id', 'in', move_line_ids)]
+                analytic_ids = [int(aid) for aid in analytic_account_ids if aid]
 
-        # Fungsi helper untuk build section dengan filter analytic
-        def build_section(account_types):
-            """Build data section dengan filter multi-analytic."""
-            accounts = self.env['account.account'].search([
-                ('account_type', 'in', account_types),
-                ('company_id', '=', company.id)
-            ])
-            grouped = {}
-            
-            for account in accounts:
-                ag = account.group_id
-                group_key = ag.id if ag else 0
-                group_name = ag.name if ag else 'Unassigned'
-                group_code = ag.code_prefix_start if ag and ag.code_prefix_start else ''
+        company = self.env['res.company'].browse(company_id)
+        if not company.exists():
+            return {'status': 'error', 'message': f'Company {company_id} not found'}
 
-                if group_key not in grouped:
-                    grouped[group_key] = {
-                        'group_id': group_key,
-                        'group_name': group_name,
-                        'group_code': group_code,
-                        'opening_debit': 0.0,
-                        'opening_credit': 0.0,
-                        'opening_balance': 0.0,
-                        'period_debit': 0.0,
-                        'period_credit': 0.0,
-                        'period_balance': 0.0,
-                        'ending_debit': 0.0,
-                        'ending_credit': 0.0,
-                        'ending_balance': 0.0,
-                        'accounts': []
-                    }
+        # Domain untuk filter analytic
+        analytic_domain = []
+        if analytic_ids:
+            analytic_domain = [('analytic_account_id', 'in', analytic_ids)]
 
-                # Opening balance
-                opening_debit = opening_credit = opening_balance = 0.0
-                opening_transactions = []
-                if date_from:
-                    domain_opening = [
-                        ('account_id', '=', account.id),
-                        ('move_id.state', '=', 'posted'),
-                        ('company_id', '=', company.id),
-                        ('date', '<', date_from),
-                    ] + analytic_domain
-                    
-                    opening_lines = aml.search(domain_opening, order='date,id')
-                    
-                    # Fallback: filter manual via analytic_distribution jika tidak ada via AAL
-                    if normalized_ids and not analytic_domain:
-                        opening_lines = opening_lines.filtered(
-                            lambda l: l.analytic_distribution and 
-                            any(str(aid) in (l.analytic_distribution or {}) for aid in normalized_ids)
-                        )
-                    
-                    opening_debit = sum(opening_lines.mapped('debit'))
-                    opening_credit = sum(opening_lines.mapped('credit'))
-                    opening_balance = sum(opening_lines.mapped('balance'))
-                    opening_transactions = [{
-                        'date': str(l.date),
-                        'move_name': l.move_id.name,
-                        'account_code': account.code,
-                        'account_name': account.name,
-                        'label': l.name or '',
-                        'partner': l.partner_id.name if l.partner_id else '',
-                        'analytic_distribution': l.analytic_distribution or {},
-                        'debit': l.debit,
-                        'credit': l.credit,
-                        'balance': l.balance,
-                    } for l in opening_lines]
+        # Gunakan context untuk filter analytic di query
+        ctx = {
+            'company_id': company_id,
+            'date_from': date_from,
+            'date_to': date_to,
+            'analytic_account_ids': analytic_ids,
+        }
 
-                # Period transactions
-                domain_period = [
-                    ('account_id', '=', account.id),
-                    ('move_id.state', '=', 'posted'),
-                    ('company_id', '=', company.id)
-                ] + analytic_domain
-                
-                if date_from:
-                    domain_period.append(('date', '>=', date_from))
-                if date_to:
-                    domain_period.append(('date', '<=', date_to))
-                
-                period_lines = aml.search(domain_period, order='date,id')
-                
-                # Fallback: filter manual via analytic_distribution
-                if normalized_ids and not analytic_domain:
-                    period_lines = period_lines.filtered(
-                        lambda l: l.analytic_distribution and 
-                        any(str(aid) in (l.analytic_distribution or {}) for aid in normalized_ids)
-                    )
-                
-                period_debit = sum(period_lines.mapped('debit'))
-                period_credit = sum(period_lines.mapped('credit'))
-                period_balance = sum(period_lines.mapped('balance'))
+        # Panggil financial_report_combined dengan context analytic
+        result = self.with_context(**ctx).financial_report_combined(
+            date_from=date_from,
+            date_to=date_to,
+            company_id=company_id
+        )
 
-                period_transactions = [{
-                    'date': str(l.date),
-                    'move_name': l.move_id.name,
-                    'account_code': account.code,
-                    'account_name': account.name,
-                    'label': l.name or '',
-                    'partner': l.partner_id.name if l.partner_id else '',
-                    'analytic_distribution': l.analytic_distribution or {},
-                    'debit': l.debit,
-                    'credit': l.credit,
-                    'balance': l.balance,
-                } for l in period_lines]
+        # Tambahkan info analytic di filters
+        if result.get('status') == 'success':
+            analytic_accounts = self.env['account.analytic.account'].browse(analytic_ids)
+            result['filters']['analytic_accounts'] = [
+                {'id': a.id, 'name': a.name, 'code': a.code or ''}
+                for a in analytic_accounts
+            ]
 
-                # Ending balance
-                ending_debit = opening_debit + period_debit
-                ending_credit = opening_credit + period_credit
-                ending_balance = opening_balance + period_balance
+        return result
 
-                if opening_transactions or period_transactions or ending_balance != 0 or opening_balance != 0:
-                    grouped[group_key]['accounts'].append({
-                        'account_id': account.id,
-                        'account_code': account.code,
-                        'account_name': account.name,
-                        'account_type': account.account_type,
-                        'opening_debit': opening_debit,
-                        'opening_credit': opening_credit,
-                        'opening_balance': opening_balance,
-                        'opening_transactions': opening_transactions,
-                        'opening_transaction_count': len(opening_transactions),
-                        'period_debit': period_debit,
-                        'period_credit': period_credit,
-                        'period_balance': period_balance,
-                        'period_transactions': period_transactions,
-                        'period_transaction_count': len(period_transactions),
-                        'ending_debit': ending_debit,
-                        'ending_credit': ending_credit,
-                        'ending_balance': ending_balance,
+    @api.model
+    def financial_report_combined_multi_company(self, company_ids, date_from=False, date_to=False):
+        """
+        Panggil financial_report_combined berulang untuk banyak company_id.
+        Tidak ada konsolidasi, hanya kumpulkan semua hasil dalam satu payload.
+
+        Params:
+          - company_ids: int | list[int]
+          - date_from, date_to: optional (YYYY-MM-DD)
+
+        Return:
+          {
+            'status': 'success',
+            'filters': {...},
+            'total_companies': N,
+            'per_company': [
+              {
+                'company': {'id': .., 'name': ..},
+                'report': <FULL hasil financial_report_combined>
+              },
+              ...
+            ]
+          }
+        """
+        # Normalisasi company_ids
+        if isinstance(company_ids, int):
+            company_ids = [company_ids]
+        if not company_ids or not isinstance(company_ids, (list, tuple)):
+            return {'status': 'error', 'message': 'company_ids is required (int or list[int])'}
+
+        companies = self.env['res.company'].browse([int(cid) for cid in company_ids if cid])
+        if not companies:
+            return {'status': 'error', 'message': 'No valid companies found'}
+
+        results = []
+        for company in companies:
+            try:
+                rep = self.with_company(company).with_context(
+                    company_id=company.id,
+                    company_ids=[company.id],
+                    allowed_company_ids=[company.id],
+                    force_company=company.id,
+                ).sudo()
+                data = rep.financial_report_combined(
+                    date_from=date_from,
+                    date_to=date_to,
+                    company_id=company.id
+                )
+                if data.get('status') != 'success':
+                    results.append({
+                        'company': {'id': company.id, 'name': company.name},
+                        'status': 'error',
+                        'error': data.get('message', 'Unknown error')
                     })
-                    
-                    g = grouped[group_key]
-                    g['opening_debit'] += opening_debit
-                    g['opening_credit'] += opening_credit
-                    g['opening_balance'] += opening_balance
-                    g['period_debit'] += period_debit
-                    g['period_credit'] += period_credit
-                    g['period_balance'] += period_balance
-                    g['ending_debit'] += ending_debit
-                    g['ending_credit'] += ending_credit
-                    g['ending_balance'] += ending_balance
-
-            groups_list = [g for g in grouped.values() if g['accounts']]
-            groups_list.sort(key=lambda x: (x['group_code'], x['group_name']))
-            return groups_list
-        # Build sections
-        asset_groups = build_section(['asset_receivable', 'asset_cash', 'asset_current', 'asset_non_current', 'asset_prepayments', 'asset_fixed'])
-        liability_groups = build_section(['liability_payable', 'liability_credit_card', 'liability_current', 'liability_non_current'])
-        equity_groups = build_section(['equity', 'equity_unaffected'])
-        income_groups = build_section(['income', 'income_other'])
-        expense_groups = build_section(['expense', 'expense_depreciation', 'expense_direct_cost'])
-
-        # Totals
-        total_assets_opening = sum(g['opening_balance'] for g in asset_groups)
-        total_assets_period = sum(g['period_balance'] for g in asset_groups)
-        total_assets_ending = sum(g['ending_balance'] for g in asset_groups)
-
-        total_liabilities_opening = sum(g['opening_balance'] for g in liability_groups)
-        total_liabilities_period = sum(g['period_balance'] for g in liability_groups)
-        total_liabilities_ending = sum(g['ending_balance'] for g in liability_groups)
-
-        total_equity_opening = sum(g['opening_balance'] for g in equity_groups)
-        total_equity_period = sum(g['period_balance'] for g in equity_groups)
-        total_equity_ending = sum(g['ending_balance'] for g in equity_groups)
-
-        total_income_debit = sum(g['period_debit'] for g in income_groups)
-        total_income_credit = sum(g['period_credit'] for g in income_groups)
-        income_net = total_income_credit - total_income_debit
-
-        total_expense_debit = sum(g['period_debit'] for g in expense_groups)
-        total_expense_credit = sum(g['period_credit'] for g in expense_groups)
-        expense_net = total_expense_credit - total_expense_debit
-
-        net_profit = income_net + expense_net
-        ending_liabilities_equity_pl = total_liabilities_ending + total_equity_ending + net_profit
-        balanced = abs(total_assets_ending - ending_liabilities_equity_pl) < 0.01
+                else:
+                    results.append({
+                        'company': {'id': company.id, 'name': company.name},
+                        'status': 'success',
+                        'report': data  # FULL hasil seperti financial_report_combined
+                    })
+            except Exception as e:
+                _logger.error(f"multi_company loop error @ {company.name}: {e}", exc_info=True)
+                results.append({
+                    'company': {'id': company.id, 'name': company.name},
+                    'status': 'error',
+                    'error': str(e)
+                })
 
         return {
             'status': 'success',
-            'company': {
-                'id': company.id,
-                'name': company.name,
-                'currency': company.currency_id.name,
-                'currency_symbol': company.currency_id.symbol,
-            },
             'filters': {
                 'date_from': date_from,
                 'date_to': date_to,
-                'analytic_account_ids': normalized_ids,
-                'analytic_account_names': analytic_names,  # ← Sekarang sudah terdefinisi
+                'company_ids': [c.id for c in companies],
             },
-            'assets': {
-                'groups': asset_groups,
-                'grand_total': {
-                    'opening_balance': total_assets_opening,
-                    'period_balance': total_assets_period,
-                    'ending_balance': total_assets_ending,
-                }
-            },
-            'liabilities': {
-                'groups': liability_groups,
-                'grand_total': {
-                    'opening_balance': total_liabilities_opening,
-                    'period_balance': total_liabilities_period,
-                    'ending_balance': total_liabilities_ending,
-                }
-            },
-            'equity': {
-                'groups': equity_groups,
-                'grand_total': {
-                    'opening_balance': total_equity_opening,
-                    'period_balance': total_equity_period,
-                    'ending_balance': total_equity_ending,
-                }
-            },
-            'income': {
-                'groups': income_groups,
-                'total_debit': total_income_debit,
-                'total_credit': total_income_credit,
-                'net': income_net,
-            },
-            'expense': {
-                'groups': expense_groups,
-                'total_debit': total_expense_debit,
-                'total_credit': total_expense_credit,
-                'net': expense_net,
-            },
-            'profit_loss': {
-                'net_profit': net_profit,
-                'is_profit': net_profit > 0,
-            },
-            'summary': {
-                'opening': {
-                    'assets': total_assets_opening,
-                    'liabilities': total_liabilities_opening,
-                    'equity': total_equity_opening,
-                },
-                'period': {
-                    'assets': total_assets_period,
-                    'liabilities': total_liabilities_period,
-                    'equity': total_equity_period,
-                    'income_net': income_net,
-                    'expense_net': expense_net,
-                    'net_profit': net_profit,
-                },
-                'ending': {
-                    'assets': total_assets_ending,
-                    'liabilities': total_liabilities_ending,
-                    'equity': total_equity_ending,
-                    'liabilities_equity_plus_pl': ending_liabilities_equity_pl,
-                    'balanced': balanced,
-                    'difference': total_assets_ending - ending_liabilities_equity_pl,
-                }
-            }
+            'total_companies': len(companies),
+            'per_company': results
         }
-    
     @api.model
-    def get_analytic_accounts(self, company_id=False):
+    def financial_report_with_elimination(self, date_from=False, date_to=False, company_ids=False,
+                                          elimination_account_codes=False, elimination_account_ids=False):
         """
-        Ambil daftar analytic account untuk dropdown frontend.
-        Filter berdasarkan company_id jika diisi, atau ambil semua jika kosong.
+        Balance sheet multi-company dengan eliminasi akun berdasarkan ACCOUNT CODE.
+        Tetap mendukung elimination_account_ids (backward compatible) → diubah ke code.
         """
-        _logger.info("=== GET ANALYTIC ACCOUNTS ===")
-        
-        domain = []
-        if company_id:
-            domain.append(('company_id', '=', company_id))
-        
-        analytic_accounts = self.env['account.analytic.account'].search(domain, order='name')
-        
-        result = []
-        for aa in analytic_accounts:
-            result.append({
-                'id': aa.id,
-                'name': aa.name,
-                'code': aa.code or '',
-                'company_id': aa.company_id.id if aa.company_id else False,
-                'company_name': aa.company_id.name if aa.company_id else '',
-                'active': aa.active,
-            })
-        
+        # Normalisasi company_ids
+        if isinstance(company_ids, int):
+            company_ids = [company_ids]
+        if not company_ids or not isinstance(company_ids, (list, tuple)):
+            return {'status': 'error', 'message': 'company_ids is required (int or list[int])'}
+        companies = self.env['res.company'].browse([int(cid) for cid in company_ids if cid])
+        if not companies:
+            return {'status': 'error', 'message': 'No valid companies found'}
+
+        # Kumpulkan elimination codes
+        elim_codes = set()
+        # a) Jika user kirim account codes
+        if elimination_account_codes:
+            if isinstance(elimination_account_codes, str):
+                elim_codes.add(elimination_account_codes.strip())
+            elif isinstance(elimination_account_codes, (list, tuple)):
+                for c in elimination_account_codes:
+                    if c is not None:
+                        elim_codes.add(str(c).strip())
+        # b) Backward compatible: jika user kirim account_ids → konversi ke codes
+        if not elim_codes and elimination_account_ids:
+            if isinstance(elimination_account_ids, int):
+                elimination_account_ids = [elimination_account_ids]
+            ids = [int(a) for a in elimination_account_ids if a]
+            if ids:
+                accs = self.env['account.account'].browse(ids)
+                elim_codes.update(a.code for a in accs if a.exists())
+
+        # Info akun eliminasi (per company) untuk dikembalikan di response
+        elim_accounts = []
+        if elim_codes:
+            accs = self.env['account.account'].search([
+                ('code', 'in', list(elim_codes)),
+                ('company_id', 'in', companies.ids),
+            ], order='company_id, code')
+            elim_accounts = [
+                {'id': a.id, 'code': a.code, 'name': a.name, 'company_id': a.company_id.id, 'company_name': a.company_id.name}
+                for a in accs
+            ]
+
+        _logger.info(f"financial_report_with_elimination: companies={len(companies)}, elim_codes={sorted(list(elim_codes))}")
+
+        # Eliminasi per group by account_code
+        def eliminate_accounts_from_groups(groups):
+            new_groups = []
+            for grp in groups:
+                new_grp = dict(grp)
+                # reset agregat, lalu hitung ulang
+                new_grp['opening_debit'] = 0.0
+                new_grp['opening_credit'] = 0.0
+                new_grp['opening_balance'] = 0.0
+                new_grp['period_debit'] = 0.0
+                new_grp['period_credit'] = 0.0
+                new_grp['period_balance'] = 0.0
+                new_grp['ending_debit'] = 0.0
+                new_grp['ending_credit'] = 0.0
+                new_grp['ending_balance'] = 0.0
+
+                new_accounts = []
+                for acc in grp.get('accounts', []):
+                    new_acc = dict(acc)
+                    acc_code = acc.get('account_code') or ''
+                    if acc_code in elim_codes:
+                        # nol-kan semua nilai
+                        new_acc['opening_debit'] = 0.0
+                        new_acc['opening_credit'] = 0.0
+                        new_acc['opening_balance'] = 0.0
+                        new_acc['period_debit'] = 0.0
+                        new_acc['period_credit'] = 0.0
+                        new_acc['period_balance'] = 0.0
+                        new_acc['ending_debit'] = 0.0
+                        new_acc['ending_credit'] = 0.0
+                        new_acc['ending_balance'] = 0.0
+                        new_acc['opening_transactions'] = []
+                        new_acc['opening_transaction_count'] = 0
+                        new_acc['period_transactions'] = []
+                        new_acc['period_transaction_count'] = 0
+
+                    # akumulasi ulang ke group
+                    new_grp['opening_debit'] += new_acc.get('opening_debit', 0.0)
+                    new_grp['opening_credit'] += new_acc.get('opening_credit', 0.0)
+                    new_grp['opening_balance'] += new_acc.get('opening_balance', 0.0)
+                    new_grp['period_debit'] += new_acc.get('period_debit', 0.0)
+                    new_grp['period_credit'] += new_acc.get('period_credit', 0.0)
+                    new_grp['period_balance'] += new_acc.get('period_balance', 0.0)
+                    new_grp['ending_debit'] += new_acc.get('ending_debit', 0.0)
+                    new_grp['ending_credit'] += new_acc.get('ending_credit', 0.0)
+                    new_grp['ending_balance'] += new_acc.get('ending_balance', 0.0)
+                    new_accounts.append(new_acc)
+
+                new_grp['accounts'] = new_accounts
+                new_groups.append(new_grp)
+            return new_groups
+
+        results = []
+        for company in companies:
+            try:
+                rep = self.with_company(company).with_context(
+                    company_id=company.id,
+                    company_ids=[company.id],
+                    allowed_company_ids=[company.id],
+                    force_company=company.id,
+                ).sudo()
+                data = rep.financial_report_combined(date_from=date_from, date_to=date_to, company_id=company.id)
+                if data.get('status') != 'success':
+                    results.append({'company': {'id': company.id, 'name': company.name}, 'status': 'error', 'error': data.get('message', 'Unknown error')})
+                    continue
+
+                # Ambil struktur groups dari masing-masing bagian
+                assets_groups = eliminate_accounts_from_groups(data.get('assets', {}).get('groups', []))
+                liabilities_groups = eliminate_accounts_from_groups(data.get('liabilities', {}).get('groups', []))
+                equity_groups = eliminate_accounts_from_groups(data.get('equity', {}).get('groups', []))
+                income_groups = eliminate_accounts_from_groups(data.get('profit_loss', {}).get('income', {}).get('groups', []))
+                expense_groups = eliminate_accounts_from_groups(data.get('profit_loss', {}).get('expense', {}).get('groups', []))
+
+                # Totals setelah eliminasi
+                total_assets_opening = sum(g.get('opening_balance', 0.0) for g in assets_groups)
+                total_assets_period = sum(g.get('period_balance', 0.0) for g in assets_groups)
+                total_assets_ending = sum(g.get('ending_balance', 0.0) for g in assets_groups)
+
+                total_liab_opening = sum(g.get('opening_balance', 0.0) for g in liabilities_groups)
+                total_liab_period = sum(g.get('period_balance', 0.0) for g in liabilities_groups)
+                total_liab_ending = sum(g.get('ending_balance', 0.0) for g in liabilities_groups)
+
+                total_eq_opening = sum(g.get('opening_balance', 0.0) for g in equity_groups)
+                total_eq_period = sum(g.get('period_balance', 0.0) for g in equity_groups)
+                total_eq_ending = sum(g.get('ending_balance', 0.0) for g in equity_groups)
+
+                total_income_debit = sum(g.get('period_debit', 0.0) for g in income_groups)
+                total_income_credit = sum(g.get('period_credit', 0.0) for g in income_groups)
+                income_net = total_income_credit - total_income_debit
+
+                total_exp_debit = sum(g.get('period_debit', 0.0) for g in expense_groups)
+                total_exp_credit = sum(g.get('period_credit', 0.0) for g in expense_groups)
+                expense_net = total_exp_credit - total_exp_debit
+
+                net_profit = income_net + expense_net
+                ending_le_pl = total_liab_ending + total_eq_ending + net_profit
+
+                results.append({
+                    'company': data['company'],
+                    'status': 'success',
+                    'assets': {'groups': assets_groups, 'grand_total': {'opening_balance': total_assets_opening, 'period_balance': total_assets_period, 'ending_balance': total_assets_ending}},
+                    'liabilities': {'groups': liabilities_groups, 'grand_total': {'opening_balance': total_liab_opening, 'period_balance': total_liab_period, 'ending_balance': total_liab_ending}},
+                    'equity': {'groups': equity_groups, 'grand_total': {'opening_balance': total_eq_opening, 'period_balance': total_eq_period, 'ending_balance': total_eq_ending}},
+                    'income': {'groups': income_groups, 'total_debit': total_income_debit, 'total_credit': total_income_credit, 'net': income_net},
+                    'expense': {'groups': expense_groups, 'total_debit': total_exp_debit, 'total_credit': total_exp_credit, 'net': expense_net},
+                    'profit_loss': {'net_profit': net_profit, 'is_profit': net_profit > 0},
+                    'summary': {
+                        'opening': {'assets': total_assets_opening, 'liabilities': total_liab_opening, 'equity': total_eq_opening},
+                        'period': {'assets': total_assets_period, 'liabilities': total_liab_period, 'equity': total_eq_period, 'income_net': income_net, 'expense_net': expense_net, 'net_profit': net_profit},
+                        'ending': {'assets': total_assets_ending, 'liabilities': total_liab_ending, 'equity': total_eq_ending, 'liabilities_equity_plus_pl': ending_le_pl, 'difference': total_assets_ending - ending_le_pl}
+                    }
+                })
+            except Exception as e:
+                _logger.error(f"financial_report_with_elimination error @ {company.name}: {e}", exc_info=True)
+                results.append({'company': {'id': company.id, 'name': company.name}, 'status': 'error', 'error': str(e)})
+
         return {
             'status': 'success',
-            'total': len(result),
-            'analytic_accounts': result,
+            'filters': {'date_from': date_from, 'date_to': date_to, 'company_ids': [c.id for c in companies], 'elimination_account_codes': sorted(list(elim_codes))},
+            'elimination_accounts': elim_accounts,
+            'total_companies': len(companies),
+            'per_company': results
         }
 
-    @api.model
-    def get_filter_options(self, company_id=False):
-        """
-        Ambil semua opsi filter dalam satu call (companies + analytic accounts).
-        Frontend cukup panggil satu endpoint ini untuk populate dropdown.
-        """
-        _logger.info("=== GET FILTER OPTIONS ===")
-        
-        # Companies
-        companies = self.env['res.company'].search([])
-        company_list = []
-        for company in companies:
-            analytic_count = self.env['account.analytic.account'].search_count([
-                ('company_id', '=', company.id)
-            ])
-            company_list.append({
-                'id': company.id,
-                'name': company.name,
-                'currency': company.currency_id.name,
-                'currency_symbol': company.currency_id.symbol,
-                'active': company.id == self.env.company.id,
-                'analytic_account_count': analytic_count,
-            })
-        
-        # Analytic Accounts (filter by company_id if provided)
-        analytic_domain = []
-        if company_id:
-            analytic_domain.append(('company_id', '=', company_id))
-        
-        analytic_accounts = self.env['account.analytic.account'].search(analytic_domain, order='name')
-        analytic_list = []
-        for aa in analytic_accounts:
-            analytic_list.append({
-                'id': aa.id,
-                'name': aa.name,
-                'code': aa.code or '',
-                'company_id': aa.company_id.id if aa.company_id else False,
-                'company_name': aa.company_id.name if aa.company_id else '',
-                'active': aa.active,
-            })
-        
-        return {
-            'status': 'success',
-            'companies': {
-                'total': len(company_list),
-                'items': company_list,
-            },
-            'analytic_accounts': {
-                'total': len(analytic_list),
-                'items': analytic_list,
-                'filtered_by_company_id': company_id,
-            },
-        }
+
 
 
 

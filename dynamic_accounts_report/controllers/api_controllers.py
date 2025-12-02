@@ -10,16 +10,16 @@ class FinancialReportsAPIController(http.Controller):
     
     # ============== BALANCE SHEET ENDPOINTS ==============
     
-    @http.route('/api/balance_sheet/companies', type='json', auth='user', methods=['GET'], csrf=False)
-    def get_companies(self):
-        """Ambil daftar semua company"""
+    @http.route('/api/balance_sheet/companies', type='http', auth='user', methods=['GET'], csrf=False)
+    def get_companies(self, **kwargs):
+        """Ambil daftar semua company (HTTP GET)"""
         try:
-            report_obj = request.env['account.balance.sheet.report']
+            report_obj = request.env['account.balance.sheet.report'].sudo()
             data = report_obj.get_available_companies()
-            return data
+            return request.make_json_response(data)
         except Exception as e:
-            _logger.error(f"Error: {str(e)}", exc_info=True)
-            return {'status': 'error', 'message': str(e)}
+            _logger.error(f"/api/balance_sheet/companies error: {str(e)}", exc_info=True)
+            return request.make_json_response({'status': 'error', 'message': str(e)}, status=500)
     
     @http.route('/api/balance_sheet/by_company', type='json', auth='user', methods=['POST'], csrf=False)
     def get_balance_sheet_by_company(self, **kwargs):
@@ -162,6 +162,8 @@ class FinancialReportsAPIController(http.Controller):
             _logger.error(f"Error: {str(e)}", exc_info=True)
             return {'status': 'error', 'message': str(e)}
 
+    # ============== EXPORT ENDPOINTS ==============
+
     @http.route('/api/export/all_move_lines', type='json', auth='user', methods=['POST'], csrf=False)
     def export_all_move_lines(self, **kwargs):
         """Export semua move lines detail"""
@@ -208,6 +210,8 @@ class FinancialReportsAPIController(http.Controller):
         except Exception as e:
             _logger.error(f"/api/export/income_expense_detail error: {str(e)}", exc_info=True)
             return {'status': 'error', 'message': str(e)}
+
+    # ============== DETAIL GROUP ENDPOINTS ==============
 
     @http.route('/api/asset/detail_group', type='json', auth='user', methods=['POST'], csrf=False)
     def asset_detail_group(self, **kwargs):
@@ -256,7 +260,7 @@ class FinancialReportsAPIController(http.Controller):
     
     @http.route('/api/equity/detail_group', type='json', auth='user', methods=['POST'], csrf=False)
     def equity_group(self, **kwargs):
-        """Asset & Liability grouped by account_group_name dengan opening balance dan transaksi periode"""
+        """Equity grouped by account_group_name dengan opening balance dan transaksi periode"""
         try:
             report_obj = request.env['account.balance.sheet.report']
             data = report_obj.equity_detail_group(
@@ -268,6 +272,8 @@ class FinancialReportsAPIController(http.Controller):
         except Exception as e:
             _logger.error(f"/api/equity/detail_group error: {str(e)}", exc_info=True)
             return {'status': 'error', 'message': str(e)}
+
+    # ============== FINANCIAL COMBINED ENDPOINTS ==============
 
     @http.route('/api/financial/combined', type='json', auth='user', methods=['POST'], csrf=False)
     def financial_report_combined(self, **kwargs):
@@ -284,6 +290,71 @@ class FinancialReportsAPIController(http.Controller):
             _logger.error(f"Error: {str(e)}", exc_info=True)
             return {'status': 'error', 'message': str(e)}
 
+    @http.route('/api/financial/combined_multi_company', type='json', auth='user', methods=['POST'], csrf=False)
+    def financial_report_combined_multi_company(self, **kwargs):
+        """
+        Body JSON:
+        {
+          "company_ids": [1, 2, 3],
+          "date_from": "YYYY-MM-DD",      # optional
+          "date_to": "YYYY-MM-DD"         # optional
+        }
+        Returns: semua hasil financial_report_combined per company dalam satu payload.
+        """
+        try:
+            company_ids = kwargs.get('company_ids')
+            date_from = kwargs.get('date_from')
+            date_to = kwargs.get('date_to')
+
+            if not company_ids:
+                return {'status': 'error', 'message': 'company_ids is required (int or list[int])'}
+
+            report = request.env['account.balance.sheet.report'].sudo()
+            return report.financial_report_combined_multi_company(
+                company_ids=company_ids,
+                date_from=date_from,
+                date_to=date_to
+            )
+        except Exception as e:
+            _logger.error("combined_multi_company API error: %s", e, exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+
+    @http.route('/api/financial/with_elimination', type='json', auth='user', methods=['POST'], csrf=False)
+    def financial_report_with_elimination(self, **kwargs):
+        """
+        Body JSON:
+        {
+          "date_from": "YYYY-MM-DD",
+          "date_to": "YYYY-MM-DD",
+          "company_ids": [1, 2, 3],
+          "elimination_account_codes": ["21210030","42000042","67100041"],   # dianjurkan
+          "elimination_account_ids": [35,100,101]                            # opsional (kompatibel)
+        }
+        """
+        try:
+            date_from = kwargs.get('date_from')
+            date_to = kwargs.get('date_to')
+            company_ids = kwargs.get('company_ids')
+            elimination_account_codes = kwargs.get('elimination_account_codes')
+            elimination_account_ids = kwargs.get('elimination_account_ids')
+
+            if not company_ids:
+                return {'status': 'error', 'message': 'company_ids is required'}
+
+            report = request.env['account.balance.sheet.report'].sudo()
+            return report.financial_report_with_elimination(
+                date_from=date_from,
+                date_to=date_to,
+                company_ids=company_ids,
+                elimination_account_codes=elimination_account_codes,
+                elimination_account_ids=elimination_account_ids
+            )
+        except Exception as e:
+            _logger.error("with_elimination API error: %s", e, exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+
+    # ============== CONSOLIDATION ENDPOINTS ==============
+
     @http.route('/api/consolidation/balance_sheet', type='json', auth='user', methods=['POST'], csrf=False)
     def get_consolidated_balance_sheet(self, **kwargs):
         """Consolidation: Multi-Company Balance Sheet with Intercompany Elimination"""
@@ -293,8 +364,8 @@ class FinancialReportsAPIController(http.Controller):
             data = consolidation_obj.get_consolidated_balance_sheet(
                 date_from=kwargs.get('date_from'),
                 date_to=kwargs.get('date_to'),
-                company_ids=kwargs.get('company_ids'),  # [1, 2, 3]
-                elimination_account_ids=kwargs.get('elimination_account_ids'),  # [100, 101]
+                company_ids=kwargs.get('company_ids'),
+                elimination_account_ids=kwargs.get('elimination_account_ids'),
                 analytic_account_ids=kwargs.get('analytic_account_ids')
             )
             return data
@@ -352,4 +423,61 @@ class FinancialReportsAPIController(http.Controller):
         except Exception as e:
             _logger.error(f"/api/consolidation/process error: {str(e)}", exc_info=True)
             return {'status': 'error', 'message': str(e)}
+
+    # ============== ACCOUNTS LIST ENDPOINT ==============
+
+    @http.route('/api/accounts/list', type='json', auth='user', methods=['POST'], csrf=False)
+    def get_accounts_list(self, **kwargs):
+        """
+        Get list accounts tanpa wajib account_type.
+        Body JSON (opsional semua):
+        {
+          "company_id": 1,
+          "search": "cash",   // filter by code/name
+          "limit": 100
+        }
+        """
+        try:
+            company_id = kwargs.get('company_id')
+            search = kwargs.get('search')
+            limit = kwargs.get('limit', 200)
+
+            report = request.env['account.balance.sheet.report'].sudo()
+            return report.get_accounts_list(company_id=company_id, search=search, limit=limit)
+        except Exception as e:
+            _logger.error("get_accounts_list API error: %s", e, exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+
+    @http.route('/api/financial/reports_combined_analytic', type='json', auth='user', methods=['POST'], csrf=False)
+    def financial_report_combined_analytic(self, **kwargs):
+        """
+        Financial Combined Report dengan filter analytic account.
+        Body JSON:
+        {
+          "date_from": "YYYY-MM-DD",
+          "date_to": "YYYY-MM-DD",
+          "company_id": 1,
+          "analytic_account_ids": [1, 2, 3]  # list analytic account IDs
+        }
+        """
+        try:
+            date_from = kwargs.get('date_from')
+            date_to = kwargs.get('date_to')
+            company_id = kwargs.get('company_id')
+            analytic_account_ids = kwargs.get('analytic_account_ids')
+
+            if not company_id:
+                return {'status': 'error', 'message': 'company_id is required'}
+
+            report = request.env['account.balance.sheet.report'].sudo()
+            return report.financial_report_combined_analytic(
+                date_from=date_from,
+                date_to=date_to,
+                company_id=company_id,
+                analytic_account_ids=analytic_account_ids
+            )
+        except Exception as e:
+            _logger.error("financial_report_combined_analytic API error: %s", e, exc_info=True)
+            return {'status': 'error', 'message': str(e)}
+
 

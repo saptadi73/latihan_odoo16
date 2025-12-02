@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from odoo import models, api, fields
-from odoo.exceptions import UserError  # ← TAMBAHKAN INI
+from odoo.exceptions import UserError
 import logging
+import json  # ← TAMBAHKAN INI
 
 _logger = logging.getLogger(__name__)
 
@@ -549,56 +550,554 @@ class Consolidation(models.Model):
             }
         }
 
+    @api.model
+    def get_balance_sheet_per_company(self, date_from=False, date_to=False, company_ids=False, analytic_account_ids=False):
+        """
+        1. Ambil balance sheet per company menggunakan financial_report_combined (basis konsolidasi).
+           Multi-company selalu mengikuti daftar company di record account.consolidation jika dipanggil dari record.
+        2. Lakukan eliminasi sesuai elimination_account_ids di record (intercompany).
+        3. Keluarkan hasil agregasi: before & after elimination (konsolidasi).
+        """
+        self.ensure_one()
+
+        # Sumber company: dari argumen (panggilan luar) atau dari record
+        companies = self.env['res.company'].browse(company_ids) if company_ids else self.company_ids
+        if not companies:
+            return {'status': 'error', 'message': 'No companies to consolidate'}
+
+        # Tanggal default jika kosong
+        date_from = date_from or self.date_from
+        date_to = date_to or self.date_to
+
+        # Analytic filter normalisasi
+        normalized_analytic = []
+        if analytic_account_ids:
+            if isinstance(analytic_account_ids, int):
+                normalized_analytic = [analytic_account_ids]
+            elif isinstance(analytic_account_ids, (list, tuple)):
+                normalized_analytic = [int(a) for a in analytic_account_ids if a]
+
+        per_company = []
+        for company in companies:
+            try:
+                # Penting: set context per company agar hitungan tidak 0
+                bs_report = self.env['account.balance.sheet.report'].with_context(
+                    allowed_company_ids=[company.id],
+                    force_company=company.id,
+                )
+                if normalized_analytic:
+                    data = bs_report.financial_report_combined_analytic(
+                        date_from=date_from,
+                        date_to=date_to,
+                        company_id=company.id,
+                        analytic_account_ids=normalized_analytic
+                    )
+                else:
+                    data = bs_report.financial_report_combined(
+                        date_from=date_from,
+                        date_to=date_to,
+                        company_id=company.id
+                    )
+
+                if data.get('status') != 'success':
+                    per_company.append({
+                        'company': {'id': company.id, 'name': company.name},
+                        'status': 'error',
+                        'error': data.get('message', 'Report failed')
+                    })
+                    continue
+
+                per_company.append({
+                    'company': {
+                        'id': company.id,
+                        'name': company.name,
+                        'currency': company.currency_id.name,
+                        'currency_symbol': company.currency_id.symbol,
+                    },
+                    'status': 'success',
+                    'report': data,
+                    'summary': data.get('summary', {}),
+                })
+            except Exception as e:
+                per_company.append({
+                    'company': {'id': company.id, 'name': company.name},
+                    'status': 'error',
+                    'error': str(e)
+                })
+
+        ok_companies = [c for c in per_company if c.get('status') == 'success']
+        if not ok_companies:
+            return {'status': 'error', 'message': 'No successful company reports', 'per_company': per_company}
+
+        # Agregasi sebelum eliminasi
+        agg_before = {
+            'opening': {'assets': 0.0, 'liabilities': 0.0, 'equity': 0.0, 'net_profit': 0.0},
+            'period': {'assets': 0.0, 'liabilities': 0.0, 'equity': 0.0, 'income_net': 0.0, 'expense_net': 0.0, 'net_profit': 0.0},
+            'ending': {'assets': 0.0, 'liabilities': 0.0, 'equity': 0.0, 'liabilities_equity_plus_pl': 0.0, 'balanced': False, 'difference': 0.0}
+        }
+        for comp in ok_companies:
+            s = comp['summary'] or {}
+            opening = s.get('opening', {})
+            period = s.get('period', {})
+            ending = s.get('ending', {})
+            agg_before['opening']['assets'] += opening.get('assets', 0.0)
+            agg_before['opening']['liabilities'] += opening.get('liabilities', 0.0)
+            agg_before['opening']['equity'] += opening.get('equity', 0.0)
+            agg_before['opening']['net_profit'] += opening.get('net_profit', 0.0)
+            agg_before['period']['assets'] += period.get('assets', 0.0)
+            agg_before['period']['liabilities'] += period.get('liabilities', 0.0)
+            agg_before['period']['equity'] += period.get('equity', 0.0)
+            agg_before['period']['income_net'] += period.get('income_net', 0.0)
+            agg_before['period']['expense_net'] += period.get('expense_net', 0.0)
+            agg_before['period']['net_profit'] += period.get('net_profit', 0.0)
+            agg_before['ending']['assets'] += ending.get('assets', 0.0)
+            agg_before['ending']['liabilities'] += ending.get('liabilities', 0.0)
+            agg_before['ending']['equity'] += ending.get('equity', 0.0)
+            agg_before['ending']['liabilities_equity_plus_pl'] += ending.get('liabilities_equity_plus_pl', 0.0)
+
+        agg_before['ending']['balanced'] = abs(
+            agg_before['ending']['assets'] - agg_before['ending']['liabilities_equity_plus_pl']
+        ) < 0.01
+        agg_before['ending']['difference'] = agg_before['ending']['assets'] - agg_before['ending']['liabilities_equity_plus_pl']
+
+        # Eliminasi intercompany
+        elimination_accounts = self.elimination_account_ids.ids
+        eliminations = {'accounts': [], 'totals': {'opening': 0.0, 'period': 0.0, 'ending': 0.0}}
+        if elimination_accounts:
+            for acc in self.elimination_account_ids:
+                company_rows, opening_sum, period_sum, ending_sum = [], 0.0, 0.0, 0.0
+                for comp in companies:
+                    # Penting: context per company saat baca AML
+                    aml = self.env['account.move.line'].with_context(
+                        allowed_company_ids=[comp.id],
+                        force_company=comp.id,
+                    )
+                    o_bal = 0.0
+                    if date_from:
+                        o_lines = aml.search([
+                            ('account_id', '=', acc.id),
+                            ('company_id', '=', comp.id),
+                            ('move_id.state', '=', 'posted'),
+                            ('date', '<', date_from),
+                        ])
+                        o_bal = sum(o_lines.mapped('balance'))
+
+                    dom_p = [
+                        ('account_id', '=', acc.id),
+                        ('company_id', '=', comp.id),
+                        ('move_id.state', '=', 'posted'),
+                    ]
+                    if date_from:
+                        dom_p.append(('date', '>=', date_from))
+                    if date_to:
+                        dom_p.append(('date', '<=', date_to))
+                    p_lines = aml.search(dom_p)
+                    p_bal = sum(p_lines.mapped('balance'))
+
+                    e_bal = o_bal + p_bal
+                    if abs(e_bal) > 0.00001 or abs(o_bal) > 0.00001 or abs(p_bal) > 0.00001:
+                        company_rows.append({
+                            'company_id': comp.id, 'company_name': comp.name,
+                            'opening_balance': o_bal, 'period_balance': p_bal, 'ending_balance': e_bal
+                        })
+                        opening_sum += o_bal; period_sum += p_bal; ending_sum += e_bal
+
+                eliminations['accounts'].append({
+                    'account_id': acc.id, 'code': acc.code, 'name': acc.name,
+                    'company_balances': company_rows,
+                    'opening_total': opening_sum, 'period_total': period_sum, 'ending_total': ending_sum,
+                    'fully_eliminated': abs(ending_sum) < 0.01
+                })
+                eliminations['totals']['opening'] += opening_sum
+                eliminations['totals']['period'] += period_sum
+                eliminations['totals']['ending'] += ending_sum
+
+        # Konsolidasi setelah eliminasi (kurangi akun eliminasi dari agregat)
+        agg_after = {
+            'opening': dict(agg_before['opening']),
+            'period': dict(agg_before['period']),
+            'ending': dict(agg_before['ending']),
+        }
+        if elimination_accounts and eliminations['accounts']:
+            elim_ending = eliminations['totals']['ending']
+            agg_after['ending']['assets'] -= elim_ending
+            agg_after['ending']['liabilities_equity_plus_pl'] -= elim_ending
+            agg_after['ending']['balanced'] = abs(
+                agg_after['ending']['assets'] - agg_after['ending']['liabilities_equity_plus_pl']
+            ) < 0.01
+            agg_after['ending']['difference'] = (
+                agg_after['ending']['assets'] - agg_after['ending']['liabilities_equity_plus_pl']
+            )
+
+        summary = {
+            'before': {
+                'assets': agg_before['ending']['assets'],
+                'liabilities_equity_plus_pl': agg_before['ending']['liabilities_equity_plus_pl'],
+                'balanced': agg_before['ending']['balanced'],
+                'difference': agg_before['ending']['difference'],
+            },
+            'elimination_totals': eliminations['totals'],
+            'after': {
+                'assets': agg_after['ending']['assets'],
+                'liabilities_equity_plus_pl': agg_after['ending']['liabilities_equity_plus_pl'],
+                'balanced': agg_after['ending']['balanced'],
+                'difference': agg_after['ending']['difference'],
+            }
+        }
+
+        return {
+            'status': 'success',
+            'date_from': date_from,
+            'date_to': date_to,
+            'total_companies': len(companies),
+            'successful_companies': len(ok_companies),
+            'failed_companies': len(per_company) - len(ok_companies),
+            'per_company': per_company,
+            'consolidated_before': agg_before,
+            'eliminations': eliminations,
+            'consolidated_after': agg_after,
+            'summary': summary,
+        }
+
     def action_consolidate(self):
         """
-        Button action: proses konsolidasi berdasarkan data yang sudah diinput di form.
-        Panggil method get_consolidated_balance_sheet_grouped dengan parameter dari record ini.
+        PERBAIKAN: Gunakan get_balance_sheet_per_company sebagai basis konsolidasi.
+        Button action untuk proses konsolidasi dengan eliminasi intercompany.
         """
         self.ensure_one()
         
         if not self.company_ids:
-            raise UserError("Please select at least one company to consolidate.")
+            raise UserError('Please select at least one company to consolidate.')
         
-        result = self.get_consolidated_balance_sheet_grouped(
-            date_from=self.date_from,
-            date_to=self.date_to,
-            company_ids=self.company_ids.ids,
-            elimination_account_ids=self.elimination_account_ids.ids,
-        )
+        _logger.info(f"=== CONSOLIDATION PROCESS START ===")
+        _logger.info(f"Consolidation ID: {self.id}")
+        _logger.info(f"Name: {self.name}")
+        _logger.info(f"Companies: {self.company_ids.mapped('name')}")
+        _logger.info(f"Date Range: {self.date_from} to {self.date_to}")
+        _logger.info(f"Elimination Accounts: {len(self.elimination_account_ids)}")
         
-        # Simpan hasil ke JSON field
-        import json
-        self.result_json = json.dumps(result, indent=2, default=str)
-        self.state = 'done'
+        try:
+            # STEP 1: Get balance sheet per company (basis konsolidasi)
+            per_company_data = self.get_balance_sheet_per_company(
+                date_from=self.date_from,
+                date_to=self.date_to,
+                company_ids=self.company_ids.ids,
+                analytic_account_ids=False  # TODO: add field analytic filter di form jika diperlukan
+            )
+            
+            if per_company_data.get('status') != 'success':
+                raise UserError(f"Failed to get balance sheet per company: {per_company_data.get('message', 'Unknown error')}")
+            
+            _logger.info(f"✓ Step 1: Retrieved balance sheet for {per_company_data['successful_companies']} companies")
+            
+            # STEP 2: Perform elimination (jika ada elimination accounts)
+            elimination_summary = {
+                'total_eliminated': 0.0,
+                'by_account': [],
+                'assets': {'opening': 0.0, 'period': 0.0, 'ending': 0.0},
+                'liabilities': {'opening': 0.0, 'period': 0.0, 'ending': 0.0},
+                'equity': {'opening': 0.0, 'period': 0.0, 'ending': 0.0},
+            }
+            
+            if self.elimination_account_ids:
+                _logger.info(f"✓ Step 2: Processing eliminations for {len(self.elimination_account_ids)} accounts")
+                
+                # TODO: Implement elimination logic
+                # Untuk saat ini, simpan struktur kosong
+                # Logic eliminasi akan mengurangi saldo intercompany dari grand_totals
+                pass
+            else:
+                _logger.info("⚠ Step 2: No elimination accounts defined, skipping elimination")
+            
+            # STEP 3: Calculate consolidated totals (after elimination)
+            grand_totals = per_company_data['grand_totals']
+            
+            # Apply elimination adjustments (TODO: implement actual elimination)
+            consolidated_totals = {
+                'opening': {
+                    'assets': grand_totals['opening']['assets'] - elimination_summary['assets']['opening'],
+                    'liabilities': grand_totals['opening']['liabilities'] - elimination_summary['liabilities']['opening'],
+                    'equity': grand_totals['opening']['equity'] - elimination_summary['equity']['opening'],
+                },
+                'period': {
+                    'assets': grand_totals['period']['assets'] - elimination_summary['assets']['period'],
+                    'liabilities': grand_totals['period']['liabilities'] - elimination_summary['liabilities']['period'],
+                    'equity': grand_totals['period']['equity'] - elimination_summary['equity']['period'],
+                    'income_net': grand_totals['period']['income_net'],
+                    'expense_net': grand_totals['period']['expense_net'],
+                    'net_profit': grand_totals['period']['net_profit'],
+                },
+                'ending': {
+                    'assets': grand_totals['ending']['assets'] - elimination_summary['assets']['ending'],
+                    'liabilities': grand_totals['ending']['liabilities'] - elimination_summary['liabilities']['ending'],
+                    'equity': grand_totals['ending']['equity'] - elimination_summary['equity']['ending'],
+                },
+            }
+            
+            # Recalculate L+E+P/L after elimination
+            consolidated_totals['ending']['liabilities_equity_plus_pl'] = (
+                consolidated_totals['ending']['liabilities'] +
+                consolidated_totals['ending']['equity'] +
+                consolidated_totals['period']['net_profit']
+            )
+            
+            consolidated_totals['ending']['balanced'] = abs(
+                consolidated_totals['ending']['assets'] -
+                consolidated_totals['ending']['liabilities_equity_plus_pl']
+            ) < 0.01
+            
+            consolidated_totals['ending']['difference'] = (
+                consolidated_totals['ending']['assets'] -
+                consolidated_totals['ending']['liabilities_equity_plus_pl']
+            )
+            
+            _logger.info(f"=== CONSOLIDATED TOTALS (After Elimination) ===")
+            _logger.info(f"  Assets: {consolidated_totals['ending']['assets']:,.2f}")
+            _logger.info(f"  Liabilities: {consolidated_totals['ending']['liabilities']:,.2f}")
+            _logger.info(f"  Equity: {consolidated_totals['ending']['equity']:,.2f}")
+            _logger.info(f"  L+E+P/L: {consolidated_totals['ending']['liabilities_equity_plus_pl']:,.2f}")
+            _logger.info(f"  Balanced: {consolidated_totals['ending']['balanced']}")
+            _logger.info(f"  Difference: {consolidated_totals['ending']['difference']:,.2f}")
+            
+            # STEP 4: Build final result JSON
+            result_json = {
+                'status': 'success',
+                'consolidation_info': {
+                    'consolidation_id': self.id,
+                    'name': self.name,
+                    'date_from': str(self.date_from) if self.date_from else False,
+                    'date_to': str(self.date_to) if self.date_to else False,
+                    'companies': [{'id': c.id, 'name': c.name} for c in self.company_ids],
+                    'total_companies': len(self.company_ids),
+                    'elimination_accounts_count': len(self.elimination_account_ids),
+                    'elimination_accounts': [{'id': a.id, 'code': a.code, 'name': a.name} for a in self.elimination_account_ids],
+                },
+                'per_company': per_company_data['companies'],
+                'before_elimination': grand_totals,
+                'elimination_summary': elimination_summary,
+                'after_elimination': consolidated_totals,
+                'summary': consolidated_totals,  # Alias untuk backward compatibility
+            }
+            
+            # STEP 5: Save result to database
+            self.write({
+                'result_json': json.dumps(result_json, default=str),
+                'state': 'done'
+            })
+            
+            _logger.info(f"✓ Consolidation completed successfully")
+            _logger.info(f"=== CONSOLIDATION PROCESS END ===")
+            
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': 'Success',
+                    'message': f'Successfully consolidated {len(self.company_ids)} companies',
+                    'type': 'success',
+                    'sticky': False,
+                }
+            }
+            
+        except Exception as e:
+            _logger.error(f"✗ Consolidation failed: {str(e)}", exc_info=True)
+            self.write({'state': 'draft'})
+            raise UserError(f'Consolidation failed: {str(e)}')
+
+    def action_reset_to_draft(self):
+        """
+        Reset consolidation to draft state.
+        Clear result_json and allow re-processing.
+        """
+        self.ensure_one()
+        
+        _logger.info(f"Resetting consolidation {self.id} ({self.name}) to draft")
+        
+        self.write({
+            'state': 'draft',
+            'result_json': False,
+        })
         
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': 'Consolidation Completed',
-                'message': f"Successfully consolidated {len(self.company_ids)} companies",
-                'type': 'success',
+                'title': 'Reset',
+                'message': 'Consolidation has been reset to draft. You can now re-process.',
+                'type': 'info',
+                'sticky': False,
             }
         }
-
-    def action_reset_to_draft(self):
-        """Reset ke draft untuk edit ulang."""
-        self.state = 'draft'
 
     @api.model
     def get_consolidation_by_id(self, consolidation_id):
         """
-        API wrapper: ambil record consolidation dan proses konsolidasi.
-        Digunakan oleh controller untuk frontend/API call.
-        """
-        record = self.browse(consolidation_id)
-        if not record.exists():
-            return {'status': 'error', 'message': 'Consolidation record not found'}
+        Ambil data konsolidasi berdasarkan ID.
         
-        return self.get_consolidated_balance_sheet_grouped(
-            date_from=record.date_from,
-            date_to=record.date_to,
-            company_ids=record.company_ids.ids,
-            elimination_account_ids=record.elimination_account_ids.ids,
-            analytic_account_ids=False
+        Returns:
+            dict: {
+                'status': 'success',
+                'consolidation': {
+                    'id': int,
+                    'name': str,
+                    'date_from': date,
+                    'date_to': date,
+                    'company_ids': [int],
+                    'elimination_account_ids': [int],
+                    'state': 'draft'|'done',
+                    'result_json': str,  # JSON string hasil konsolidasi
+                }
+            }
+        """
+        _logger.info(f"=== GET CONSOLIDATION BY ID: {consolidation_id} ===")
+        
+        consolidation = self.browse(consolidation_id)
+        if not consolidation.exists():
+            return {'status': 'error', 'message': 'Consolidation not found'}
+        
+        return {
+            'status': 'success',
+            'consolidation': {
+                'id': consolidation.id,
+                'name': consolidation.name,
+                'date_from': consolidation.date_from,
+                'date_to': consolidation.date_to,
+                'company_ids': consolidation.company_ids.ids,
+                'elimination_account_ids': consolidation.elimination_account_ids.ids,
+                'state': consolidation.state,
+                'result_json': consolidation.result_json,
+            }
+        }
+
+    @api.model
+    def preview_single_company_with_elimination(self, company_id=False, date_from=False, date_to=False):
+        """
+        Tampilkan 1 balance sheet per company (format financial_report_combined),
+        lalu tampilkan hasil setelah eliminasi (mengurangi saldo akun yang ada di elimination_account_ids).
+        Output berisi groups dan akun (opening/period/ending) sebelum & sesudah eliminasi.
+        """
+        self.ensure_one()
+        # Tentukan company
+        company = self.env['res.company'].browse(company_id) if company_id else (self.company_ids[:1])
+        if not company:
+            return {'status': 'error', 'message': 'Company is required'}
+        company = company[0]
+
+        # Tanggal
+        date_from = date_from or self.date_from
+        date_to = date_to or self.date_to
+
+        # Ambil report asli (format sama dgn financial_report_combined)
+        bs_report = self.env['account.balance.sheet.report'] \
+            .with_company(company) \
+            .with_context(company_id=company.id, company_ids=[company.id],
+                          allowed_company_ids=[company.id], force_company=company.id) \
+            .sudo()
+
+        data = bs_report.financial_report_combined(
+            date_from=date_from,
+            date_to=date_to,
+            company_id=company.id
         )
+        if data.get('status') != 'success':
+            return {'status': 'error', 'message': data.get('message', 'Failed to build report')}
+
+        # Siapkan lookup untuk eliminasi
+        elim_ids = set(self.elimination_account_ids.ids)
+        # Util untuk clone dict akun/group agar bisa membuat versi "after"
+        def clone_account_row(row):
+            return {
+                'account_id': row.get('account_id'),
+                'account_code': row.get('account_code'),
+                'account_name': row.get('account_name'),
+                'opening_debit': row.get('opening_debit', 0.0),
+                'opening_credit': row.get('opening_credit', 0.0),
+                'opening_balance': row.get('opening_balance', 0.0),
+                'period_debit': row.get('period_debit', 0.0),
+                'period_credit': row.get('period_credit', 0.0),
+                'period_balance': row.get('period_balance', 0.0),
+                'ending_debit': row.get('ending_debit', 0.0),
+                'ending_credit': row.get('ending_credit', 0.0),
+                'ending_balance': row.get('ending_balance', 0.0),
+            }
+
+        def clone_group_row(grp):
+            return {
+                'group_id': grp.get('group_id'),
+                'group_code': grp.get('group_code'),
+                'group_name': grp.get('group_name'),
+                'opening_debit': grp.get('opening_debit', 0.0),
+                'opening_credit': grp.get('opening_credit', 0.0),
+                'opening_balance': grp.get('opening_balance', 0.0),
+                'period_debit': grp.get('period_debit', 0.0),
+                'period_credit': grp.get('period_credit', 0.0),
+                'period_balance': grp.get('period_balance', 0.0),
+                'ending_debit': grp.get('ending_debit', 0.0),
+                'ending_credit': grp.get('ending_credit', 0.0),
+                'ending_balance': grp.get('ending_balance', 0.0),
+                'accounts': [clone_account_row(a) for a in grp.get('accounts', [])],
+            }
+
+        # Ambil sections (assets, liabilities, equity) dengan groups & accounts
+        sections = {}
+        for sec_name in ('assets', 'liabilities', 'equity'):
+            sec = data.get(sec_name, {})
+            groups = sec.get('groups', [])
+            sections[sec_name] = {
+                'groups_before': [clone_group_row(g) for g in groups],
+                'groups_after': [],  # akan diisi setelah eliminasi
+            }
+
+        # Hitung setelah eliminasi: kurangi akun yang termasuk elimination_account_ids
+        def apply_elimination_to_groups(groups_before):
+            groups_after = []
+            for grp in groups_before:
+                new_grp = clone_group_row(grp)
+                # reset summary akan dihitung ulang dari akun
+                for k in ('opening_debit','opening_credit','opening_balance',
+                          'period_debit','period_credit','period_balance',
+                          'ending_debit','ending_credit','ending_balance'):
+                    new_grp[k] = 0.0
+                new_accounts = []
+                for acc in grp.get('accounts', []):
+                    acc_after = clone_account_row(acc)
+                    if acc.get('account_id') in elim_ids:
+                        # Kurangi full saldo akun eliminasi dari hasil after
+                        # Menghilangkan nilai akun ini (anggap di-eliminate)
+                        acc_after['opening_debit'] = 0.0
+                        acc_after['opening_credit'] = 0.0
+                        acc_after['opening_balance'] = 0.0
+                        acc_after['period_debit'] = 0.0
+                        acc_after['period_credit'] = 0.0
+                        acc_after['period_balance'] = 0.0
+                        acc_after['ending_debit'] = 0.0
+                        acc_after['ending_credit'] = 0.0
+                        acc_after['ending_balance'] = 0.0
+                    # akumulasi summary group dari acc_after
+                    new_grp['opening_debit'] += acc_after['opening_debit']
+                    new_grp['opening_credit'] += acc_after['opening_credit']
+                    new_grp['opening_balance'] += acc_after['opening_balance']
+                    new_grp['period_debit'] += acc_after['period_debit']
+                    new_grp['period_credit'] += acc_after['period_credit']
+                    new_grp['period_balance'] += acc_after['period_balance']
+                    new_grp['ending_debit'] += acc_after['ending_debit']
+                    new_grp['ending_credit'] += acc_after['ending_credit']
+                    new_grp['ending_balance'] += acc_after['ending_balance']
+                    new_accounts.append(acc_after)
+                new_grp['accounts'] = new_accounts
+                groups_after.append(new_grp)
+            return groups_after
+
+        for sec_name in sections.keys():
+            sections[sec_name]['groups_after'] = apply_elimination_to_groups(sections[sec_name]['groups_before'])
+
+        return {
+            'status': 'success',
+            'company': {'id': company.id, 'name': company.name},
+            'date_from': date_from,
+            'date_to': date_to,
+            'elimination_account_ids': [{'id': a.id, 'code': a.code, 'name': a.name} for a in self.elimination_account_ids],
+            'assets': sections['assets'],
+            'liabilities': sections['liabilities'],
+            'equity': sections['equity'],
+        }

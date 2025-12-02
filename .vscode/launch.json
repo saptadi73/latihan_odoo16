@@ -12,8 +12,8 @@
             "args": [
                 "--config=C:\\latihanodoo\\odoo.conf",
                 // "--database=kanjabung",
-                // "--database=konsolidasi",
-                // "--init=dynamic_accounts_report",                // "--database=mynilamku",
+                "--database=konsolidasi",
+                "--init=dynamic_accounts_report",                // "--database=mynilamku",
                 // "--init=mynilamku"
             ],
             "cwd": "${workspaceFolder}",
