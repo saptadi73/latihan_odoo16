@@ -23988,3 +23988,221 @@ Stack (most recent call last):
 2025-12-02 03:21:37,481 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT PROFIT & LOSS BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
 2025-12-02 03:21:37,785 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: [P&L GROUP] income_net=11339150.00 expense_net=-8875000.00 net_profit=2464150.00 
 2025-12-02 03:21:37,789 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:21:37] "POST /api/financial/with_elimination HTTP/1.1" 200 - 1039 1.005 0.853
+2025-12-02 03:22:09,818 19476 INFO konsolidasi odoo.addons.base.models.res_users: Login successful for db:konsolidasi login:admin from 127.0.0.1 
+2025-12-02 03:22:09,834 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:22:09] "POST /web/session/authenticate HTTP/1.1" 200 - 20 0.028 0.907
+2025-12-02 03:22:10,135 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:22:10] "GET /api/balance_sheet/companies HTTP/1.1" 200 - 3 0.009 0.015
+2025-12-02 03:22:39,968 19476 INFO konsolidasi odoo.addons.base.models.res_users: Login successful for db:konsolidasi login:admin from 127.0.0.1 
+2025-12-02 03:22:39,996 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:22:39] "POST /web/session/authenticate HTTP/1.1" 200 - 20 0.001 0.983
+2025-12-02 03:22:40,246 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT FINANCIAL REPORT COMBINED === 
+2025-12-02 03:22:40,246 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:22:40,446 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:22:40,610 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:22:40,679 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT PROFIT & LOSS BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:22:40,947 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: [P&L GROUP] income_net=11339150.00 expense_net=-8875000.00 net_profit=2464150.00 
+2025-12-02 03:22:40,947 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:22:40] "POST /api/financial/combined HTTP/1.1" 200 - 371 0.392 0.309
+2025-12-02 03:22:53,886 19476 INFO konsolidasi odoo.addons.base.models.res_users: Login successful for db:konsolidasi login:admin from 127.0.0.1 
+2025-12-02 03:22:53,912 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:22:53] "POST /web/session/authenticate HTTP/1.1" 200 - 20 0.008 0.829
+2025-12-02 03:22:54,183 19476 ERROR konsolidasi odoo.addons.dynamic_accounts_report.controllers.api_controllers: /api/balance_sheet/filter_options error: 'account.balance.sheet.report' object has no attribute 'get_filter_options' 
+Traceback (most recent call last):
+  File "c:\latihanodoo\dynamic_accounts_report\controllers\api_controllers.py", line 75, in get_filter_options
+    data = report_obj.get_filter_options(company_id=kwargs.get('company_id'))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'account.balance.sheet.report' object has no attribute 'get_filter_options'
+2025-12-02 03:22:54,205 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:22:54] "POST /api/balance_sheet/filter_options HTTP/1.1" 200 - 1 0.000 0.035
+2025-12-02 03:23:10,776 19476 INFO konsolidasi odoo.addons.base.models.res_users: Login successful for db:konsolidasi login:admin from 127.0.0.1 
+2025-12-02 03:23:10,800 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:23:10] "POST /web/session/authenticate HTTP/1.1" 200 - 20 0.016 0.879
+2025-12-02 03:23:11,072 19476 ERROR konsolidasi odoo.addons.dynamic_accounts_report.controllers.api_controllers: /api/balance_sheet/filter_options error: 'account.balance.sheet.report' object has no attribute 'get_filter_options' 
+Traceback (most recent call last):
+  File "c:\latihanodoo\dynamic_accounts_report\controllers\api_controllers.py", line 75, in get_filter_options
+    data = report_obj.get_filter_options(company_id=kwargs.get('company_id'))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'account.balance.sheet.report' object has no attribute 'get_filter_options'
+2025-12-02 03:23:11,092 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:23:11] "POST /api/balance_sheet/filter_options HTTP/1.1" 200 - 1 0.000 0.021
+2025-12-02 03:23:19,641 19476 INFO konsolidasi odoo.addons.base.models.res_users: Login successful for db:konsolidasi login:admin from 127.0.0.1 
+2025-12-02 03:23:19,661 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:23:19] "POST /web/session/authenticate HTTP/1.1" 200 - 20 0.017 1.026
+2025-12-02 03:23:19,935 19476 ERROR konsolidasi odoo.addons.dynamic_accounts_report.controllers.api_controllers: /api/balance_sheet/filter_options error: 'account.balance.sheet.report' object has no attribute 'get_filter_options' 
+Traceback (most recent call last):
+  File "c:\latihanodoo\dynamic_accounts_report\controllers\api_controllers.py", line 75, in get_filter_options
+    data = report_obj.get_filter_options(company_id=kwargs.get('company_id'))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'account.balance.sheet.report' object has no attribute 'get_filter_options'
+2025-12-02 03:23:19,962 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:23:19] "POST /api/balance_sheet/filter_options HTTP/1.1" 200 - 1 0.000 0.027
+2025-12-02 03:23:24,435 19476 INFO konsolidasi odoo.addons.base.models.ir_cron: Starting job `payment: post-process transactions`. 
+2025-12-02 03:23:24,435 19476 INFO konsolidasi odoo.addons.base.models.ir_cron: Job `payment: post-process transactions` done. 
+2025-12-02 03:33:24,518 19476 INFO konsolidasi odoo.addons.base.models.ir_cron: Starting job `payment: post-process transactions`. 
+2025-12-02 03:33:24,527 19476 INFO konsolidasi odoo.addons.base.models.ir_cron: Job `payment: post-process transactions` done. 
+2025-12-02 03:42:33,289 19476 INFO konsolidasi odoo.addons.base.models.res_users: Login successful for db:konsolidasi login:admin from 127.0.0.1 
+2025-12-02 03:42:33,320 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:42:33] "POST /web/session/authenticate HTTP/1.1" 200 - 20 0.012 0.922
+2025-12-02 03:42:33,580 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:42:33] "GET /api/balance_sheet/companies HTTP/1.1" 200 - 3 0.000 0.016
+2025-12-02 03:42:42,302 19476 INFO konsolidasi odoo.addons.base.models.res_users: Login successful for db:konsolidasi login:admin from 127.0.0.1 
+2025-12-02 03:42:42,335 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:42:42] "POST /web/session/authenticate HTTP/1.1" 200 - 20 0.002 0.884
+2025-12-02 03:42:42,656 19476 WARNING konsolidasi odoo.models: Context key 'force_company' is no longer supported. Use with_company(company) instead. 
+Stack (most recent call last):
+  File "c:\Users\sapta\.vscode\extensions\ms-python.debugpy-2025.16.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydev_bundle\pydev_monkey.py", line 1134, in __call__
+    ret = self.original_func(*self.args, **self.kwargs)
+  File "C:\odoo16c\python\Lib\threading.py", line 1030, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\odoo16c\python\Lib\threading.py", line 1073, in _bootstrap_inner
+    self.run()
+  File "C:\odoo16c\python\Lib\threading.py", line 1010, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\odoo16c\python\Lib\socketserver.py", line 692, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\odoo16c\python\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\odoo16c\python\Lib\socketserver.py", line 761, in __init__
+    self.handle()
+  File "C:\odoo16c\python\Lib\site-packages\werkzeug\serving.py", line 342, in handle
+    BaseHTTPRequestHandler.handle(self)
+  File "C:\odoo16c\python\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\odoo16c\python\Lib\site-packages\werkzeug\serving.py", line 374, in handle_one_request
+    self.run_wsgi()
+  File "C:\odoo16c\python\Lib\site-packages\werkzeug\serving.py", line 319, in run_wsgi
+    execute(self.server.app)
+  File "C:\odoo16c\python\Lib\site-packages\werkzeug\serving.py", line 308, in execute
+    application_iter = app(environ, start_response)
+  File "C:\odoo16c\server\odoo\http.py", line 2261, in __call__
+    response = request._serve_db()
+  File "C:\odoo16c\server\odoo\http.py", line 1848, in _serve_db
+    return service_model.retrying(self._serve_ir_http, self.env)
+  File "C:\odoo16c\server\odoo\service\model.py", line 152, in retrying
+    result = func()
+  File "C:\odoo16c\server\odoo\http.py", line 1876, in _serve_ir_http
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+  File "C:\odoo16c\server\odoo\http.py", line 2080, in dispatch
+    result = self.request.registry['ir.http']._dispatch(endpoint)
+  File "C:\odoo16c\server\odoo\addons\website\models\ir_http.py", line 237, in _dispatch
+    response = super()._dispatch(endpoint)
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_http.py", line 154, in _dispatch
+    result = endpoint(**request.params)
+  File "C:\odoo16c\server\odoo\http.py", line 763, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+  File "c:\latihanodoo\dynamic_accounts_report\controllers\api_controllers.py", line 313, in financial_report_combined_multi_company
+    return report.financial_report_combined_multi_company(
+  File "c:\latihanodoo\dynamic_accounts_report\models\balance_sheet_report.py", line 2228, in financial_report_combined_multi_company
+  File "C:\odoo16c\server\odoo\models.py", line 5333, in with_context
+    _logger.warning(
+2025-12-02 03:42:42,656 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT FINANCIAL REPORT COMBINED === 
+2025-12-02 03:42:42,656 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:42:42,783 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:42:42,879 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:42:42,911 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT PROFIT & LOSS BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:42:43,132 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: [P&L GROUP] income_net=27500000.00 expense_net=-6500000.00 net_profit=21000000.00 
+2025-12-02 03:42:43,132 19476 WARNING konsolidasi odoo.models: Context key 'force_company' is no longer supported. Use with_company(company) instead. 
+Stack (most recent call last):
+  File "c:\Users\sapta\.vscode\extensions\ms-python.debugpy-2025.16.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydev_bundle\pydev_monkey.py", line 1134, in __call__
+    ret = self.original_func(*self.args, **self.kwargs)
+  File "C:\odoo16c\python\Lib\threading.py", line 1030, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\odoo16c\python\Lib\threading.py", line 1073, in _bootstrap_inner
+    self.run()
+  File "C:\odoo16c\python\Lib\threading.py", line 1010, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\odoo16c\python\Lib\socketserver.py", line 692, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\odoo16c\python\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\odoo16c\python\Lib\socketserver.py", line 761, in __init__
+    self.handle()
+  File "C:\odoo16c\python\Lib\site-packages\werkzeug\serving.py", line 342, in handle
+    BaseHTTPRequestHandler.handle(self)
+  File "C:\odoo16c\python\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\odoo16c\python\Lib\site-packages\werkzeug\serving.py", line 374, in handle_one_request
+    self.run_wsgi()
+  File "C:\odoo16c\python\Lib\site-packages\werkzeug\serving.py", line 319, in run_wsgi
+    execute(self.server.app)
+  File "C:\odoo16c\python\Lib\site-packages\werkzeug\serving.py", line 308, in execute
+    application_iter = app(environ, start_response)
+  File "C:\odoo16c\server\odoo\http.py", line 2261, in __call__
+    response = request._serve_db()
+  File "C:\odoo16c\server\odoo\http.py", line 1848, in _serve_db
+    return service_model.retrying(self._serve_ir_http, self.env)
+  File "C:\odoo16c\server\odoo\service\model.py", line 152, in retrying
+    result = func()
+  File "C:\odoo16c\server\odoo\http.py", line 1876, in _serve_ir_http
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+  File "C:\odoo16c\server\odoo\http.py", line 2080, in dispatch
+    result = self.request.registry['ir.http']._dispatch(endpoint)
+  File "C:\odoo16c\server\odoo\addons\website\models\ir_http.py", line 237, in _dispatch
+    response = super()._dispatch(endpoint)
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_http.py", line 154, in _dispatch
+    result = endpoint(**request.params)
+  File "C:\odoo16c\server\odoo\http.py", line 763, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+  File "c:\latihanodoo\dynamic_accounts_report\controllers\api_controllers.py", line 313, in financial_report_combined_multi_company
+    return report.financial_report_combined_multi_company(
+  File "c:\latihanodoo\dynamic_accounts_report\models\balance_sheet_report.py", line 2228, in financial_report_combined_multi_company
+  File "C:\odoo16c\server\odoo\models.py", line 5333, in with_context
+    _logger.warning(
+2025-12-02 03:42:43,132 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT FINANCIAL REPORT COMBINED === 
+2025-12-02 03:42:43,132 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:42:43,268 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:42:43,368 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:42:43,418 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT PROFIT & LOSS BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:42:43,646 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: [P&L GROUP] income_net=0.00 expense_net=0.00 net_profit=0.00 
+2025-12-02 03:42:43,646 19476 WARNING konsolidasi odoo.models: Context key 'force_company' is no longer supported. Use with_company(company) instead. 
+Stack (most recent call last):
+  File "c:\Users\sapta\.vscode\extensions\ms-python.debugpy-2025.16.0-win32-x64\bundled\libs\debugpy\_vendored\pydevd\_pydev_bundle\pydev_monkey.py", line 1134, in __call__
+    ret = self.original_func(*self.args, **self.kwargs)
+  File "C:\odoo16c\python\Lib\threading.py", line 1030, in _bootstrap
+    self._bootstrap_inner()
+  File "C:\odoo16c\python\Lib\threading.py", line 1073, in _bootstrap_inner
+    self.run()
+  File "C:\odoo16c\python\Lib\threading.py", line 1010, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\odoo16c\python\Lib\socketserver.py", line 692, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\odoo16c\python\Lib\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\odoo16c\python\Lib\socketserver.py", line 761, in __init__
+    self.handle()
+  File "C:\odoo16c\python\Lib\site-packages\werkzeug\serving.py", line 342, in handle
+    BaseHTTPRequestHandler.handle(self)
+  File "C:\odoo16c\python\Lib\http\server.py", line 436, in handle
+    self.handle_one_request()
+  File "C:\odoo16c\python\Lib\site-packages\werkzeug\serving.py", line 374, in handle_one_request
+    self.run_wsgi()
+  File "C:\odoo16c\python\Lib\site-packages\werkzeug\serving.py", line 319, in run_wsgi
+    execute(self.server.app)
+  File "C:\odoo16c\python\Lib\site-packages\werkzeug\serving.py", line 308, in execute
+    application_iter = app(environ, start_response)
+  File "C:\odoo16c\server\odoo\http.py", line 2261, in __call__
+    response = request._serve_db()
+  File "C:\odoo16c\server\odoo\http.py", line 1848, in _serve_db
+    return service_model.retrying(self._serve_ir_http, self.env)
+  File "C:\odoo16c\server\odoo\service\model.py", line 152, in retrying
+    result = func()
+  File "C:\odoo16c\server\odoo\http.py", line 1876, in _serve_ir_http
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+  File "C:\odoo16c\server\odoo\http.py", line 2080, in dispatch
+    result = self.request.registry['ir.http']._dispatch(endpoint)
+  File "C:\odoo16c\server\odoo\addons\website\models\ir_http.py", line 237, in _dispatch
+    response = super()._dispatch(endpoint)
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_http.py", line 154, in _dispatch
+    result = endpoint(**request.params)
+  File "C:\odoo16c\server\odoo\http.py", line 763, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+  File "c:\latihanodoo\dynamic_accounts_report\controllers\api_controllers.py", line 313, in financial_report_combined_multi_company
+    return report.financial_report_combined_multi_company(
+  File "c:\latihanodoo\dynamic_accounts_report\models\balance_sheet_report.py", line 2228, in financial_report_combined_multi_company
+  File "C:\odoo16c\server\odoo\models.py", line 5333, in with_context
+    _logger.warning(
+2025-12-02 03:42:43,646 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT FINANCIAL REPORT COMBINED === 
+2025-12-02 03:42:43,646 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:42:43,802 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:42:43,936 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT ASSET DETAIL BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:42:43,981 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: === EXPORT PROFIT & LOSS BY GROUP WITH OPENING & PERIOD TRANSACTIONS === 
+2025-12-02 03:42:44,195 19476 INFO konsolidasi odoo.addons.dynamic_accounts_report.models.balance_sheet_report: [P&L GROUP] income_net=11339150.00 expense_net=-8875000.00 net_profit=2464150.00 
+2025-12-02 03:42:44,195 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:42:44] "POST /api/financial/combined_multi_company HTTP/1.1" 200 - 1027 0.863 0.738
+2025-12-02 03:43:02,769 19476 INFO konsolidasi odoo.addons.base.models.ir_cron: Starting job `payment: post-process transactions`. 
+2025-12-02 03:43:02,769 19476 INFO konsolidasi odoo.addons.base.models.ir_cron: Job `payment: post-process transactions` done. 
+2025-12-02 03:48:24,176 19476 INFO konsolidasi odoo.addons.base.models.res_users: Login successful for db:konsolidasi login:admin from 127.0.0.1 
+2025-12-02 03:48:24,211 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:48:24] "POST /web/session/authenticate HTTP/1.1" 200 - 20 0.015 0.826
+2025-12-02 03:48:24,473 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:48:24] "GET /api/balance_sheet/companies HTTP/1.1" 200 - 3 0.001 0.014
+2025-12-02 03:48:41,725 19476 INFO konsolidasi odoo.addons.base.models.res_users: Login successful for db:konsolidasi login:admin from 127.0.0.1 
+2025-12-02 03:48:41,755 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:48:41] "POST /web/session/authenticate HTTP/1.1" 200 - 20 0.012 0.939
+2025-12-02 03:48:42,038 19476 INFO konsolidasi werkzeug: 127.0.0.1 - - [02/Dec/2025 03:48:42] "POST /api/accounts/list HTTP/1.1" 200 - 4 0.016 0.007
+2025-12-02 03:53:12,977 19476 INFO konsolidasi odoo.addons.base.models.ir_cron: Starting job `payment: post-process transactions`. 
+2025-12-02 03:53:12,993 19476 INFO konsolidasi odoo.addons.base.models.ir_cron: Job `payment: post-process transactions` done. 
