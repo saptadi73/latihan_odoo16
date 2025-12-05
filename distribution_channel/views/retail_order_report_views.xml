@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <!-- ============================================== -->
+  <!-- RETAIL ORDER DETAILED VIEWS -->
+  <!-- ============================================== -->
+
+  <!-- Form View -->
+  <record id="view_retail_order_form_detailed" model="ir.ui.view">
+    <field name="name">distribution_channel.retail_order.form.detailed</field>
+    <field name="model">distribution_channel.retail_order</field>
+    <field name="arch" type="xml">
+      <form string="Retail Order Tracking">
+        <header>
+          <field name="order_chain_status" widget="badge" 
+                  decoration-success="order_chain_status == 'complete'"
+                  decoration-warning="order_chain_status == 'partial'"
+                  decoration-danger="order_chain_status == 'missing'"/>
+          <field name="state" widget="statusbar"/>
+        </header>
+        <sheet>
+          <div class="oe_title">
+            <h1>
+              <field name="name" readonly="1"/>
+            </h1>
+            <div class="alert alert-warning" attrs="{'invisible': [('missing_links', '=', '')]}">
+              <strong>Missing:</strong> <field name="missing_links" readonly="1"/>
+            </div>
+          </div>
+
+          <notebook>
+            <!-- STAGE 1: Retailer PO -->
+            <page string="Retailer PO (Stage 1)" name="retailer_po_stage">
+              <group>
+                <group string="Document">
+                  <field name="retailer_po_id" readonly="1"/>
+                  <field name="retailer_po_status" readonly="1" widget="badge"/>
+                  <field name="retailer_po_date" readonly="1"/>
+                  <field name="retailer_po_amount" readonly="1" widget="monetary"/>
+                </group>
+                <group string="Company">
+                  <field name="retailer_company_id" readonly="1"/>
+                </group>
+              </group>
+              <button name="action_open_retailer_po" 
+                      string="View PO Details" 
+                      type="object" 
+                      class="oe_link"
+                      attrs="{'invisible': [('retailer_po_id', '=', False)]}"/>
+            </page>
+
+            <!-- STAGE 2: DC SO -->
+            <page string="DC SO (Stage 2)" name="dc_so_stage">
+              <group>
+                <group string="Document">
+                  <field name="dc_sales_order_id" readonly="1"/>
+                  <field name="dc_so_status" readonly="1" widget="badge"/>
+                  <field name="dc_so_date" readonly="1"/>
+                  <field name="dc_so_amount" readonly="1" widget="monetary"/>
+                </group>
+                <group string="Delivery">
+                  <field name="dc_so_delivery_status" readonly="1" widget="badge"
+                          decoration-success="dc_so_delivery_status == 'shipped'"
+                          decoration-warning="dc_so_delivery_status in ['picking', 'picked']"
+                          decoration-info="dc_so_delivery_status == 'not_started'"/>
+                  <field name="dc_so_delivery_date" readonly="1"/>
+                </group>
+              </group>
+              <button name="action_open_dc_so" 
+                      string="View SO Details" 
+                      type="object" 
+                      class="oe_link"
+                      attrs="{'invisible': [('dc_sales_order_id', '=', False)]}"/>
+            </page>
+
+            <!-- STAGE 3: DC PO -->
+            <page string="DC PO (Stage 3)" name="dc_po_stage">
+              <group>
+                <group string="Document">
+                  <field name="dc_purchase_order_id" readonly="1"/>
+                  <field name="dc_po_status" readonly="1" widget="badge"/>
+                  <field name="dc_po_date" readonly="1"/>
+                  <field name="dc_po_amount" readonly="1" widget="monetary"/>
+                </group>
+                <group string="Company">
+                  <field name="dc_company_id" readonly="1"/>
+                </group>
+              </group>
+              <button name="action_open_dc_po" 
+                      string="View PO Details" 
+                      type="object" 
+                      class="oe_link"
+                      attrs="{'invisible': [('dc_purchase_order_id', '=', False)]}"/>
+            </page>
+
+            <!-- STAGE 4: Retailer SO -->
+            <page string="Retailer SO (Stage 4)" name="retailer_so_stage">
+              <group>
+                <group string="Document">
+                  <field name="retailer_sales_order_id" readonly="1"/>
+                  <field name="retailer_so_status" readonly="1" widget="badge"/>
+                  <field name="retailer_so_date" readonly="1"/>
+                  <field name="retailer_so_amount" readonly="1" widget="monetary"/>
+                </group>
+              </group>
+              <button name="action_open_retailer_so" 
+                      string="View SO Details" 
+                      type="object" 
+                      class="oe_link"
+                      attrs="{'invisible': [('retailer_sales_order_id', '=', False)]}"/>
+            </page>
+
+            <!-- Summary -->
+            <page string="Summary" name="summary">
+              <group>
+                <group string="Order Totals">
+                  <field name="total_qty" readonly="1"/>
+                  <field name="total_amount" readonly="1" widget="monetary"/>
+                </group>
+                <group string="Chain Info">
+                  <field name="orderpoint_id" readonly="1"/>
+                </group>
+              </group>
+              <field name="notes" placeholder="Notes..."/>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Tree View dengan Chain Info -->
+  <record id="view_retail_order_tree_chain" model="ir.ui.view">
+    <field name="name">distribution_channel.retail_order.tree.chain</field>
+    <field name="model">distribution_channel.retail_order</field>
+    <field name="arch" type="xml">
+      <tree string="Order Chain Tracking" decoration-warning="order_chain_status == 'partial'"
+                                         decoration-danger="order_chain_status == 'missing'">
+        <field name="name"/>
+        <field name="retailer_company_id"/>
+        <field name="dc_company_id"/>
+        <field name="retailer_po_id"/>
+        <field name="dc_sales_order_id"/>
+        <field name="dc_so_delivery_status" optional="show"/>
+        <field name="dc_purchase_order_id" optional="show"/>
+        <field name="retailer_sales_order_id" optional="show"/>
+        <field name="order_chain_status" optional="hide"/>
+        <field name="total_qty"/>
+        <field name="state"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Search View -->
+  <record id="view_retail_order_search_chain" model="ir.ui.view">
+    <field name="name">distribution_channel.retail_order.search.chain</field>
+    <field name="model">distribution_channel.retail_order</field>
+    <field name="arch" type="xml">
+      <search string="Search Order Chains">
+        <field name="name"/>
+        <field name="retailer_company_id"/>
+        <field name="dc_company_id"/>
+        <field name="retailer_po_id"/>
+        <field name="dc_sales_order_id"/>
+        <field name="dc_purchase_order_id"/>
+        <field name="retailer_sales_order_id"/>
+        
+        <separator/>
+        
+        <filter name="complete_chain" string="Complete Chain" domain="[('order_chain_status', '=', 'complete')]"/>
+        <filter name="partial_chain" string="Partial Chain" domain="[('order_chain_status', '=', 'partial')]"/>
+        <filter name="missing_chain" string="Missing Links" domain="[('order_chain_status', '=', 'missing')]"/>
+        
+        <separator/>
+        
+        <filter name="dc_so_shipped" string="DC SO Shipped" domain="[('dc_so_delivery_status', '=', 'shipped')]"/>
+        <filter name="dc_so_pending" string="DC SO Pending" domain="[('dc_so_delivery_status', '!=', 'shipped')]"/>
+        
+        <separator/>
+        
+        <group expand="1" string="Group By">
+          <filter name="group_retailer" string="Retailer" context="{'group_by': 'retailer_company_id'}"/>
+          <filter name="group_dc" string="DC" context="{'group_by': 'dc_company_id'}"/>
+          <filter name="group_chain_status" string="Chain Status" context="{'group_by': 'order_chain_status'}"/>
+          <filter name="group_delivery_status" string="Delivery Status" context="{'group_by': 'dc_so_delivery_status'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <!-- Pivot Report -->
+  <record id="view_retail_order_pivot_report" model="ir.ui.view">
+    <field name="name">distribution_channel.retail_order.pivot</field>
+    <field name="model">distribution_channel.retail_order</field>
+    <field name="arch" type="xml">
+      <pivot string="Order Chain Report">
+        <field name="retailer_company_id" type="row"/>
+        <field name="dc_company_id" type="col"/>
+        <field name="total_qty" type="measure"/>
+        <field name="total_amount" type="measure"/>
+      </pivot>
+    </field>
+  </record>
+
+  <!-- Graph Report -->
+  <record id="view_retail_order_graph_report" model="ir.ui.view">
+    <field name="name">distribution_channel.retail_order.graph</field>
+    <field name="model">distribution_channel.retail_order</field>
+    <field name="arch" type="xml">
+      <graph string="Order Chain Status" type="pie">
+        <field name="order_chain_status" type="row"/>
+        <field name="total_amount" type="measure"/>
+      </graph>
+    </field>
+  </record>
+
+  <!-- Action -->
+  <record id="action_retail_order_chain" model="ir.actions.act_window">
+    <field name="name">Order Chain Tracking</field>
+    <field name="res_model">distribution_channel.retail_order</field>
+    <field name="view_mode">tree,form,pivot,graph</field>
+    <field name="search_view_id" ref="view_retail_order_search_chain"/>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Track relasi lengkap: Retailer PO ↔ DC SO ↔ DC PO ↔ Retailer SO
+      </p>
+    </field>
+  </record>
+
+  <!-- Menu -->
+  <menuitem id="menu_order_chain_tracking"
+            name="Order Chain Tracking"
+            parent="menu_distribution_operations"
+            action="action_retail_order_chain"
+            sequence="2"/>
+
+</odoo>

@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <!-- ============================================== -->
+  <!-- EXTEND REORDERING RULES (stock.warehouse.orderpoint) -->
+  <!-- ============================================== -->
+  <record id="view_warehouse_orderpoint_form_inherit" model="ir.ui.view">
+    <field name="name">stock.warehouse.orderpoint.form.inherit</field>
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form"/>
+    <field name="arch" type="xml">
+      <!-- Add DC fields after product_id -->
+      <xpath expr="//field[@name='product_id']" position="after">
+        <field name="dc_company_id" options="{'no_create': True}"/>
+        <field name="dc_warehouse_id" domain="[('company_id', '=', dc_company_id)]" options="{'no_create': True}"/>
+        <field name="auto_create_dc_so"/>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="view_warehouse_orderpoint_tree_inherit" model="ir.ui.view">
+    <field name="name">stock.warehouse.orderpoint.tree.inherit</field>
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable"/>
+    <field name="arch" type="xml">
+      <!-- Add DC company column -->
+      <xpath expr="//field[@name='product_id']" position="after">
+        <field name="dc_company_id" optional="show"/>
+        <field name="auto_create_dc_so" optional="hide"/>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- ============================================== -->
+  <!-- EXTEND PURCHASE ORDER (purchase.order) -->
+  <!-- ============================================== -->
+  <record id="view_purchase_order_form_inherit" model="ir.ui.view">
+    <field name="name">purchase.order.form.inherit.dc</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_form"/>
+    <field name="arch" type="xml">
+      
+      <!-- Add button in header -->
+      <xpath expr="//button[@name='button_confirm']" position="after">
+        <button name="action_open_dc_so" 
+                string="Open DC SO" 
+                type="object" 
+                class="btn-info"
+                attrs="{'invisible': [('dc_sales_order_id', '=', False)]}"/>
+      </xpath>
+
+      <!-- Add notebook page for DC info -->
+      <xpath expr="//notebook" position="inside">
+        <page string="DC Integration" name="dc_integration" attrs="{'invisible': [('is_from_reordering', '=', False)]}">
+          <group>
+            <group string="DC Information">
+              <field name="is_from_reordering" readonly="1"/>
+              <field name="dc_company_id" readonly="1"/>
+              <field name="dc_sales_order_id" readonly="1"/>
+            </group>
+            <group string="Actions">
+              <button name="action_open_dc_so" 
+                      string="View DC Sales Order" 
+                      type="object" 
+                      class="oe_highlight"
+                      attrs="{'invisible': [('dc_sales_order_id', '=', False)]}"/>
+            </group>
+          </group>
+        </page>
+      </xpath>
+
+    </field>
+  </record>
+
+  <record id="view_purchase_order_tree_inherit" model="ir.ui.view">
+    <field name="name">purchase.order.tree.inherit.dc</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+    <field name="arch" type="xml">
+      <!-- Add DC columns -->
+      <xpath expr="//field[@name='partner_id']" position="after">
+        <field name="is_from_reordering" optional="hide"/>
+        <field name="dc_company_id" optional="hide"/>
+        <field name="dc_sales_order_id" optional="hide"/>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- Search View for Purchase Order -->
+  <record id="view_purchase_order_filter_inherit" model="ir.ui.view">
+    <field name="name">purchase.order.search.inherit.dc</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+    <field name="arch" type="xml">
+      <xpath expr="//filter[@name='approved']" position="after">
+        <separator/>
+        <filter name="from_reordering" string="From Reordering" domain="[('is_from_reordering', '=', True)]"/>
+        <filter name="has_dc_so" string="Has DC SO" domain="[('dc_sales_order_id', '!=', False)]"/>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- ============================================== -->
+  <!-- EXTEND SALES ORDER (sale.order) -->
+  <!-- ============================================== -->
+  <record id="view_sale_order_form_inherit" model="ir.ui.view">
+    <field name="name">sale.order.form.inherit.retailer</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+      
+      <!-- Add notebook page for Retailer info -->
+      <xpath expr="//notebook" position="inside">
+        <page string="Retailer Integration" name="retailer_integration" attrs="{'invisible': [('is_auto_created', '=', False)]}">
+          <group>
+            <group string="Auto Creation Info">
+              <field name="is_auto_created" readonly="1"/>
+              <field name="retailer_po_id" readonly="1"/>
+            </group>
+            <group string="Actions">
+              <button name="action_open_retailer_po" 
+                      string="View Retailer PO" 
+                      type="object" 
+                      class="oe_highlight"
+                      attrs="{'invisible': [('retailer_po_id', '=', False)]}"/>
+            </group>
+          </group>
+        </page>
+      </xpath>
+
+    </field>
+  </record>
+
+  <record id="view_sale_order_tree_inherit" model="ir.ui.view">
+    <field name="name">sale.order.tree.inherit.retailer</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_tree"/>
+    <field name="arch" type="xml">
+      <!-- Add retailer columns -->
+      <xpath expr="//field[@name='partner_id']" position="after">
+        <field name="is_auto_created" optional="hide"/>
+        <field name="retailer_po_id" optional="hide"/>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- Search View for Sales Order -->
+  <record id="view_sale_order_filter_inherit" model="ir.ui.view">
+    <field name="name">sale.order.search.inherit.retailer</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+    <field name="arch" type="xml">
+      <xpath expr="//filter[@name='my_sale_orders_filter']" position="after">
+        <separator/>
+        <filter name="auto_created" string="Auto Created" domain="[('is_auto_created', '=', True)]"/>
+        <filter name="from_retailer" string="From Retailer PO" domain="[('retailer_po_id', '!=', False)]"/>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- ============================================== -->
+  <!-- RETAIL ORDER MONITORING BASIC VIEWS (DEPRECATED) -->
+  <!-- ============================================== -->
+
+  <!-- Tree View -->
+  <record id="view_retail_order_tree" model="ir.ui.view">
+    <field name="name">distribution_channel.retail_order.tree</field>
+    <field name="model">distribution_channel.retail_order</field>
+    <field name="arch" type="xml">
+      <tree string="Retail Order Monitoring">
+        <field name="name"/>
+        <field name="retailer_company_id"/>
+        <field name="dc_company_id"/>
+        <field name="retailer_po_id"/>
+        <field name="dc_sales_order_id"/>
+        <field name="total_qty"/>
+        <field name="total_amount"/>
+        <field name="state"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Form View -->
+  <record id="view_retail_order_form" model="ir.ui.view">
+    <field name="name">distribution_channel.retail_order.form</field>
+    <field name="model">distribution_channel.retail_order</field>
+    <field name="arch" type="xml">
+      <form string="Retail Order Monitoring">
+        <header>
+          <field name="state" widget="statusbar"/>
+        </header>
+        <sheet>
+          <div class="oe_title">
+            <h1>
+              <field name="name" readonly="1"/>
+            </h1>
+          </div>
+
+          <group>
+            <group string="Companies">
+              <field name="retailer_company_id"/>
+              <field name="dc_company_id"/>
+            </group>
+            <group string="Summary">
+              <field name="total_qty"/>
+              <field name="total_amount"/>
+            </group>
+          </group>
+
+          <group string="Documents">
+            <group>
+              <field name="retailer_po_id" readonly="1"/>
+              <button name="action_open_retailer_po" 
+                      string="Open PO" 
+                      type="object" 
+                      class="oe_link"
+                      attrs="{'invisible': [('retailer_po_id', '=', False)]}"/>
+            </group>
+            <group>
+              <field name="dc_sales_order_id" readonly="1"/>
+              <button name="action_open_dc_so" 
+                      string="Open SO" 
+                      type="object" 
+                      class="oe_link"
+                      attrs="{'invisible': [('dc_sales_order_id', '=', False)]}"/>
+            </group>
+          </group>
+
+          <group string="Configuration">
+            <field name="orderpoint_id" readonly="1"/>
+          </group>
+
+          <notebook>
+            <page string="Notes">
+              <field name="notes" placeholder="Enter notes here..."/>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Search View -->
+  <record id="view_retail_order_search" model="ir.ui.view">
+    <field name="name">distribution_channel.retail_order.search</field>
+    <field name="model">distribution_channel.retail_order</field>
+    <field name="arch" type="xml">
+      <search string="Search Retail Orders">
+        <field name="name"/>
+        <field name="retailer_company_id"/>
+        <field name="dc_company_id"/>
+        <field name="retailer_po_id"/>
+        <field name="dc_sales_order_id"/>
+        
+        <separator/>
+        
+        <filter name="filter_po_created" string="PO Created" domain="[('state', '=', 'retailer_po_created')]"/>
+        <filter name="filter_so_created" string="SO Created" domain="[('state', '=', 'dc_so_created')]"/>
+        <filter name="filter_confirmed" string="Confirmed" domain="[('state', '=', 'dc_so_confirmed')]"/>
+        <filter name="filter_done" string="Done" domain="[('state', '=', 'completed')]"/>
+        
+        <separator/>
+        
+        <group expand="0" string="Group By">
+          <filter name="group_retailer" string="Retailer" context="{'group_by': 'retailer_company_id'}"/>
+          <filter name="group_dc" string="DC" context="{'group_by': 'dc_company_id'}"/>
+          <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <!-- Kanban View -->
+  <record id="view_retail_order_kanban" model="ir.ui.view">
+    <field name="name">distribution_channel.retail_order.kanban</field>
+    <field name="model">distribution_channel.retail_order</field>
+    <field name="arch" type="xml">
+      <kanban default_group_by="state">
+        <field name="name"/>
+        <field name="retailer_company_id"/>
+        <field name="dc_company_id"/>
+        <field name="total_qty"/>
+        <field name="total_amount"/>
+        <templates>
+          <t t-name="kanban-box">
+            <div class="oe_kanban_card">
+              <div class="oe_kanban_content">
+                <h4><field name="name"/></h4>
+                <div>
+                  <strong>Retailer:</strong> <field name="retailer_company_id"/>
+                </div>
+                <div>
+                  <strong>DC:</strong> <field name="dc_company_id"/>
+                </div>
+                <div>
+                  <strong>Qty:</strong> <field name="total_qty"/> | 
+                  <strong>Amount:</strong> <field name="total_amount"/>
+                </div>
+              </div>
+            </div>
+          </t>
+        </templates>
+      </kanban>
+    </field>
+  </record>
+
+  <!-- Graph View -->
+  <record id="view_retail_order_graph" model="ir.ui.view">
+    <field name="name">distribution_channel.retail_order.graph</field>
+    <field name="model">distribution_channel.retail_order</field>
+    <field name="arch" type="xml">
+      <graph string="Retail Orders Analysis" type="bar">
+        <field name="retailer_company_id" type="row"/>
+        <field name="total_qty" type="measure"/>
+        <field name="total_amount" type="measure"/>
+      </graph>
+    </field>
+  </record>
+
+  <!-- Pivot View -->
+  <record id="view_retail_order_pivot" model="ir.ui.view">
+    <field name="name">distribution_channel.retail_order.pivot</field>
+    <field name="model">distribution_channel.retail_order</field>
+    <field name="arch" type="xml">
+      <pivot string="Retail Orders Pivot">
+        <field name="retailer_company_id" type="row"/>
+        <field name="dc_company_id" type="col"/>
+        <field name="total_qty" type="measure"/>
+        <field name="total_amount" type="measure"/>
+      </pivot>
+    </field>
+  </record>
+
+  <!-- ============================================== -->
+  <!-- ACTIONS & MENUS -->
+  <!-- ============================================== -->
+
+  <!-- Action for Retail Order Monitoring -->
+  <record id="action_retail_order" model="ir.actions.act_window">
+    <field name="name">Retail Order Monitoring</field>
+    <field name="res_model">distribution_channel.retail_order</field>
+    <field name="view_mode">tree,form,kanban,graph,pivot</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        No retail orders found.
+      </p>
+    </field>
+  </record>
+
+  <!-- Menu Items -->
+  <menuitem id="menu_distribution_channel_root"
+            name="Distribution Channel"
+            sequence="100"/>
+
+  <menuitem id="menu_distribution_operations"
+            name="Operations"
+            parent="menu_distribution_channel_root"
+            sequence="10"/>
+
+  <menuitem id="menu_retail_order"
+            name="Retail Order Monitoring"
+            parent="menu_distribution_operations"
+            action="action_retail_order"
+            sequence="1"/>
+
+  <menuitem id="menu_configuration"
+            name="Configuration"
+            parent="menu_distribution_channel_root"
+            sequence="90"/>
+
+  <menuitem id="menu_reordering_rules"
+            name="Reordering Rules (with DC)"
+            parent="menu_configuration"
+            action="stock.action_orderpoint"
+            sequence="1"/>
+
+</odoo>
