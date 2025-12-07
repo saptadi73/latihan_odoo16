@@ -1,21 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+
+  <!-- Form View Inherit -->
+  <record id="view_warehouse_orderpoint_form_dc" model="ir.ui.view">
+    <field name="name">stock.warehouse.orderpoint.form.dc</field>
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//sheet" position="inside">
+        <div class="oe_button_box" name="button_box">
+          <button name="action_view_purchase_orders" type="object" class="oe_stat_button" icon="fa-shopping-cart"
+                  attrs="{'invisible': [('purchase_order_count', '=', 0)]}">
+            <field name="purchase_order_count" widget="statinfo" string="Purchase Orders"/>
+          </button>
+          <button name="action_view_monitors" type="object" class="oe_stat_button" icon="fa-line-chart"
+                  attrs="{'invisible': [('monitor_count', '=', 0)]}">
+            <field name="monitor_count" widget="statinfo" string="Monitors"/>
+          </button>
+          <button name="action_open_manual_replenish" type="object" class="oe_stat_button oe_highlight"
+                  icon="fa-plus" string="Manual Replenish"/>
+        </div>
+      </xpath>
+
+      <xpath expr="//field[@name='product_id']" position="after">
+        <separator string="Distribution Center Configuration" colspan="4"/>
+        <group colspan="4" col="4">
+          <field name="dc_company_id" options="{'no_create': True, 'no_open': True}"/>
+          <field name="dc_warehouse_id" options="{'no_create': True}"
+                 domain="[('company_id', '=', dc_company_id)]"
+                 attrs="{'invisible': [('dc_company_id', '=', False)]}"/>
+          <field name="auto_create_dc_so"
+                 attrs="{'invisible': [('dc_company_id', '=', False)]}"/>
+        </group>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- Search View - Hanya filter sederhana tanpa Python function -->
   <record id="view_warehouse_orderpoint_search_dc" model="ir.ui.view">
     <field name="name">stock.warehouse.orderpoint.search.dc</field>
     <field name="model">stock.warehouse.orderpoint</field>
     <field name="arch" type="xml">
       <search>
+        <field name="name"/>
         <field name="product_id"/>
         <field name="warehouse_id"/>
         <field name="location_id"/>
+        <field name="dc_company_id"/>
 
+        <separator/>
         <filter name="with_dc" string="With DC Company" domain="[('dc_company_id','!=',False)]"/>
         <filter name="auto_dc_so" string="Auto DC SO Enabled" domain="[('auto_create_dc_so','=',True)]"/>
 
+        <separator/>
         <group expand="0" string="Group By">
+          <filter name="group_product" string="Product" context="{'group_by':'product_id'}"/>
+          <filter name="group_warehouse" string="Warehouse" context="{'group_by':'warehouse_id'}"/>
           <filter name="group_dc_company" string="DC Company" context="{'group_by':'dc_company_id'}"/>
         </group>
       </search>
     </field>
   </record>
+
 </odoo>

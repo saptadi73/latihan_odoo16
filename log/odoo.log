@@ -2841,3 +2841,1935 @@ FileNotFoundError: File not found: distribution_channel\wizard/replenish_wizard_
 2025-12-07 08:02:53,865 12976 INFO demo_dc odoo.service.server: Initiating shutdown 
 2025-12-07 08:02:53,865 12976 INFO demo_dc odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
 2025-12-07 08:02:53,865 12976 INFO demo_dc odoo.sql_db: ConnectionPool(used=0/count=0/max=64): Closed 1 connections  
+2025-12-07 08:03:17,674 2840 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:03:17,674 2840 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:03:17,674 2840 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:03:17,674 2840 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:03:17,987 2840 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:03:18,282 2840 INFO ? odoo.service.server: HTTP service (werkzeug) running on ThinkpadSaptadi:8069 
+2025-12-07 08:03:18,595 2840 INFO ? odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:03:18,600 2840 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+2025-12-07 08:03:18,678 2840 INFO ? odoo.modules.loading: loading 65 modules... 
+2025-12-07 08:03:20,378 2840 INFO ? odoo.modules.loading: 65 modules loaded in 1.70s, 0 queries (+0 extra) 
+2025-12-07 08:03:20,537 2840 INFO ? odoo.modules.loading: Modules loaded. 
+2025-12-07 08:03:20,549 2840 INFO ? odoo.modules.registry: Registry loaded in 2.029s 
+2025-12-07 08:03:20,550 2840 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:03:22,616 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:22] "GET /web HTTP/1.1" 200 - 105 0.217 3.883
+2025-12-07 08:03:23,341 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:23] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 6 0.000 0.019
+2025-12-07 08:03:23,863 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:23] "POST /mail/init_messaging HTTP/1.1" 200 - 54 0.142 0.035
+2025-12-07 08:03:23,877 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:23] "GET /websocket HTTP/1.1" 101 - 1 0.000 0.068
+2025-12-07 08:03:23,895 2840 INFO ? odoo.addons.bus.models.bus: Bus.loop listen imbus on db postgres 
+2025-12-07 08:03:24,295 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:24] "POST /mail/load_message_failures HTTP/1.1" 200 - 4 0.005 0.039
+2025-12-07 08:03:24,354 2840 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:03:24,355 2840 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:03:24,358 2840 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:03:24,358 2840 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:03:24,361 2840 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:03:24,362 2840 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:03:24,527 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:24] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 3 0.007 0.735
+2025-12-07 08:03:24,561 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:24] "POST /web/action/load HTTP/1.1" 200 - 11 0.028 1.218
+2025-12-07 08:03:50,705 2840 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:50] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 0.006
+2025-12-07 08:03:50,742 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:50] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 10 0.028 0.022
+2025-12-07 08:03:50,794 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:50] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 12 0.008 0.045
+2025-12-07 08:03:50,872 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:50] "POST /web/dataset/call_kw/ir.module.module/get_views HTTP/1.1" 200 - 44 0.061 0.139
+2025-12-07 08:03:50,955 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:50] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.009 0.006
+2025-12-07 08:03:51,138 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:51] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 42 0.054 0.026
+2025-12-07 08:03:51,223 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:51] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.008 0.009
+2025-12-07 08:03:51,232 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:51] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.003 0.024
+2025-12-07 08:03:55,137 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:55] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 39 0.022 0.041
+2025-12-07 08:03:55,466 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:55] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 2 0.010 0.006
+2025-12-07 08:03:57,392 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:57] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 39 0.041 0.040
+2025-12-07 08:03:57,721 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:03:57] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.011 0.006
+2025-12-07 08:03:58,509 2840 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_immediate_install on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:03:58,509 2840 INFO demo_dc odoo.addons.base.models.ir_module: User #2 triggered module installation 
+2025-12-07 08:03:58,520 2840 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:03:58,636 2840 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:03:58,640 2840 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra) 
+2025-12-07 08:03:58,687 2840 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:03:58,687 2840 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via 127.0.0.1 
+2025-12-07 08:03:59,662 2840 INFO demo_dc odoo.modules.loading: loading 65 modules... 
+2025-12-07 08:03:59,748 2840 INFO demo_dc odoo.modules.loading: 65 modules loaded in 0.09s, 0 queries (+0 extra) 
+2025-12-07 08:03:59,750 2840 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:03:59,750 2840 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:03:59,963 2840 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:04:00,846 2840 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:04:00,883 2840 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:04:00,927 2840 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:04:00,940 2840 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:04:00,956 2840 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/dc_monitor_views.xml 
+2025-12-07 08:04:01,020 2840 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/purchase_order_views.xml 
+2025-12-07 08:04:01,067 2840 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/sale_order_views.xml 
+2025-12-07 08:04:01,138 2840 INFO demo_dc odoo.modules.loading: loading distribution_channel/wizard/replenish_wizard_views.xml 
+2025-12-07 08:04:01,215 2840 INFO demo_dc odoo.modules.loading: Module distribution_channel loaded in 1.47s, 388 queries (+388 other) 
+2025-12-07 08:04:01,215 2840 INFO demo_dc odoo.modules.loading: 66 modules loaded in 1.47s, 388 queries (+388 extra) 
+2025-12-07 08:04:02,821 2840 INFO demo_dc odoo.modules.loading: Modules loaded. 
+2025-12-07 08:04:02,865 2840 INFO demo_dc odoo.modules.registry: Registry loaded in 4.239s 
+2025-12-07 08:04:02,867 2840 INFO demo_dc odoo.addons.base.models.ir_module: getting next ir.actions.todo() 
+2025-12-07 08:04:02,877 2840 INFO demo_dc odoo.modules.registry: Registry changed, signaling through the database 
+2025-12-07 08:04:02,877 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:02] "POST /web/dataset/call_button HTTP/1.1" 200 - 2485 2.312 2.062
+2025-12-07 08:04:03,223 2840 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:04:04,897 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:04] "GET /web HTTP/1.1" 200 - 88 0.126 1.556
+2025-12-07 08:04:04,949 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:04] "GET /web/webclient/load_menus/0af5d97dd54f35bf5c418181b1bfa004da77e57fccbee80c5ef16c90317728e7 HTTP/1.1" 200 - 2 0.002 0.014
+2025-12-07 08:04:04,956 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:04] "GET /web/webclient/translations/30bd0de6a39297ae326fc80ecef76a1b4d3701b0?lang=en_US HTTP/1.1" 200 - 3 0.005 0.010
+2025-12-07 08:04:05,991 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:05] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 3 0.007 0.012
+2025-12-07 08:04:06,039 2840 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:06] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 0.008
+2025-12-07 08:04:06,193 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:06] "POST /mail/init_messaging HTTP/1.1" 200 - 54 0.147 0.110
+2025-12-07 08:04:06,222 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:06] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 5 0.011 0.176
+2025-12-07 08:04:06,252 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:06] "POST /web/action/load HTTP/1.1" 200 - 8 0.048 0.185
+2025-12-07 08:04:06,295 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:06] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 15 0.072 0.200
+2025-12-07 08:04:06,553 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:06] "POST /mail/load_message_failures HTTP/1.1" 200 - 3 0.000 0.016
+2025-12-07 08:04:06,566 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:06] "GET /websocket HTTP/1.1" 101 - 1 0.013 0.000
+2025-12-07 08:04:06,654 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:06] "POST /mail/inbox/messages HTTP/1.1" 200 - 8 0.056 0.015
+2025-12-07 08:04:06,702 2840 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:04:06] "GET /web/image/res.partner/2/avatar_128 HTTP/1.1" 304 - 7 0.039 0.027
+2025-12-07 08:04:18,334 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `DC: Auto-Create Sales Orders`. 
+2025-12-07 08:04:18,334 2840 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:04:18,334 2840 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON START: Auto-create DC SO 
+2025-12-07 08:04:18,346 2840 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: Found 0 PO candidates 
+2025-12-07 08:04:18,346 2840 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON END: 0 DC SO created 
+2025-12-07 08:04:18,346 2840 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:04:18,346 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Job `DC: Auto-Create Sales Orders` done. 
+2025-12-07 08:05:18,403 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `Base: Auto-vacuum internal data`. 
+2025-12-07 08:05:18,676 2840 INFO demo_dc odoo.addons.base.models.ir_attachment: filestore gc 105 checked, 7 removed 
+2025-12-07 08:05:19,068 2840 INFO demo_dc odoo.addons.base.models.res_users: GC'd 1 user log entries 
+2025-12-07 08:05:19,167 2840 INFO demo_dc odoo.models.unlink: User #1 deleted base.language.install records with IDs: [1] 
+2025-12-07 08:05:19,211 2840 INFO demo_dc odoo.addons.auth_totp.models.auth_totp: GC'd 0 totp devices entries 
+2025-12-07 08:05:19,243 2840 INFO demo_dc odoo.models.unlink: User #1 deleted bus.bus records with IDs: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69] 
+2025-12-07 08:05:19,835 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Job `Base: Auto-vacuum internal data` done. 
+2025-12-07 08:06:19,853 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `payment: post-process transactions`. 
+2025-12-07 08:06:19,867 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Job `payment: post-process transactions` done. 
+2025-12-07 08:06:19,910 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `Mail: Email Queue Manager`. 
+2025-12-07 08:06:19,940 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Job `Mail: Email Queue Manager` done. 
+2025-12-07 08:06:19,948 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `Notification: Send scheduled message notifications`. 
+2025-12-07 08:06:19,948 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Job `Notification: Send scheduled message notifications` done. 
+2025-12-07 08:06:19,964 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `Partner Autocomplete : Sync with remote DB`. 
+2025-12-07 08:06:19,964 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Job `Partner Autocomplete : Sync with remote DB` done. 
+2025-12-07 08:06:19,983 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `SMS: SMS Queue Manager`. 
+2025-12-07 08:06:19,987 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Job `SMS: SMS Queue Manager` done. 
+2025-12-07 08:06:19,997 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `Snailmail: process letters queue`. 
+2025-12-07 08:06:20,012 2840 INFO demo_dc odoo.addons.base.models.ir_cron: Job `Snailmail: process letters queue` done. 
+2025-12-07 08:11:31,003 19936 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:11:31,003 19936 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:11:31,003 19936 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:11:31,003 19936 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:11:31,324 19936 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:11:31,794 19936 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:11:31,800 19936 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+2025-12-07 08:11:31,829 19936 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:11:31,829 19936 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via n/a 
+2025-12-07 08:11:32,129 19936 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:11:32,129 19936 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:11:32,129 19936 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:11:33,504 19936 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:11:33,504 19936 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:11:34,483 19936 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user __system__ #1 via n/a 
+2025-12-07 08:11:34,541 19936 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:11:36,169 19936 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:11:36,546 19936 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:11:36,932 19936 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:11:37,035 19936 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:11:37,047 19936 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:11:37,112 19936 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:11:37,134 19936 WARNING demo_dc odoo.modules.loading: Transient module states were reset 
+2025-12-07 08:11:37,134 19936 ERROR demo_dc odoo.modules.registry: Failed to load registry 
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 85, in lookup
+    r = d[key]
+        ~^^^^^
+  File "<decorator-gen-8>", line 2, in __getitem__
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\lru.py", line 34, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: ('ir.model.data', <function IrModelData._xmlid_lookup at 0x000001C23F01E520>, 'stock.view_warehouse_orderpoint_tree')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 706, in _tag_root
+    f(rec)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 576, in _tag_record
+    f_val = self.id_get(f_ref, raise_if_not_found=nodeattr2bool(rec, 'forcecreate', True))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 689, in id_get
+    res = self.model_id_get(id_str, raise_if_not_found)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 695, in model_id_get
+    return self.env['ir.model.data']._xmlid_to_res_model_res_id(id_str, raise_if_not_found=raise_if_not_found)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2059, in _xmlid_to_res_model_res_id
+    return self._xmlid_lookup(xmlid)[1:3]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-43>", line 2, in _xmlid_lookup
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 90, in lookup
+    value = d[key] = self.method(*args, **kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2052, in _xmlid_lookup
+    raise ValueError('External ID not found in the system: %s' % xmlid)
+ValueError: External ID not found in the system: stock.view_warehouse_orderpoint_tree
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\modules\registry.py", line 87, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(cr, graph,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 374, in load_marked_modules
+    loaded, processed = load_module_graph(
+                        ^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 233, in load_module_graph
+    load_data(cr, idref, mode, kind='data', package=package)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 73, in load_data
+    tools.convert_file(cr, package.name, filename, idref, mode, noupdate, kind)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 771, in convert_file
+    convert_xml_import(cr, module, fp, idref, mode, noupdate)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 837, in convert_xml_import
+    obj.parse(doc.getroot())
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 757, in parse
+    self._tag_root(de)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 719, in _tag_root
+    raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo.tools.convert.ParseError: while parsing file:/c:/latihanodoo/distribution_channel/views/stock_orderpoint_views.xml:40, somewhere inside
+<record id="view_warehouse_orderpoint_tree_dc" model="ir.ui.view">
+    <field name="name">stock.warehouse.orderpoint.tree.dc</field>
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='product_id']" position="after">
+        <field name="dc_company_id" optional="show"/>
+        <field name="dc_warehouse_id" optional="hide"/>
+        <field name="auto_create_dc_so" optional="hide"/>
+      </xpath>
+    </field>
+  </record>
+2025-12-07 08:11:37,146 19936 CRITICAL demo_dc odoo.service.server: Failed to initialize database `demo_dc`. 
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 85, in lookup
+    r = d[key]
+        ~^^^^^
+  File "<decorator-gen-8>", line 2, in __getitem__
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\lru.py", line 34, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: ('ir.model.data', <function IrModelData._xmlid_lookup at 0x000001C23F01E520>, 'stock.view_warehouse_orderpoint_tree')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 706, in _tag_root
+    f(rec)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 576, in _tag_record
+    f_val = self.id_get(f_ref, raise_if_not_found=nodeattr2bool(rec, 'forcecreate', True))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 689, in id_get
+    res = self.model_id_get(id_str, raise_if_not_found)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 695, in model_id_get
+    return self.env['ir.model.data']._xmlid_to_res_model_res_id(id_str, raise_if_not_found=raise_if_not_found)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2059, in _xmlid_to_res_model_res_id
+    return self._xmlid_lookup(xmlid)[1:3]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-43>", line 2, in _xmlid_lookup
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 90, in lookup
+    value = d[key] = self.method(*args, **kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2052, in _xmlid_lookup
+    raise ValueError('External ID not found in the system: %s' % xmlid)
+ValueError: External ID not found in the system: stock.view_warehouse_orderpoint_tree
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\service\server.py", line 1333, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-16>", line 2, in new
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\registry.py", line 87, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(cr, graph,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 374, in load_marked_modules
+    loaded, processed = load_module_graph(
+                        ^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 233, in load_module_graph
+    load_data(cr, idref, mode, kind='data', package=package)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 73, in load_data
+    tools.convert_file(cr, package.name, filename, idref, mode, noupdate, kind)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 771, in convert_file
+    convert_xml_import(cr, module, fp, idref, mode, noupdate)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 837, in convert_xml_import
+    obj.parse(doc.getroot())
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 757, in parse
+    self._tag_root(de)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 719, in _tag_root
+    raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo.tools.convert.ParseError: while parsing file:/c:/latihanodoo/distribution_channel/views/stock_orderpoint_views.xml:40, somewhere inside
+<record id="view_warehouse_orderpoint_tree_dc" model="ir.ui.view">
+    <field name="name">stock.warehouse.orderpoint.tree.dc</field>
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='product_id']" position="after">
+        <field name="dc_company_id" optional="show"/>
+        <field name="dc_warehouse_id" optional="hide"/>
+        <field name="auto_create_dc_so" optional="hide"/>
+      </xpath>
+    </field>
+  </record>
+2025-12-07 08:11:37,162 19936 INFO demo_dc odoo.service.server: Initiating shutdown 
+2025-12-07 08:11:37,162 19936 INFO demo_dc odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2025-12-07 08:11:37,175 19936 INFO demo_dc odoo.sql_db: ConnectionPool(used=0/count=0/max=64): Closed 1 connections  
+2025-12-07 08:11:49,847 3972 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:11:49,847 3972 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:11:49,847 3972 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:11:49,847 3972 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:11:50,204 3972 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:11:50,717 3972 INFO ? odoo.service.server: HTTP service (werkzeug) running on ThinkpadSaptadi:8069 
+2025-12-07 08:12:42,120 3972 INFO ? odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:12:42,140 3972 INFO ? odoo.modules.loading: 1 modules loaded in 0.02s, 0 queries (+0 extra) 
+2025-12-07 08:12:42,228 3972 INFO ? odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:12:43,647 3972 INFO ? odoo.modules.loading: 66 modules loaded in 1.42s, 0 queries (+0 extra) 
+2025-12-07 08:12:43,826 3972 INFO ? odoo.modules.loading: Modules loaded. 
+2025-12-07 08:12:43,834 3972 INFO ? odoo.modules.registry: Registry loaded in 1.756s 
+2025-12-07 08:12:43,836 3972 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:12:44,198 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:12:44] "GET /websocket HTTP/1.1" 101 - 22 0.037 2.086
+2025-12-07 08:12:44,214 3972 INFO ? odoo.addons.bus.models.bus: Bus.loop listen imbus on db postgres 
+2025-12-07 08:12:50,885 3972 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `DC: Auto-Create Sales Orders`. 
+2025-12-07 08:12:50,913 3972 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:12:50,913 3972 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON START: Auto-create DC SO 
+2025-12-07 08:12:50,919 3972 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: Found 0 PO candidates 
+2025-12-07 08:12:50,919 3972 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON END: 0 DC SO created 
+2025-12-07 08:12:50,919 3972 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:12:50,919 3972 INFO demo_dc odoo.addons.base.models.ir_cron: Job `DC: Auto-Create Sales Orders` done. 
+2025-12-07 08:13:09,768 3972 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:13:09,768 3972 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:13:09,778 3972 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:13:09,921 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:09] "POST /web/action/load HTTP/1.1" 200 - 12 0.028 0.866
+2025-12-07 08:13:10,132 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:10] "POST /web/dataset/call_kw/ir.module.module/get_views HTTP/1.1" 200 - 47 0.100 0.083
+2025-12-07 08:13:10,508 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:10] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 4 0.010 0.013
+2025-12-07 08:13:10,626 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:10] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 41 0.064 0.084
+2025-12-07 08:13:15,314 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:15] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 39 0.037 0.038
+2025-12-07 08:13:15,665 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:15] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 2 0.012 0.002
+2025-12-07 08:13:17,619 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:17] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 39 0.065 0.030
+2025-12-07 08:13:17,964 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:17] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.006 0.004
+2025-12-07 08:13:20,899 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:20] "POST /web/dataset/call_kw/ir.module.module/read HTTP/1.1" 200 - 13 0.047 0.467
+2025-12-07 08:13:21,253 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:21] "POST /web/dataset/call_kw/ir.module.module.dependency/read HTTP/1.1" 200 - 4 0.006 0.016
+2025-12-07 08:13:22,015 3972 INFO demo_dc odoo.addons.base.models.assetsbundle: Failed to find attachment for assets /web/assets/%-07e31ff/web_editor.assets_wysiwyg.min.css 
+2025-12-07 08:13:24,446 3972 INFO demo_dc odoo.addons.base.models.assetsbundle: Failed to find attachment for assets /web/assets/%-07e31ff/web_editor.assets_wysiwyg.min.js 
+2025-12-07 08:13:24,790 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:24] "POST /web/dataset/call_kw/ir.module.module/read HTTP/1.1" 200 - 11 0.011 0.113
+2025-12-07 08:13:25,126 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:25] "POST /web/dataset/call_kw/ir.module.module.dependency/read HTTP/1.1" 200 - 4 0.012 0.002
+2025-12-07 08:13:26,672 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:26] "GET /web/bundle/web_editor.assets_wysiwyg?lang=en_US&debug=1 HTTP/1.1" 200 - 21 0.063 5.106
+2025-12-07 08:13:27,064 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:27] "GET /web/assets/126-07e31ff/web_editor.assets_wysiwyg.min.css HTTP/1.1" 200 - 5 0.013 0.048
+2025-12-07 08:13:27,611 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:27] "POST /web/dataset/call_kw/ir.module.module/read HTTP/1.1" 200 - 11 0.016 0.038
+2025-12-07 08:13:27,933 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:27] "POST /web/dataset/call_kw/ir.module.module.dependency/read HTTP/1.1" 200 - 4 0.009 0.002
+2025-12-07 08:13:28,019 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:28] "GET /web/assets/127-07e31ff/web_editor.assets_wysiwyg.min.js HTTP/1.1" 200 - 4 0.012 0.998
+2025-12-07 08:13:28,458 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:28] "GET /web/image?model=ir.module.module&id=64&field=icon_image&unique=1765094641000 HTTP/1.1" 200 - 4 0.000 0.012
+2025-12-07 08:13:32,109 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:32] "POST /web/action/load HTTP/1.1" 200 - 10 0.040 0.023
+2025-12-07 08:13:32,459 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:32] "POST /web/dataset/call_kw/base.module.update/get_views HTTP/1.1" 200 - 9 0.017 0.023
+2025-12-07 08:13:32,687 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:32] "POST /web/dataset/call_kw/base.module.update/onchange HTTP/1.1" 200 - 2 0.008 0.000
+2025-12-07 08:13:34,117 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:34] "POST /web/dataset/call_kw/base.module.update/create HTTP/1.1" 200 - 4 0.008 0.038
+2025-12-07 08:13:34,446 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:34] "POST /web/dataset/call_kw/base.module.update/read HTTP/1.1" 200 - 3 0.016 0.004
+2025-12-07 08:13:34,698 3972 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user admin #2 via 127.0.0.1 
+2025-12-07 08:13:35,836 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:35] "POST /web/dataset/call_button HTTP/1.1" 200 - 1205 0.649 0.494
+2025-12-07 08:13:41,812 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:41] "POST /web/action/load HTTP/1.1" 200 - 8 0.000 0.015
+2025-12-07 08:13:42,145 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:42] "POST /web/dataset/call_kw/ir.module.module/get_apps_server HTTP/1.1" 200 - 1 0.000 0.000
+2025-12-07 08:13:43,964 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:43] "POST /web/webclient/version_info HTTP/1.1" 200 - 1 0.002 0.004
+2025-12-07 08:13:44,361 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:44] "POST /web/dataset/call_kw/ir.module.module/search_read HTTP/1.1" 200 - 3 0.000 0.062
+2025-12-07 08:13:48,016 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:48] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 39 0.028 0.026
+2025-12-07 08:13:48,285 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:48] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.012 0.004
+2025-12-07 08:13:56,192 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:56] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 39 0.055 0.050
+2025-12-07 08:13:56,356 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:56] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 2 0.009 0.004
+2025-12-07 08:13:57,963 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:57] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 39 0.079 0.018
+2025-12-07 08:13:58,308 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:13:58] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.008 0.016
+2025-12-07 08:14:00,412 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:14:00] "POST /web/dataset/call_kw/ir.module.module/read HTTP/1.1" 200 - 11 0.015 0.024
+2025-12-07 08:14:00,743 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:14:00] "POST /web/dataset/call_kw/ir.module.module.dependency/read HTTP/1.1" 200 - 4 0.001 0.016
+2025-12-07 08:14:04,455 3972 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_immediate_upgrade on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:14:04,458 3972 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:14:04,458 3972 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:14:05,558 3972 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user admin #2 via 127.0.0.1 
+2025-12-07 08:14:05,626 3972 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:14:05,627 3972 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra) 
+2025-12-07 08:14:05,643 3972 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:14:05,659 3972 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via 127.0.0.1 
+2025-12-07 08:14:06,618 3972 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:14:06,665 3972 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:14:06,974 3972 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:14:07,213 3972 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:14:07,244 3972 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:14:07,244 3972 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:14:07,283 3972 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:14:07,310 3972 WARNING demo_dc odoo.modules.loading: Transient module states were reset 
+2025-12-07 08:14:07,334 3972 ERROR demo_dc odoo.modules.registry: Failed to load registry 
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 85, in lookup
+    r = d[key]
+        ~^^^^^
+  File "<decorator-gen-8>", line 2, in __getitem__
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\lru.py", line 34, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: ('ir.model.data', <function IrModelData._xmlid_lookup at 0x0000020323A22A20>, 'stock.view_warehouse_orderpoint_tree')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 706, in _tag_root
+    f(rec)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 576, in _tag_record
+    f_val = self.id_get(f_ref, raise_if_not_found=nodeattr2bool(rec, 'forcecreate', True))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 689, in id_get
+    res = self.model_id_get(id_str, raise_if_not_found)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 695, in model_id_get
+    return self.env['ir.model.data']._xmlid_to_res_model_res_id(id_str, raise_if_not_found=raise_if_not_found)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2059, in _xmlid_to_res_model_res_id
+    return self._xmlid_lookup(xmlid)[1:3]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-43>", line 2, in _xmlid_lookup
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 90, in lookup
+    value = d[key] = self.method(*args, **kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2052, in _xmlid_lookup
+    raise ValueError('External ID not found in the system: %s' % xmlid)
+ValueError: External ID not found in the system: stock.view_warehouse_orderpoint_tree
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\modules\registry.py", line 87, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(cr, graph,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 374, in load_marked_modules
+    loaded, processed = load_module_graph(
+                        ^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 233, in load_module_graph
+    load_data(cr, idref, mode, kind='data', package=package)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 73, in load_data
+    tools.convert_file(cr, package.name, filename, idref, mode, noupdate, kind)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 771, in convert_file
+    convert_xml_import(cr, module, fp, idref, mode, noupdate)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 837, in convert_xml_import
+    obj.parse(doc.getroot())
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 757, in parse
+    self._tag_root(de)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 719, in _tag_root
+    raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo.tools.convert.ParseError: while parsing file:/c:/latihanodoo/distribution_channel/views/stock_orderpoint_views.xml:40, somewhere inside
+<record id="view_warehouse_orderpoint_tree_dc" model="ir.ui.view">
+    <field name="name">stock.warehouse.orderpoint.tree.dc</field>
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='product_id']" position="after">
+        <field name="dc_company_id" optional="show"/>
+        <field name="dc_warehouse_id" optional="hide"/>
+        <field name="auto_create_dc_so" optional="hide"/>
+      </xpath>
+    </field>
+  </record>
+2025-12-07 08:14:07,341 3972 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:14:07,357 3972 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.02s, 0 queries (+0 extra) 
+2025-12-07 08:14:07,357 3972 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:14:07,500 3972 INFO demo_dc odoo.modules.loading: 66 modules loaded in 0.14s, 0 queries (+0 extra) 
+2025-12-07 08:14:07,658 3972 INFO demo_dc odoo.modules.loading: Modules loaded. 
+2025-12-07 08:14:07,667 3972 INFO demo_dc odoo.modules.registry: Registry loaded in 0.326s 
+2025-12-07 08:14:07,674 3972 ERROR demo_dc odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 85, in lookup
+    r = d[key]
+        ~^^^^^
+  File "<decorator-gen-8>", line 2, in __getitem__
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\lru.py", line 34, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: ('ir.model.data', <function IrModelData._xmlid_lookup at 0x0000020323A22A20>, 'stock.view_warehouse_orderpoint_tree')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 706, in _tag_root
+    f(rec)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 576, in _tag_record
+    f_val = self.id_get(f_ref, raise_if_not_found=nodeattr2bool(rec, 'forcecreate', True))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 689, in id_get
+    res = self.model_id_get(id_str, raise_if_not_found)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 695, in model_id_get
+    return self.env['ir.model.data']._xmlid_to_res_model_res_id(id_str, raise_if_not_found=raise_if_not_found)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2059, in _xmlid_to_res_model_res_id
+    return self._xmlid_lookup(xmlid)[1:3]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-43>", line 2, in _xmlid_lookup
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 90, in lookup
+    value = d[key] = self.method(*args, **kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2052, in _xmlid_lookup
+    raise ValueError('External ID not found in the system: %s' % xmlid)
+ValueError: External ID not found in the system: stock.view_warehouse_orderpoint_tree
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\http.py", line 2261, in __call__
+    response = request._serve_db()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\http.py", line 1848, in _serve_db
+    return service_model.retrying(self._serve_ir_http, self.env)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\service\model.py", line 152, in retrying
+    result = func()
+             ^^^^^^
+  File "C:\odoo16c\server\odoo\http.py", line 1876, in _serve_ir_http
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\http.py", line 2080, in dispatch
+    result = self.request.registry['ir.http']._dispatch(endpoint)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_http.py", line 154, in _dispatch
+    result = endpoint(**request.params)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\http.py", line 763, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\web\controllers\dataset.py", line 47, in call_button
+    action = self._call_kw(model, method, args, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\web\controllers\dataset.py", line 34, in _call_kw
+    return call_kw(Model, method, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\api.py", line 484, in call_kw
+    result = _call_kw_multi(method, model, args, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\api.py", line 469, in _call_kw_multi
+    result = method(recs, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-83>", line 2, in button_immediate_upgrade
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_module.py", line 74, in check_and_log
+    return method(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_module.py", line 669, in button_immediate_upgrade
+    return self._button_immediate_function(self.env.registry[self._name].button_upgrade)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_module.py", line 602, in _button_immediate_function
+    registry = modules.registry.Registry.new(self._cr.dbname, update_module=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-16>", line 2, in new
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\registry.py", line 87, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(cr, graph,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 374, in load_marked_modules
+    loaded, processed = load_module_graph(
+                        ^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 233, in load_module_graph
+    load_data(cr, idref, mode, kind='data', package=package)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 73, in load_data
+    tools.convert_file(cr, package.name, filename, idref, mode, noupdate, kind)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 771, in convert_file
+    convert_xml_import(cr, module, fp, idref, mode, noupdate)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 837, in convert_xml_import
+    obj.parse(doc.getroot())
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 757, in parse
+    self._tag_root(de)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 719, in _tag_root
+    raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo.tools.convert.ParseError: while parsing file:/c:/latihanodoo/distribution_channel/views/stock_orderpoint_views.xml:40, somewhere inside
+<record id="view_warehouse_orderpoint_tree_dc" model="ir.ui.view">
+    <field name="name">stock.warehouse.orderpoint.tree.dc</field>
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='product_id']" position="after">
+        <field name="dc_company_id" optional="show"/>
+        <field name="dc_warehouse_id" optional="hide"/>
+        <field name="auto_create_dc_so" optional="hide"/>
+      </xpath>
+    </field>
+  </record>
+2025-12-07 08:14:07,674 3972 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:14:07] "POST /web/dataset/call_button HTTP/1.1" 200 - 2580 1.540 1.693
+2025-12-07 08:14:50,948 3972 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `DC: Auto-Create Sales Orders`. 
+2025-12-07 08:14:50,951 3972 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:14:50,951 3972 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON START: Auto-create DC SO 
+2025-12-07 08:14:50,972 3972 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: Found 0 PO candidates 
+2025-12-07 08:14:50,972 3972 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON END: 0 DC SO created 
+2025-12-07 08:14:50,972 3972 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:14:50,972 3972 INFO demo_dc odoo.addons.base.models.ir_cron: Job `DC: Auto-Create Sales Orders` done. 
+2025-12-07 08:15:49,016 15968 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:15:49,016 15968 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:15:49,016 15968 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:15:49,016 15968 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:15:49,306 15968 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:15:49,890 15968 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:15:49,898 15968 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+2025-12-07 08:15:49,917 15968 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:15:49,929 15968 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via n/a 
+2025-12-07 08:15:50,251 15968 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:15:50,255 15968 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:15:50,257 15968 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:15:51,641 15968 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:15:51,641 15968 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:15:52,701 15968 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user __system__ #1 via n/a 
+2025-12-07 08:15:52,758 15968 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:15:54,400 15968 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:15:54,753 15968 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:15:55,117 15968 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:15:55,228 15968 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:15:55,233 15968 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:15:55,261 15968 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:15:55,303 15968 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/dc_monitor_views.xml 
+2025-12-07 08:15:55,375 15968 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/purchase_order_views.xml 
+2025-12-07 08:15:55,471 15968 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/sale_order_views.xml 
+2025-12-07 08:15:55,589 15968 INFO demo_dc odoo.modules.loading: loading distribution_channel/wizard/replenish_wizard_views.xml 
+2025-12-07 08:15:55,629 15968 INFO demo_dc odoo.modules.loading: Module distribution_channel loaded in 1.23s, 337 queries (+337 other) 
+2025-12-07 08:15:55,740 15968 INFO demo_dc odoo.modules.loading: 66 modules loaded in 2.98s, 337 queries (+337 extra) 
+2025-12-07 08:15:56,432 15968 INFO demo_dc odoo.modules.registry: verifying fields for every extended model 
+2025-12-07 08:15:57,294 15968 INFO demo_dc odoo.modules.loading: Modules loaded. 
+2025-12-07 08:15:57,331 15968 INFO demo_dc odoo.modules.registry: Registry loaded in 7.520s 
+2025-12-07 08:15:57,331 15968 INFO demo_dc odoo.service.server: Initiating shutdown 
+2025-12-07 08:15:57,331 15968 INFO demo_dc odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2025-12-07 08:15:57,331 15968 INFO demo_dc odoo.sql_db: ConnectionPool(used=0/count=0/max=64): Closed 1 connections  
+2025-12-07 08:16:02,837 10368 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:16:02,837 10368 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:16:02,837 10368 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:16:02,837 10368 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:16:03,076 10368 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:16:03,427 10368 INFO ? odoo.service.server: HTTP service (werkzeug) running on ThinkpadSaptadi:8069 
+2025-12-07 08:16:04,471 10368 INFO ? odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:16:04,488 10368 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+2025-12-07 08:16:04,593 10368 INFO ? odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:16:06,626 10368 INFO ? odoo.modules.loading: 66 modules loaded in 2.03s, 0 queries (+0 extra) 
+2025-12-07 08:16:06,831 10368 INFO ? odoo.modules.loading: Modules loaded. 
+2025-12-07 08:16:06,842 10368 INFO ? odoo.modules.registry: Registry loaded in 2.587s 
+2025-12-07 08:16:06,842 10368 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:16:08,997 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:08] "GET /web HTTP/1.1" 200 - 105 0.208 4.543
+2025-12-07 08:16:10,096 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:10] "POST /mail/init_messaging HTTP/1.1" 200 - 54 0.127 0.052
+2025-12-07 08:16:10,158 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:10] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 15 0.048 0.068
+2025-12-07 08:16:10,427 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:10] "POST /mail/load_message_failures HTTP/1.1" 200 - 4 0.019 0.000
+2025-12-07 08:16:10,509 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:10] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 6 0.016 0.018
+2025-12-07 08:16:10,909 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:10] "GET /websocket HTTP/1.1" 101 - 1 0.000 0.008
+2025-12-07 08:16:10,955 10368 INFO ? odoo.addons.bus.models.bus: Bus.loop listen imbus on db postgres 
+2025-12-07 08:16:11,580 10368 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:16:11,580 10368 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:16:11,580 10368 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:16:11,580 10368 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:16:11,580 10368 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:16:11,580 10368 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:16:11,580 10368 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:16:11,596 10368 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:16:11,596 10368 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:16:11,596 10368 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:16:11,596 10368 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:16:11,945 10368 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:11] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 1.925
+2025-12-07 08:16:11,962 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:11] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 3 0.018 1.989
+2025-12-07 08:16:11,996 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:11] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 10 0.018 2.022
+2025-12-07 08:16:12,031 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:12] "POST /web/action/load HTTP/1.1" 200 - 11 0.029 2.401
+2025-12-07 08:16:12,346 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:12] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.016 0.015
+2025-12-07 08:16:12,458 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:12] "POST /web/dataset/call_kw/ir.module.module/get_views HTTP/1.1" 200 - 44 0.043 0.067
+2025-12-07 08:16:12,676 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:12] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.000 0.022
+2025-12-07 08:16:13,182 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:13] "POST /web/dataset/call_kw/ir.module.module/read HTTP/1.1" 200 - 14 0.058 0.332
+2025-12-07 08:16:13,519 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:13] "POST /web/dataset/call_kw/ir.module.module.dependency/read HTTP/1.1" 200 - 4 0.000 0.014
+2025-12-07 08:16:14,069 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:14] "GET /web/bundle/web_editor.assets_wysiwyg?lang=en_US&debug=1 HTTP/1.1" 200 - 11 0.004 0.304
+2025-12-07 08:16:14,209 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:14] "GET /web/image?model=ir.module.module&id=64&field=icon_image&unique=1765095355000 HTTP/1.1" 200 - 4 0.009 0.009
+2025-12-07 08:16:28,524 10368 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_immediate_upgrade on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:16:28,524 10368 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:16:28,524 10368 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:16:29,130 10368 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user admin #2 via 127.0.0.1 
+2025-12-07 08:16:29,162 10368 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:16:29,162 10368 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra) 
+2025-12-07 08:16:29,185 10368 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:16:29,185 10368 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via 127.0.0.1 
+2025-12-07 08:16:29,750 10368 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:16:29,781 10368 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:16:29,962 10368 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:16:30,115 10368 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:16:30,115 10368 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:16:30,131 10368 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:16:30,162 10368 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:16:30,201 10368 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/dc_monitor_views.xml 
+2025-12-07 08:16:30,307 10368 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/purchase_order_views.xml 
+2025-12-07 08:16:30,368 10368 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/sale_order_views.xml 
+2025-12-07 08:16:30,448 10368 INFO demo_dc odoo.modules.loading: loading distribution_channel/wizard/replenish_wizard_views.xml 
+2025-12-07 08:16:30,489 10368 INFO demo_dc odoo.modules.loading: Module distribution_channel loaded in 0.71s, 344 queries (+344 other) 
+2025-12-07 08:16:30,489 10368 INFO demo_dc odoo.modules.loading: 66 modules loaded in 0.74s, 344 queries (+344 extra) 
+2025-12-07 08:16:30,862 10368 INFO demo_dc odoo.modules.registry: verifying fields for every extended model 
+2025-12-07 08:16:31,326 10368 INFO demo_dc odoo.modules.loading: Modules loaded. 
+2025-12-07 08:16:31,326 10368 INFO demo_dc odoo.modules.registry: Registry loaded in 2.180s 
+2025-12-07 08:16:31,326 10368 INFO demo_dc odoo.addons.base.models.ir_module: getting next ir.actions.todo() 
+2025-12-07 08:16:31,340 10368 INFO demo_dc odoo.modules.registry: Registry changed, signaling through the database 
+2025-12-07 08:16:31,340 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:31] "POST /web/dataset/call_button HTTP/1.1" 200 - 3696 1.333 1.483
+2025-12-07 08:16:31,359 10368 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:16:32,272 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:32] "GET /web HTTP/1.1" 200 - 88 0.024 0.891
+2025-12-07 08:16:32,725 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:32] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 6 0.002 0.009
+2025-12-07 08:16:33,093 10368 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:33] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 0.019
+2025-12-07 08:16:33,179 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:33] "POST /mail/init_messaging HTTP/1.1" 200 - 54 0.064 0.074
+2025-12-07 08:16:33,189 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:33] "GET /websocket HTTP/1.1" 101 - 1 0.000 0.115
+2025-12-07 08:16:33,193 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:33] "POST /web/action/load HTTP/1.1" 200 - 9 0.011 0.109
+2025-12-07 08:16:33,193 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:33] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 4 0.015 0.104
+2025-12-07 08:16:33,232 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:33] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 15 0.043 0.115
+2025-12-07 08:16:33,308 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:33] "POST /mail/load_message_failures HTTP/1.1" 200 - 3 0.000 0.000
+2025-12-07 08:16:33,519 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:33] "POST /mail/inbox/messages HTTP/1.1" 200 - 8 0.009 0.005
+2025-12-07 08:16:33,537 10368 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:16:33] "GET /web/image/res.partner/2/avatar_128 HTTP/1.1" 304 - 7 0.000 0.015
+2025-12-07 08:17:03,469 10368 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `Base: Auto-vacuum internal data`. 
+2025-12-07 08:17:03,500 10368 INFO demo_dc odoo.addons.base.models.ir_attachment: filestore gc 2 checked, 0 removed 
+2025-12-07 08:17:03,576 10368 INFO demo_dc odoo.addons.base.models.res_users: GC'd 0 user log entries 
+2025-12-07 08:17:03,602 10368 INFO demo_dc odoo.models.unlink: User #1 deleted base.module.update records with IDs: [1, 2, 3, 4] 
+2025-12-07 08:17:03,624 10368 INFO demo_dc odoo.addons.auth_totp.models.auth_totp: GC'd 0 totp devices entries 
+2025-12-07 08:17:03,641 10368 INFO demo_dc odoo.models.unlink: User #1 deleted bus.bus records with IDs: [70, 71, 72, 73, 74, 75] 
+2025-12-07 08:17:03,926 10368 INFO demo_dc odoo.addons.base.models.ir_cron: Job `Base: Auto-vacuum internal data` done. 
+2025-12-07 08:17:03,940 10368 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `payment: post-process transactions`. 
+2025-12-07 08:17:03,958 10368 INFO demo_dc odoo.addons.base.models.ir_cron: Job `payment: post-process transactions` done. 
+2025-12-07 08:18:03,969 10368 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `Base: Auto-vacuum internal data`. 
+2025-12-07 08:18:03,994 10368 INFO demo_dc odoo.addons.base.models.ir_attachment: filestore gc 0 checked, 0 removed 
+2025-12-07 08:18:04,056 10368 INFO demo_dc odoo.addons.base.models.res_users: GC'd 0 user log entries 
+2025-12-07 08:18:04,088 10368 INFO demo_dc odoo.addons.auth_totp.models.auth_totp: GC'd 0 totp devices entries 
+2025-12-07 08:18:04,127 10368 INFO demo_dc odoo.models.unlink: User #1 deleted bus.bus records with IDs: [76, 77] 
+2025-12-07 08:18:04,379 10368 INFO demo_dc odoo.addons.base.models.ir_cron: Job `Base: Auto-vacuum internal data` done. 
+2025-12-07 08:19:04,391 10368 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `DC: Auto-Create Sales Orders`. 
+2025-12-07 08:19:04,395 10368 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:19:04,395 10368 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON START: Auto-create DC SO 
+2025-12-07 08:19:04,400 10368 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: Found 0 PO candidates 
+2025-12-07 08:19:04,400 10368 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON END: 0 DC SO created 
+2025-12-07 08:19:04,400 10368 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:19:04,401 10368 INFO demo_dc odoo.addons.base.models.ir_cron: Job `DC: Auto-Create Sales Orders` done. 
+2025-12-07 08:20:34,961 17992 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:20:34,961 17992 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:20:34,961 17992 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:20:34,961 17992 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:20:35,143 17992 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:20:35,441 17992 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:20:35,458 17992 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.02s, 0 queries (+0 extra) 
+2025-12-07 08:20:35,475 17992 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:20:35,475 17992 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via n/a 
+2025-12-07 08:20:35,675 17992 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:20:35,675 17992 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:20:35,675 17992 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:20:36,529 17992 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:20:36,529 17992 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:20:37,094 17992 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user __system__ #1 via n/a 
+2025-12-07 08:20:37,125 17992 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:20:38,058 17992 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:20:38,239 17992 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:20:38,430 17992 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:20:38,512 17992 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:20:38,512 17992 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:20:38,525 17992 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:20:38,573 17992 WARNING demo_dc odoo.modules.loading: Transient module states were reset 
+2025-12-07 08:20:38,573 17992 ERROR demo_dc odoo.modules.registry: Failed to load registry 
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 85, in lookup
+    r = d[key]
+        ~^^^^^
+  File "<decorator-gen-8>", line 2, in __getitem__
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\lru.py", line 34, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: ('ir.model.data', <function IrModelData._xmlid_lookup at 0x0000029D62A16520>, 'stock.view_warehouse_orderpoint_tree')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 706, in _tag_root
+    f(rec)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 576, in _tag_record
+    f_val = self.id_get(f_ref, raise_if_not_found=nodeattr2bool(rec, 'forcecreate', True))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 689, in id_get
+    res = self.model_id_get(id_str, raise_if_not_found)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 695, in model_id_get
+    return self.env['ir.model.data']._xmlid_to_res_model_res_id(id_str, raise_if_not_found=raise_if_not_found)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2059, in _xmlid_to_res_model_res_id
+    return self._xmlid_lookup(xmlid)[1:3]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-43>", line 2, in _xmlid_lookup
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 90, in lookup
+    value = d[key] = self.method(*args, **kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2052, in _xmlid_lookup
+    raise ValueError('External ID not found in the system: %s' % xmlid)
+ValueError: External ID not found in the system: stock.view_warehouse_orderpoint_tree
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\modules\registry.py", line 87, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(cr, graph,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 374, in load_marked_modules
+    loaded, processed = load_module_graph(
+                        ^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 233, in load_module_graph
+    load_data(cr, idref, mode, kind='data', package=package)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 73, in load_data
+    tools.convert_file(cr, package.name, filename, idref, mode, noupdate, kind)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 771, in convert_file
+    convert_xml_import(cr, module, fp, idref, mode, noupdate)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 837, in convert_xml_import
+    obj.parse(doc.getroot())
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 757, in parse
+    self._tag_root(de)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 719, in _tag_root
+    raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo.tools.convert.ParseError: while parsing file:/c:/latihanodoo/distribution_channel/views/stock_orderpoint_views.xml:42, somewhere inside
+<record id="view_warehouse_orderpoint_tree_dc" model="ir.ui.view">
+    <field name="name">stock.warehouse.orderpoint.tree.dc</field>
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='product_id']" position="after">
+        <field name="dc_company_id"/>
+        <field name="dc_warehouse_id"/>
+        <field name="auto_create_dc_so"/>
+      </xpath>
+    </field>
+  </record>
+2025-12-07 08:20:38,573 17992 CRITICAL demo_dc odoo.service.server: Failed to initialize database `demo_dc`. 
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 85, in lookup
+    r = d[key]
+        ~^^^^^
+  File "<decorator-gen-8>", line 2, in __getitem__
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\lru.py", line 34, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: ('ir.model.data', <function IrModelData._xmlid_lookup at 0x0000029D62A16520>, 'stock.view_warehouse_orderpoint_tree')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 706, in _tag_root
+    f(rec)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 576, in _tag_record
+    f_val = self.id_get(f_ref, raise_if_not_found=nodeattr2bool(rec, 'forcecreate', True))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 689, in id_get
+    res = self.model_id_get(id_str, raise_if_not_found)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 695, in model_id_get
+    return self.env['ir.model.data']._xmlid_to_res_model_res_id(id_str, raise_if_not_found=raise_if_not_found)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2059, in _xmlid_to_res_model_res_id
+    return self._xmlid_lookup(xmlid)[1:3]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-43>", line 2, in _xmlid_lookup
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 90, in lookup
+    value = d[key] = self.method(*args, **kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2052, in _xmlid_lookup
+    raise ValueError('External ID not found in the system: %s' % xmlid)
+ValueError: External ID not found in the system: stock.view_warehouse_orderpoint_tree
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\service\server.py", line 1333, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-16>", line 2, in new
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\registry.py", line 87, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(cr, graph,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 374, in load_marked_modules
+    loaded, processed = load_module_graph(
+                        ^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 233, in load_module_graph
+    load_data(cr, idref, mode, kind='data', package=package)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 73, in load_data
+    tools.convert_file(cr, package.name, filename, idref, mode, noupdate, kind)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 771, in convert_file
+    convert_xml_import(cr, module, fp, idref, mode, noupdate)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 837, in convert_xml_import
+    obj.parse(doc.getroot())
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 757, in parse
+    self._tag_root(de)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 719, in _tag_root
+    raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo.tools.convert.ParseError: while parsing file:/c:/latihanodoo/distribution_channel/views/stock_orderpoint_views.xml:42, somewhere inside
+<record id="view_warehouse_orderpoint_tree_dc" model="ir.ui.view">
+    <field name="name">stock.warehouse.orderpoint.tree.dc</field>
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='product_id']" position="after">
+        <field name="dc_company_id"/>
+        <field name="dc_warehouse_id"/>
+        <field name="auto_create_dc_so"/>
+      </xpath>
+    </field>
+  </record>
+2025-12-07 08:20:38,573 17992 INFO demo_dc odoo.service.server: Initiating shutdown 
+2025-12-07 08:20:38,573 17992 INFO demo_dc odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2025-12-07 08:20:38,573 17992 INFO demo_dc odoo.sql_db: ConnectionPool(used=0/count=0/max=64): Closed 1 connections  
+2025-12-07 08:20:51,343 10692 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:20:51,344 10692 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:20:51,344 10692 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:20:51,344 10692 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:20:51,554 10692 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:20:51,848 10692 INFO ? odoo.service.server: HTTP service (werkzeug) running on ThinkpadSaptadi:8069 
+2025-12-07 08:21:03,903 10692 INFO ? odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:21:03,903 10692 INFO ? odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra) 
+2025-12-07 08:21:03,950 10692 INFO ? odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:21:05,021 10692 INFO ? odoo.modules.loading: 66 modules loaded in 1.07s, 0 queries (+0 extra) 
+2025-12-07 08:21:05,138 10692 INFO ? odoo.modules.loading: Modules loaded. 
+2025-12-07 08:21:05,138 10692 INFO ? odoo.modules.registry: Registry loaded in 1.282s 
+2025-12-07 08:21:05,138 10692 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:21:05,492 10692 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:21:05] "GET /websocket HTTP/1.1" 101 - 22 0.055 1.585
+2025-12-07 08:21:05,510 10692 INFO ? odoo.addons.bus.models.bus: Bus.loop listen imbus on db postgres 
+2025-12-07 08:21:30,584 16584 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:21:30,584 16584 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:21:30,584 16584 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:21:30,584 16584 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:21:30,768 16584 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:21:31,041 16584 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:21:31,051 16584 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+2025-12-07 08:21:31,069 16584 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:21:31,069 16584 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via n/a 
+2025-12-07 08:21:31,251 16584 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:21:31,268 16584 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:21:31,268 16584 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:21:31,972 16584 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:21:31,972 16584 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:21:32,396 16584 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user __system__ #1 via n/a 
+2025-12-07 08:21:32,428 16584 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:21:33,335 16584 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:21:33,569 16584 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:21:33,801 16584 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:21:33,891 16584 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:21:33,891 16584 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:21:33,917 16584 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:21:33,934 16584 WARNING demo_dc odoo.modules.loading: Transient module states were reset 
+2025-12-07 08:21:33,934 16584 ERROR demo_dc odoo.modules.registry: Failed to load registry 
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 85, in lookup
+    r = d[key]
+        ~^^^^^
+  File "<decorator-gen-8>", line 2, in __getitem__
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\lru.py", line 34, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: ('ir.model.data', <function IrModelData._xmlid_lookup at 0x000001A1B0826520>, 'stock.view_warehouse_orderpoint_tree')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 706, in _tag_root
+    f(rec)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 576, in _tag_record
+    f_val = self.id_get(f_ref, raise_if_not_found=nodeattr2bool(rec, 'forcecreate', True))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 689, in id_get
+    res = self.model_id_get(id_str, raise_if_not_found)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 695, in model_id_get
+    return self.env['ir.model.data']._xmlid_to_res_model_res_id(id_str, raise_if_not_found=raise_if_not_found)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2059, in _xmlid_to_res_model_res_id
+    return self._xmlid_lookup(xmlid)[1:3]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-43>", line 2, in _xmlid_lookup
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 90, in lookup
+    value = d[key] = self.method(*args, **kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2052, in _xmlid_lookup
+    raise ValueError('External ID not found in the system: %s' % xmlid)
+ValueError: External ID not found in the system: stock.view_warehouse_orderpoint_tree
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\modules\registry.py", line 87, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(cr, graph,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 374, in load_marked_modules
+    loaded, processed = load_module_graph(
+                        ^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 233, in load_module_graph
+    load_data(cr, idref, mode, kind='data', package=package)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 73, in load_data
+    tools.convert_file(cr, package.name, filename, idref, mode, noupdate, kind)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 771, in convert_file
+    convert_xml_import(cr, module, fp, idref, mode, noupdate)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 837, in convert_xml_import
+    obj.parse(doc.getroot())
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 757, in parse
+    self._tag_root(de)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 719, in _tag_root
+    raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo.tools.convert.ParseError: while parsing file:/c:/latihanodoo/distribution_channel/views/stock_orderpoint_views.xml:42, somewhere inside
+<record id="view_warehouse_orderpoint_tree_dc" model="ir.ui.view">
+    <field name="name">stock.warehouse.orderpoint.tree.dc</field>
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='product_id']" position="after">
+        <field name="dc_company_id"/>
+        <field name="dc_warehouse_id"/>
+        <field name="auto_create_dc_so"/>
+      </xpath>
+    </field>
+  </record>
+2025-12-07 08:21:33,934 16584 CRITICAL demo_dc odoo.service.server: Failed to initialize database `demo_dc`. 
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 85, in lookup
+    r = d[key]
+        ~^^^^^
+  File "<decorator-gen-8>", line 2, in __getitem__
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\lru.py", line 34, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: ('ir.model.data', <function IrModelData._xmlid_lookup at 0x000001A1B0826520>, 'stock.view_warehouse_orderpoint_tree')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 706, in _tag_root
+    f(rec)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 576, in _tag_record
+    f_val = self.id_get(f_ref, raise_if_not_found=nodeattr2bool(rec, 'forcecreate', True))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 689, in id_get
+    res = self.model_id_get(id_str, raise_if_not_found)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 695, in model_id_get
+    return self.env['ir.model.data']._xmlid_to_res_model_res_id(id_str, raise_if_not_found=raise_if_not_found)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2059, in _xmlid_to_res_model_res_id
+    return self._xmlid_lookup(xmlid)[1:3]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-43>", line 2, in _xmlid_lookup
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 90, in lookup
+    value = d[key] = self.method(*args, **kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2052, in _xmlid_lookup
+    raise ValueError('External ID not found in the system: %s' % xmlid)
+ValueError: External ID not found in the system: stock.view_warehouse_orderpoint_tree
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\service\server.py", line 1333, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-16>", line 2, in new
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\registry.py", line 87, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(cr, graph,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 374, in load_marked_modules
+    loaded, processed = load_module_graph(
+                        ^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 233, in load_module_graph
+    load_data(cr, idref, mode, kind='data', package=package)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 73, in load_data
+    tools.convert_file(cr, package.name, filename, idref, mode, noupdate, kind)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 771, in convert_file
+    convert_xml_import(cr, module, fp, idref, mode, noupdate)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 837, in convert_xml_import
+    obj.parse(doc.getroot())
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 757, in parse
+    self._tag_root(de)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 719, in _tag_root
+    raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo.tools.convert.ParseError: while parsing file:/c:/latihanodoo/distribution_channel/views/stock_orderpoint_views.xml:42, somewhere inside
+<record id="view_warehouse_orderpoint_tree_dc" model="ir.ui.view">
+    <field name="name">stock.warehouse.orderpoint.tree.dc</field>
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='product_id']" position="after">
+        <field name="dc_company_id"/>
+        <field name="dc_warehouse_id"/>
+        <field name="auto_create_dc_so"/>
+      </xpath>
+    </field>
+  </record>
+2025-12-07 08:21:33,934 16584 INFO demo_dc odoo.service.server: Initiating shutdown 
+2025-12-07 08:21:33,934 16584 INFO demo_dc odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2025-12-07 08:21:33,934 16584 INFO demo_dc odoo.sql_db: ConnectionPool(used=0/count=0/max=64): Closed 1 connections  
+2025-12-07 08:21:39,593 9436 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:21:39,593 9436 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:21:39,593 9436 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:21:39,593 9436 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:21:39,799 9436 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:21:40,093 9436 INFO ? odoo.service.server: HTTP service (werkzeug) running on ThinkpadSaptadi:8069 
+2025-12-07 08:21:42,312 9436 INFO ? odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:21:42,318 9436 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+2025-12-07 08:21:42,370 9436 INFO ? odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:21:43,435 9436 INFO ? odoo.modules.loading: 66 modules loaded in 1.07s, 0 queries (+0 extra) 
+2025-12-07 08:21:43,552 9436 INFO ? odoo.modules.loading: Modules loaded. 
+2025-12-07 08:21:43,555 9436 INFO ? odoo.modules.registry: Registry loaded in 1.284s 
+2025-12-07 08:21:43,555 9436 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:22:02,493 3520 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:22:02,493 3520 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:22:02,493 3520 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:22:02,493 3520 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:22:02,715 3520 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:22:02,978 3520 INFO ? odoo.service.server: HTTP service (werkzeug) running on ThinkpadSaptadi:8069 
+2025-12-07 08:22:03,471 3520 INFO ? odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:22:03,477 3520 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+2025-12-07 08:22:03,530 3520 INFO ? odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:22:04,551 3520 INFO ? odoo.modules.loading: 66 modules loaded in 1.02s, 0 queries (+0 extra) 
+2025-12-07 08:22:04,676 3520 INFO ? odoo.modules.loading: Modules loaded. 
+2025-12-07 08:22:04,692 3520 INFO ? odoo.modules.registry: Registry loaded in 1.265s 
+2025-12-07 08:22:04,692 3520 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:22:05,091 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:05] "GET /websocket HTTP/1.1" 101 - 22 0.041 1.626
+2025-12-07 08:22:05,091 3520 INFO ? odoo.addons.bus.models.bus: Bus.loop listen imbus on db postgres 
+2025-12-07 08:22:07,826 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:07] "GET /web HTTP/1.1" 200 - 82 0.068 0.894
+2025-12-07 08:22:08,438 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:08] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 5 0.004 0.008
+2025-12-07 08:22:08,908 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:08] "POST /mail/init_messaging HTTP/1.1" 200 - 52 0.082 0.064
+2025-12-07 08:22:08,920 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:08] "GET /websocket HTTP/1.1" 101 - 1 0.002 0.089
+2025-12-07 08:22:08,970 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:08] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 12 0.053 0.089
+2025-12-07 08:22:09,255 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:09] "POST /mail/load_message_failures HTTP/1.1" 200 - 4 0.009 0.007
+2025-12-07 08:22:09,573 3520 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:22:09,574 3520 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:22:09,574 3520 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:22:09,575 3520 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:22:09,579 3520 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:22:09,580 3520 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:22:09,580 3520 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:22:09,581 3520 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:22:09,583 3520 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:22:09,584 3520 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:22:09,584 3520 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:22:09,585 3520 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:22:09,839 3520 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:09] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 1.010
+2025-12-07 08:22:09,849 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:09] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 10 0.000 1.037
+2025-12-07 08:22:09,857 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:09] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 3 0.018 1.077
+2025-12-07 08:22:09,870 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:09] "POST /web/action/load HTTP/1.1" 200 - 8 0.014 1.433
+2025-12-07 08:22:10,179 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:10] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.000 0.016
+2025-12-07 08:22:10,179 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:10] "POST /mail/inbox/messages HTTP/1.1" 200 - 8 0.000 0.000
+2025-12-07 08:22:10,204 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:10] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.000 0.002
+2025-12-07 08:22:10,514 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:10] "GET /web/image/res.partner/2/avatar_128 HTTP/1.1" 304 - 7 0.001 0.016
+2025-12-07 08:22:13,250 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:13] "POST /web/action/load HTTP/1.1" 200 - 11 0.008 0.011
+2025-12-07 08:22:13,547 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:13] "POST /web/dataset/call_kw/ir.module.module/get_views HTTP/1.1" 200 - 44 0.033 0.034
+2025-12-07 08:22:13,617 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:13] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 42 0.035 0.013
+2025-12-07 08:22:13,879 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:13] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.000 0.000
+2025-12-07 08:22:17,676 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:17] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 39 0.020 0.028
+2025-12-07 08:22:17,899 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:17] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 2 0.007 0.000
+2025-12-07 08:22:19,395 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:19] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 39 0.024 0.025
+2025-12-07 08:22:19,713 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:19] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.000 0.002
+2025-12-07 08:22:22,168 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:22] "POST /web/dataset/call_kw/ir.module.module/read HTTP/1.1" 200 - 13 0.014 0.158
+2025-12-07 08:22:22,477 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:22] "POST /web/dataset/call_kw/ir.module.module.dependency/read HTTP/1.1" 200 - 4 0.000 0.000
+2025-12-07 08:22:22,922 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:22] "GET /web/bundle/web_editor.assets_wysiwyg?lang=en_US&debug=1 HTTP/1.1" 200 - 11 0.005 0.174
+2025-12-07 08:22:22,996 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:22] "GET /web/image?model=ir.module.module&id=64&field=icon_image&unique=1765095390000 HTTP/1.1" 200 - 4 0.006 0.003
+2025-12-07 08:22:25,294 3520 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_immediate_upgrade on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:22:25,294 3520 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:22:25,294 3520 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:22:25,977 3520 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user admin #2 via 127.0.0.1 
+2025-12-07 08:22:26,015 3520 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:22:26,015 3520 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra) 
+2025-12-07 08:22:26,031 3520 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:22:26,031 3520 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via 127.0.0.1 
+2025-12-07 08:22:26,694 3520 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:22:26,727 3520 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:22:26,945 3520 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:22:27,109 3520 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:22:27,204 3520 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:22:27,204 3520 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:22:27,236 3520 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:22:27,252 3520 WARNING demo_dc odoo.modules.loading: Transient module states were reset 
+2025-12-07 08:22:27,268 3520 ERROR demo_dc odoo.modules.registry: Failed to load registry 
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 85, in lookup
+    r = d[key]
+        ~^^^^^
+  File "<decorator-gen-8>", line 2, in __getitem__
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\lru.py", line 34, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: ('ir.model.data', <function IrModelData._xmlid_lookup at 0x0000029CA1182A20>, 'stock.view_warehouse_orderpoint_tree')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 706, in _tag_root
+    f(rec)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 576, in _tag_record
+    f_val = self.id_get(f_ref, raise_if_not_found=nodeattr2bool(rec, 'forcecreate', True))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 689, in id_get
+    res = self.model_id_get(id_str, raise_if_not_found)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 695, in model_id_get
+    return self.env['ir.model.data']._xmlid_to_res_model_res_id(id_str, raise_if_not_found=raise_if_not_found)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2059, in _xmlid_to_res_model_res_id
+    return self._xmlid_lookup(xmlid)[1:3]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-43>", line 2, in _xmlid_lookup
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 90, in lookup
+    value = d[key] = self.method(*args, **kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2052, in _xmlid_lookup
+    raise ValueError('External ID not found in the system: %s' % xmlid)
+ValueError: External ID not found in the system: stock.view_warehouse_orderpoint_tree
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\modules\registry.py", line 87, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(cr, graph,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 374, in load_marked_modules
+    loaded, processed = load_module_graph(
+                        ^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 233, in load_module_graph
+    load_data(cr, idref, mode, kind='data', package=package)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 73, in load_data
+    tools.convert_file(cr, package.name, filename, idref, mode, noupdate, kind)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 771, in convert_file
+    convert_xml_import(cr, module, fp, idref, mode, noupdate)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 837, in convert_xml_import
+    obj.parse(doc.getroot())
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 757, in parse
+    self._tag_root(de)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 719, in _tag_root
+    raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo.tools.convert.ParseError: while parsing file:/c:/latihanodoo/distribution_channel/views/stock_orderpoint_views.xml:42, somewhere inside
+<record id="view_warehouse_orderpoint_tree_dc" model="ir.ui.view">
+    <field name="name">stock.warehouse.orderpoint.tree.dc</field>
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='product_id']" position="after">
+        <field name="dc_company_id"/>
+        <field name="dc_warehouse_id"/>
+        <field name="auto_create_dc_so"/>
+      </xpath>
+    </field>
+  </record>
+2025-12-07 08:22:27,277 3520 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:22:27,277 3520 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra) 
+2025-12-07 08:22:27,284 3520 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:22:27,316 3520 INFO demo_dc odoo.modules.loading: 66 modules loaded in 0.03s, 0 queries (+0 extra) 
+2025-12-07 08:22:27,444 3520 INFO demo_dc odoo.modules.loading: Modules loaded. 
+2025-12-07 08:22:27,444 3520 INFO demo_dc odoo.modules.registry: Registry loaded in 0.176s 
+2025-12-07 08:22:27,444 3520 ERROR demo_dc odoo.http: Exception during request handling. 
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 85, in lookup
+    r = d[key]
+        ~^^^^^
+  File "<decorator-gen-8>", line 2, in __getitem__
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\lru.py", line 34, in __getitem__
+    a = self.d[obj]
+        ~~~~~~^^^^^
+KeyError: ('ir.model.data', <function IrModelData._xmlid_lookup at 0x0000029CA1182A20>, 'stock.view_warehouse_orderpoint_tree')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 706, in _tag_root
+    f(rec)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 576, in _tag_record
+    f_val = self.id_get(f_ref, raise_if_not_found=nodeattr2bool(rec, 'forcecreate', True))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 689, in id_get
+    res = self.model_id_get(id_str, raise_if_not_found)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 695, in model_id_get
+    return self.env['ir.model.data']._xmlid_to_res_model_res_id(id_str, raise_if_not_found=raise_if_not_found)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2059, in _xmlid_to_res_model_res_id
+    return self._xmlid_lookup(xmlid)[1:3]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-43>", line 2, in _xmlid_lookup
+  File "C:\odoo16c\server\odoo\tools\cache.py", line 90, in lookup
+    value = d[key] = self.method(*args, **kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_model.py", line 2052, in _xmlid_lookup
+    raise ValueError('External ID not found in the system: %s' % xmlid)
+ValueError: External ID not found in the system: stock.view_warehouse_orderpoint_tree
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\odoo16c\server\odoo\http.py", line 2261, in __call__
+    response = request._serve_db()
+               ^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\http.py", line 1848, in _serve_db
+    return service_model.retrying(self._serve_ir_http, self.env)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\service\model.py", line 152, in retrying
+    result = func()
+             ^^^^^^
+  File "C:\odoo16c\server\odoo\http.py", line 1876, in _serve_ir_http
+    response = self.dispatcher.dispatch(rule.endpoint, args)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\http.py", line 2080, in dispatch
+    result = self.request.registry['ir.http']._dispatch(endpoint)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_http.py", line 154, in _dispatch
+    result = endpoint(**request.params)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\http.py", line 763, in route_wrapper
+    result = endpoint(self, *args, **params_ok)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\web\controllers\dataset.py", line 47, in call_button
+    action = self._call_kw(model, method, args, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\web\controllers\dataset.py", line 34, in _call_kw
+    return call_kw(Model, method, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\api.py", line 484, in call_kw
+    result = _call_kw_multi(method, model, args, kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\api.py", line 469, in _call_kw_multi
+    result = method(recs, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-83>", line 2, in button_immediate_upgrade
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_module.py", line 74, in check_and_log
+    return method(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_module.py", line 669, in button_immediate_upgrade
+    return self._button_immediate_function(self.env.registry[self._name].button_upgrade)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\addons\base\models\ir_module.py", line 602, in _button_immediate_function
+    registry = modules.registry.Registry.new(self._cr.dbname, update_module=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<decorator-gen-16>", line 2, in new
+  File "C:\odoo16c\server\odoo\tools\func.py", line 87, in locked
+    return func(inst, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\registry.py", line 87, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 489, in load_modules
+    processed_modules += load_marked_modules(cr, graph,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 374, in load_marked_modules
+    loaded, processed = load_module_graph(
+                        ^^^^^^^^^^^^^^^^^^
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 233, in load_module_graph
+    load_data(cr, idref, mode, kind='data', package=package)
+  File "C:\odoo16c\server\odoo\modules\loading.py", line 73, in load_data
+    tools.convert_file(cr, package.name, filename, idref, mode, noupdate, kind)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 771, in convert_file
+    convert_xml_import(cr, module, fp, idref, mode, noupdate)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 837, in convert_xml_import
+    obj.parse(doc.getroot())
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 757, in parse
+    self._tag_root(de)
+  File "C:\odoo16c\server\odoo\tools\convert.py", line 719, in _tag_root
+    raise ParseError('while parsing %s:%s, somewhere inside\n%s' % (
+odoo.tools.convert.ParseError: while parsing file:/c:/latihanodoo/distribution_channel/views/stock_orderpoint_views.xml:42, somewhere inside
+<record id="view_warehouse_orderpoint_tree_dc" model="ir.ui.view">
+    <field name="name">stock.warehouse.orderpoint.tree.dc</field>
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='product_id']" position="after">
+        <field name="dc_company_id"/>
+        <field name="dc_warehouse_id"/>
+        <field name="auto_create_dc_so"/>
+      </xpath>
+    </field>
+  </record>
+2025-12-07 08:22:27,460 3520 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:22:27] "POST /web/dataset/call_button HTTP/1.1" 200 - 2590 1.076 1.090
+2025-12-07 08:24:03,036 3520 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `DC: Auto-Create Sales Orders`. 
+2025-12-07 08:24:03,040 3520 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:24:03,040 3520 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON START: Auto-create DC SO 
+2025-12-07 08:24:03,047 3520 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: Found 0 PO candidates 
+2025-12-07 08:24:03,047 3520 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON END: 0 DC SO created 
+2025-12-07 08:24:03,047 3520 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:24:03,047 3520 INFO demo_dc odoo.addons.base.models.ir_cron: Job `DC: Auto-Create Sales Orders` done. 
+2025-12-07 08:27:03,080 3520 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `payment: post-process transactions`. 
+2025-12-07 08:27:03,096 3520 INFO demo_dc odoo.addons.base.models.ir_cron: Job `payment: post-process transactions` done. 
+2025-12-07 08:29:03,125 3520 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `DC: Auto-Create Sales Orders`. 
+2025-12-07 08:29:03,125 3520 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:29:03,125 3520 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON START: Auto-create DC SO 
+2025-12-07 08:29:03,125 3520 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: Found 0 PO candidates 
+2025-12-07 08:29:03,125 3520 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON END: 0 DC SO created 
+2025-12-07 08:29:03,125 3520 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:29:03,125 3520 INFO demo_dc odoo.addons.base.models.ir_cron: Job `DC: Auto-Create Sales Orders` done. 
+2025-12-07 08:32:28,537 7892 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:32:28,537 7892 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:32:28,537 7892 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:32:28,537 7892 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:32:28,707 7892 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:32:28,959 7892 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:32:28,976 7892 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.02s, 0 queries (+0 extra) 
+2025-12-07 08:32:28,991 7892 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:32:28,991 7892 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via n/a 
+2025-12-07 08:32:29,193 7892 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:32:29,193 7892 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:32:29,209 7892 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:32:29,994 7892 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:32:29,994 7892 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:32:30,516 7892 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user __system__ #1 via n/a 
+2025-12-07 08:32:30,557 7892 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:32:31,403 7892 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:32:31,595 7892 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:32:31,784 7892 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:32:31,874 7892 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:32:31,876 7892 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:32:31,889 7892 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:32:31,929 7892 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/dc_monitor_views.xml 
+2025-12-07 08:32:31,967 7892 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/purchase_order_views.xml 
+2025-12-07 08:32:32,015 7892 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/sale_order_views.xml 
+2025-12-07 08:32:32,060 7892 INFO demo_dc odoo.modules.loading: loading distribution_channel/wizard/replenish_wizard_views.xml 
+2025-12-07 08:32:32,080 7892 INFO demo_dc odoo.modules.loading: Module distribution_channel loaded in 0.68s, 346 queries (+346 other) 
+2025-12-07 08:32:32,126 7892 INFO demo_dc odoo.modules.loading: 66 modules loaded in 1.57s, 346 queries (+346 extra) 
+2025-12-07 08:32:32,490 7892 INFO demo_dc odoo.modules.registry: verifying fields for every extended model 
+2025-12-07 08:32:32,907 7892 INFO demo_dc odoo.modules.loading: Modules loaded. 
+2025-12-07 08:32:32,923 7892 INFO demo_dc odoo.modules.registry: Registry loaded in 4.011s 
+2025-12-07 08:32:32,923 7892 INFO demo_dc odoo.service.server: Initiating shutdown 
+2025-12-07 08:32:32,923 7892 INFO demo_dc odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2025-12-07 08:32:32,923 7892 INFO demo_dc odoo.sql_db: ConnectionPool(used=0/count=0/max=64): Closed 1 connections  
+2025-12-07 08:33:10,611 11696 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:33:10,611 11696 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:33:10,611 11696 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:33:10,611 11696 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:33:10,817 11696 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:33:11,117 11696 INFO ? odoo.service.server: HTTP service (werkzeug) running on ThinkpadSaptadi:8069 
+2025-12-07 08:33:13,311 11696 INFO ? odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:33:13,327 11696 INFO ? odoo.modules.loading: 1 modules loaded in 0.02s, 0 queries (+0 extra) 
+2025-12-07 08:33:13,395 11696 INFO ? odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:33:14,543 11696 INFO ? odoo.modules.loading: 66 modules loaded in 1.15s, 0 queries (+0 extra) 
+2025-12-07 08:33:14,696 11696 INFO ? odoo.modules.loading: Modules loaded. 
+2025-12-07 08:33:14,702 11696 INFO ? odoo.modules.registry: Registry loaded in 1.450s 
+2025-12-07 08:33:14,704 11696 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:33:15,103 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:15] "GET /websocket HTTP/1.1" 101 - 6 0.024 0.153
+2025-12-07 08:33:15,123 11696 INFO ? odoo.addons.bus.models.bus: Bus.loop listen imbus on db postgres 
+2025-12-07 08:33:16,177 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:16] "GET /web HTTP/1.1" 200 - 104 0.173 2.759
+2025-12-07 08:33:16,617 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:16] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 5 0.003 0.010
+2025-12-07 08:33:17,058 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:17] "GET /websocket HTTP/1.1" 101 - 1 0.000 0.066
+2025-12-07 08:33:17,059 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:17] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 15 0.060 0.023
+2025-12-07 08:33:17,103 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:17] "POST /mail/init_messaging HTTP/1.1" 200 - 54 0.096 0.066
+2025-12-07 08:33:17,456 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:17] "POST /mail/load_message_failures HTTP/1.1" 200 - 4 0.002 0.018
+2025-12-07 08:33:17,498 11696 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:33:17,498 11696 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:33:17,500 11696 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:33:17,500 11696 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:33:17,503 11696 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:33:17,504 11696 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:33:17,504 11696 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:33:17,505 11696 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:33:17,508 11696 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:33:17,509 11696 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:33:17,509 11696 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:33:17,509 11696 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:33:17,761 11696 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:17] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 0.785
+2025-12-07 08:33:17,777 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:17] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 3 0.020 0.814
+2025-12-07 08:33:17,777 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:17] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 10 0.008 0.793
+2025-12-07 08:33:17,793 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:17] "POST /web/action/load HTTP/1.1" 200 - 11 0.032 1.159
+2025-12-07 08:33:18,092 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:18] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.000 0.000
+2025-12-07 08:33:18,193 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:18] "POST /web/dataset/call_kw/ir.module.module/get_views HTTP/1.1" 200 - 44 0.041 0.044
+2025-12-07 08:33:18,410 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:18] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.000 0.000
+2025-12-07 08:33:18,701 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:18] "POST /web/dataset/call_kw/ir.module.module/read HTTP/1.1" 200 - 14 0.023 0.151
+2025-12-07 08:33:19,026 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:19] "POST /web/dataset/call_kw/ir.module.module.dependency/read HTTP/1.1" 200 - 4 0.010 0.005
+2025-12-07 08:33:19,424 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:19] "GET /web/bundle/web_editor.assets_wysiwyg?lang=en_US&debug=1 HTTP/1.1" 200 - 11 0.009 0.141
+2025-12-07 08:33:19,476 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:19] "GET /web/image?model=ir.module.module&id=64&field=icon_image&unique=1765096352000 HTTP/1.1" 200 - 4 0.001 0.002
+2025-12-07 08:33:22,958 11696 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_immediate_upgrade on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:33:22,961 11696 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:33:22,961 11696 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:33:23,574 11696 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user admin #2 via 127.0.0.1 
+2025-12-07 08:33:23,611 11696 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:33:23,614 11696 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra) 
+2025-12-07 08:33:23,630 11696 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:33:23,630 11696 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via 127.0.0.1 
+2025-12-07 08:33:24,288 11696 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:33:24,321 11696 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:33:24,520 11696 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:33:24,678 11696 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:33:24,689 11696 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:33:24,699 11696 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:33:24,721 11696 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:33:24,753 11696 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/dc_monitor_views.xml 
+2025-12-07 08:33:24,795 11696 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/purchase_order_views.xml 
+2025-12-07 08:33:24,870 11696 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/sale_order_views.xml 
+2025-12-07 08:33:25,009 11696 INFO demo_dc odoo.modules.loading: loading distribution_channel/wizard/replenish_wizard_views.xml 
+2025-12-07 08:33:25,048 11696 INFO demo_dc odoo.modules.loading: Module distribution_channel loaded in 0.73s, 344 queries (+344 other) 
+2025-12-07 08:33:25,052 11696 INFO demo_dc odoo.modules.loading: 66 modules loaded in 0.76s, 344 queries (+344 extra) 
+2025-12-07 08:33:25,467 11696 INFO demo_dc odoo.modules.registry: verifying fields for every extended model 
+2025-12-07 08:33:25,915 11696 INFO demo_dc odoo.modules.loading: Modules loaded. 
+2025-12-07 08:33:25,926 11696 INFO demo_dc odoo.modules.registry: Registry loaded in 2.328s 
+2025-12-07 08:33:25,926 11696 INFO demo_dc odoo.addons.base.models.ir_module: getting next ir.actions.todo() 
+2025-12-07 08:33:25,937 11696 INFO demo_dc odoo.modules.registry: Registry changed, signaling through the database 
+2025-12-07 08:33:25,942 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:25] "POST /web/dataset/call_button HTTP/1.1" 200 - 3696 1.546 1.445
+2025-12-07 08:33:25,947 11696 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:33:27,068 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:27] "GET /web HTTP/1.1" 200 - 88 0.054 1.066
+2025-12-07 08:33:27,492 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:27] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 6 0.002 0.010
+2025-12-07 08:33:27,858 11696 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:27] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 0.017
+2025-12-07 08:33:27,891 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:27] "POST /web/action/load HTTP/1.1" 200 - 9 0.002 0.047
+2025-12-07 08:33:27,902 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:27] "GET /websocket HTTP/1.1" 101 - 1 0.001 0.061
+2025-12-07 08:33:27,903 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:27] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 3 0.025 0.037
+2025-12-07 08:33:27,942 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:27] "POST /mail/init_messaging HTTP/1.1" 200 - 54 0.099 0.033
+2025-12-07 08:33:27,961 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:27] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 15 0.042 0.078
+2025-12-07 08:33:28,096 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:28] "POST /mail/inbox/messages HTTP/1.1" 200 - 8 0.017 0.003
+2025-12-07 08:33:28,273 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:28] "GET /web/image/res.partner/2/avatar_128 HTTP/1.1" 304 - 7 0.004 0.011
+2025-12-07 08:33:28,273 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:28] "POST /mail/load_message_failures HTTP/1.1" 200 - 3 0.010 0.005
+2025-12-07 08:33:30,947 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:30] "POST /web/action/load HTTP/1.1" 200 - 13 0.011 0.010
+2025-12-07 08:33:31,298 11696 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:33:31] "POST /web/dataset/call_kw/dc.order.monitor/get_views HTTP/1.1" 200 - 25 0.021 0.022
+2025-12-07 08:34:11,165 11696 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `Base: Auto-vacuum internal data`. 
+2025-12-07 08:34:11,192 11696 INFO demo_dc odoo.addons.base.models.ir_attachment: filestore gc 0 checked, 0 removed 
+2025-12-07 08:34:11,289 11696 INFO demo_dc odoo.addons.base.models.res_users: GC'd 0 user log entries 
+2025-12-07 08:34:11,319 11696 INFO demo_dc odoo.models.unlink: User #1 deleted base.module.update records with IDs: [5, 6, 7, 8] 
+2025-12-07 08:34:11,342 11696 INFO demo_dc odoo.addons.auth_totp.models.auth_totp: GC'd 0 totp devices entries 
+2025-12-07 08:34:11,374 11696 INFO demo_dc odoo.models.unlink: User #1 deleted bus.bus records with IDs: [78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94] 
+2025-12-07 08:34:11,733 11696 INFO demo_dc odoo.addons.base.models.ir_cron: Job `Base: Auto-vacuum internal data` done. 
+2025-12-07 08:34:11,747 11696 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `DC: Auto-Create Sales Orders`. 
+2025-12-07 08:34:11,753 11696 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:34:11,753 11696 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON START: Auto-create DC SO 
+2025-12-07 08:34:11,759 11696 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: Found 0 PO candidates 
+2025-12-07 08:34:11,759 11696 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON END: 0 DC SO created 
+2025-12-07 08:34:11,759 11696 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:34:11,759 11696 INFO demo_dc odoo.addons.base.models.ir_cron: Job `DC: Auto-Create Sales Orders` done. 
+2025-12-07 08:34:43,715 15540 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:34:43,715 15540 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:34:43,715 15540 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:34:43,715 15540 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:34:43,915 15540 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:34:44,215 15540 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:34:44,231 15540 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.02s, 0 queries (+0 extra) 
+2025-12-07 08:34:44,248 15540 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:34:44,248 15540 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via n/a 
+2025-12-07 08:34:44,474 15540 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:34:44,474 15540 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:34:44,474 15540 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:34:45,397 15540 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:34:45,397 15540 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:34:46,031 15540 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user __system__ #1 via n/a 
+2025-12-07 08:34:46,070 15540 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:34:47,090 15540 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:34:47,296 15540 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:34:47,500 15540 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:34:47,579 15540 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:34:47,579 15540 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:34:47,592 15540 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:34:47,624 15540 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/dc_monitor_views.xml 
+2025-12-07 08:34:47,672 15540 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/purchase_order_views.xml 
+2025-12-07 08:34:47,720 15540 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/sale_order_views.xml 
+2025-12-07 08:34:47,780 15540 INFO demo_dc odoo.modules.loading: loading distribution_channel/wizard/replenish_wizard_views.xml 
+2025-12-07 08:34:47,816 15540 INFO demo_dc odoo.modules.loading: Module distribution_channel loaded in 0.73s, 346 queries (+346 other) 
+2025-12-07 08:34:47,863 15540 INFO demo_dc odoo.modules.loading: 66 modules loaded in 1.79s, 346 queries (+346 extra) 
+2025-12-07 08:34:48,220 15540 INFO demo_dc odoo.modules.registry: verifying fields for every extended model 
+2025-12-07 08:34:48,701 15540 INFO demo_dc odoo.modules.loading: Modules loaded. 
+2025-12-07 08:34:48,705 15540 INFO demo_dc odoo.modules.registry: Registry loaded in 4.531s 
+2025-12-07 08:34:48,705 15540 INFO demo_dc odoo.service.server: Initiating shutdown 
+2025-12-07 08:34:48,705 15540 INFO demo_dc odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2025-12-07 08:34:48,705 15540 INFO demo_dc odoo.sql_db: ConnectionPool(used=0/count=0/max=64): Closed 1 connections  
+2025-12-07 08:35:03,809 17108 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:35:03,810 17108 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:35:03,810 17108 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:35:03,810 17108 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:35:03,982 17108 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:35:04,276 17108 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:35:04,283 17108 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+2025-12-07 08:35:04,301 17108 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:35:04,306 17108 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via n/a 
+2025-12-07 08:35:04,523 17108 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:35:04,523 17108 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:35:04,523 17108 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:35:05,281 17108 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:35:05,281 17108 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:35:05,710 17108 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user __system__ #1 via n/a 
+2025-12-07 08:35:05,742 17108 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:35:06,607 17108 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:35:06,813 17108 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:35:06,996 17108 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:35:07,079 17108 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:35:07,079 17108 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:35:07,099 17108 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:35:07,130 17108 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/dc_monitor_views.xml 
+2025-12-07 08:35:07,162 17108 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/purchase_order_views.xml 
+2025-12-07 08:35:07,192 17108 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/sale_order_views.xml 
+2025-12-07 08:35:07,240 17108 INFO demo_dc odoo.modules.loading: loading distribution_channel/wizard/replenish_wizard_views.xml 
+2025-12-07 08:35:07,272 17108 INFO demo_dc odoo.modules.loading: Module distribution_channel loaded in 0.67s, 346 queries (+346 other) 
+2025-12-07 08:35:07,320 17108 INFO demo_dc odoo.modules.loading: 66 modules loaded in 1.58s, 346 queries (+346 extra) 
+2025-12-07 08:35:07,666 17108 INFO demo_dc odoo.modules.registry: verifying fields for every extended model 
+2025-12-07 08:35:08,060 17108 INFO demo_dc odoo.modules.loading: Modules loaded. 
+2025-12-07 08:35:08,070 17108 INFO demo_dc odoo.modules.registry: Registry loaded in 3.851s 
+2025-12-07 08:35:08,070 17108 INFO demo_dc odoo.service.server: Initiating shutdown 
+2025-12-07 08:35:08,070 17108 INFO demo_dc odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2025-12-07 08:35:08,070 17108 INFO demo_dc odoo.sql_db: ConnectionPool(used=0/count=0/max=64): Closed 1 connections  
+2025-12-07 08:35:11,762 11696 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `Base: Auto-vacuum internal data`. 
+2025-12-07 08:35:11,795 11696 INFO demo_dc odoo.addons.base.models.ir_attachment: filestore gc 0 checked, 0 removed 
+2025-12-07 08:35:11,879 11696 INFO demo_dc odoo.addons.base.models.res_users: GC'd 0 user log entries 
+2025-12-07 08:35:11,912 11696 INFO demo_dc odoo.addons.auth_totp.models.auth_totp: GC'd 0 totp devices entries 
+2025-12-07 08:35:11,929 11696 INFO demo_dc odoo.models.unlink: User #1 deleted bus.bus records with IDs: [95, 96] 
+2025-12-07 08:35:12,262 11696 INFO demo_dc odoo.addons.base.models.ir_cron: Job `Base: Auto-vacuum internal data` done. 
+2025-12-07 08:35:18,011 11348 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:35:18,011 11348 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:35:18,011 11348 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:35:18,011 11348 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:35:18,231 11348 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:35:18,510 11348 INFO ? odoo.service.server: HTTP service (werkzeug) running on ThinkpadSaptadi:8069 
+2025-12-07 08:35:18,796 11348 INFO ? odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:35:18,796 11348 INFO ? odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra) 
+2025-12-07 08:35:18,891 11348 INFO ? odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:35:19,843 11348 INFO ? odoo.modules.loading: 66 modules loaded in 0.95s, 0 queries (+0 extra) 
+2025-12-07 08:35:19,970 11348 INFO ? odoo.modules.loading: Modules loaded. 
+2025-12-07 08:35:19,977 11348 INFO ? odoo.modules.registry: Registry loaded in 1.233s 
+2025-12-07 08:35:19,977 11348 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:35:21,305 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:21] "GET /web HTTP/1.1" 200 - 105 0.150 2.410
+2025-12-07 08:35:21,315 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:21] "GET /websocket HTTP/1.1" 101 - 1 0.001 0.008
+2025-12-07 08:35:21,748 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:21] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 6 0.004 0.010
+2025-12-07 08:35:22,188 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:22] "GET /websocket HTTP/1.1" 101 - 1 0.017 0.063
+2025-12-07 08:35:22,202 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:22] "POST /mail/init_messaging HTTP/1.1" 200 - 54 0.123 0.003
+2025-12-07 08:35:22,229 11348 INFO ? odoo.addons.bus.models.bus: Bus.loop listen imbus on db postgres 
+2025-12-07 08:35:22,267 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:22] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 15 0.049 0.111
+2025-12-07 08:35:22,553 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:22] "POST /mail/load_message_failures HTTP/1.1" 200 - 4 0.007 0.013
+2025-12-07 08:35:22,592 11348 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:35:22,595 11348 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:35:22,598 11348 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:35:22,600 11348 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:35:22,600 11348 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:35:22,601 11348 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:35:22,605 11348 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:35:22,607 11348 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:35:22,607 11348 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:35:22,609 11348 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:35:22,611 11348 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:35:22,872 11348 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:22] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 0.765
+2025-12-07 08:35:22,872 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:22] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 10 0.016 0.749
+2025-12-07 08:35:22,893 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:22] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 3 0.021 0.781
+2025-12-07 08:35:22,913 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:22] "POST /web/action/load HTTP/1.1" 200 - 8 0.017 1.162
+2025-12-07 08:35:23,200 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:23] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.000 0.009
+2025-12-07 08:35:23,242 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:23] "POST /mail/inbox/messages HTTP/1.1" 200 - 8 0.011 0.005
+2025-12-07 08:35:23,261 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:23] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.017 0.002
+2025-12-07 08:35:23,518 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:23] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.004 0.005
+2025-12-07 08:35:23,591 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:23] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.016 0.000
+2025-12-07 08:35:23,840 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:23] "GET /web/image/res.partner/2/avatar_128 HTTP/1.1" 304 - 7 0.003 0.014
+2025-12-07 08:35:25,916 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:25] "POST /web/action/load HTTP/1.1" 200 - 11 0.010 0.010
+2025-12-07 08:35:26,237 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:26] "POST /web/dataset/call_kw/ir.module.module/get_views HTTP/1.1" 200 - 44 0.021 0.056
+2025-12-07 08:35:26,292 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:26] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 42 0.019 0.024
+2025-12-07 08:35:26,567 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:26] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.008 0.000
+2025-12-07 08:35:33,634 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:33] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 39 0.027 0.016
+2025-12-07 08:35:33,849 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:33] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 2 0.002 0.004
+2025-12-07 08:35:35,492 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:35] "POST /web/dataset/call_kw/ir.module.module/search_panel_select_range HTTP/1.1" 200 - 39 0.030 0.013
+2025-12-07 08:35:35,807 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:35] "POST /web/dataset/call_kw/ir.module.module/web_search_read HTTP/1.1" 200 - 3 0.000 0.000
+2025-12-07 08:35:38,721 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:38] "POST /web/dataset/call_kw/ir.module.module/read HTTP/1.1" 200 - 13 0.001 0.156
+2025-12-07 08:35:39,041 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:39] "POST /web/dataset/call_kw/ir.module.module.dependency/read HTTP/1.1" 200 - 4 0.000 0.000
+2025-12-07 08:35:39,458 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:39] "GET /web/bundle/web_editor.assets_wysiwyg?lang=en_US&debug=1 HTTP/1.1" 200 - 11 0.000 0.152
+2025-12-07 08:35:39,525 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:39] "GET /web/image?model=ir.module.module&id=64&field=icon_image&unique=1765096507000 HTTP/1.1" 200 - 4 0.000 0.010
+2025-12-07 08:35:41,692 11348 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_immediate_upgrade on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:35:41,692 11348 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:35:41,692 11348 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['Distribution Channel'] to user admin #2 via 127.0.0.1 
+2025-12-07 08:35:42,332 11348 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user admin #2 via 127.0.0.1 
+2025-12-07 08:35:42,364 11348 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:35:42,380 11348 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.02s, 0 queries (+0 extra) 
+2025-12-07 08:35:42,396 11348 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:35:42,396 11348 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via 127.0.0.1 
+2025-12-07 08:35:43,046 11348 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:35:43,077 11348 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:35:43,284 11348 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:35:43,461 11348 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:35:43,492 11348 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:35:43,494 11348 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:35:43,523 11348 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:35:43,555 11348 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/dc_monitor_views.xml 
+2025-12-07 08:35:43,603 11348 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/purchase_order_views.xml 
+2025-12-07 08:35:43,746 11348 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/sale_order_views.xml 
+2025-12-07 08:35:43,826 11348 INFO demo_dc odoo.modules.loading: loading distribution_channel/wizard/replenish_wizard_views.xml 
+2025-12-07 08:35:43,858 11348 INFO demo_dc odoo.modules.loading: Module distribution_channel loaded in 0.78s, 344 queries (+344 other) 
+2025-12-07 08:35:43,874 11348 INFO demo_dc odoo.modules.loading: 66 modules loaded in 0.83s, 344 queries (+344 extra) 
+2025-12-07 08:35:44,269 11348 INFO demo_dc odoo.modules.registry: verifying fields for every extended model 
+2025-12-07 08:35:44,759 11348 INFO demo_dc odoo.modules.loading: Modules loaded. 
+2025-12-07 08:35:44,774 11348 INFO demo_dc odoo.modules.registry: Registry loaded in 2.426s 
+2025-12-07 08:35:44,774 11348 INFO demo_dc odoo.addons.base.models.ir_module: getting next ir.actions.todo() 
+2025-12-07 08:35:44,776 11348 INFO demo_dc odoo.modules.registry: Registry changed, signaling through the database 
+2025-12-07 08:35:44,776 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:44] "POST /web/dataset/call_button HTTP/1.1" 200 - 3695 1.550 1.535
+2025-12-07 08:35:44,802 11348 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:35:45,957 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:45] "GET /web HTTP/1.1" 200 - 88 0.036 1.122
+2025-12-07 08:35:46,254 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:46] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 6 0.006 0.007
+2025-12-07 08:35:46,607 11348 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:46] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 0.007
+2025-12-07 08:35:46,644 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:46] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 4 0.009 0.043
+2025-12-07 08:35:46,657 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:46] "GET /websocket HTTP/1.1" 101 - 1 0.001 0.049
+2025-12-07 08:35:46,657 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:46] "POST /web/action/load HTTP/1.1" 200 - 8 0.006 0.060
+2025-12-07 08:35:46,657 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:46] "POST /mail/init_messaging HTTP/1.1" 200 - 54 0.059 0.023
+2025-12-07 08:35:46,724 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:46] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 15 0.055 0.078
+2025-12-07 08:35:46,858 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:46] "POST /mail/inbox/messages HTTP/1.1" 200 - 8 0.017 0.000
+2025-12-07 08:35:47,007 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:47] "POST /mail/load_message_failures HTTP/1.1" 200 - 3 0.007 0.011
+2025-12-07 08:35:47,007 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:47] "GET /web/image/res.partner/2/avatar_128 HTTP/1.1" 304 - 7 0.006 0.010
+2025-12-07 08:35:48,967 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:48] "POST /web/action/load HTTP/1.1" 200 - 13 0.000 0.020
+2025-12-07 08:35:49,315 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:35:49] "POST /web/dataset/call_kw/dc.order.monitor/get_views HTTP/1.1" 200 - 25 0.017 0.024
+2025-12-07 08:36:18,556 11348 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `payment: post-process transactions`. 
+2025-12-07 08:36:18,578 11348 INFO demo_dc odoo.addons.base.models.ir_cron: Job `payment: post-process transactions` done. 
+2025-12-07 08:36:18,589 11348 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `Base: Auto-vacuum internal data`. 
+2025-12-07 08:36:18,619 11348 INFO demo_dc odoo.addons.base.models.ir_attachment: filestore gc 0 checked, 0 removed 
+2025-12-07 08:36:18,707 11348 INFO demo_dc odoo.addons.base.models.res_users: GC'd 0 user log entries 
+2025-12-07 08:36:18,753 11348 INFO demo_dc odoo.addons.auth_totp.models.auth_totp: GC'd 0 totp devices entries 
+2025-12-07 08:36:18,776 11348 INFO demo_dc odoo.models.unlink: User #1 deleted bus.bus records with IDs: [97] 
+2025-12-07 08:36:19,132 11348 INFO demo_dc odoo.addons.base.models.ir_cron: Job `Base: Auto-vacuum internal data` done. 
+2025-12-07 08:37:19,153 11348 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `Base: Auto-vacuum internal data`. 
+2025-12-07 08:37:19,183 11348 INFO demo_dc odoo.addons.base.models.ir_attachment: filestore gc 0 checked, 0 removed 
+2025-12-07 08:37:19,244 11348 INFO demo_dc odoo.addons.base.models.res_users: GC'd 0 user log entries 
+2025-12-07 08:37:19,288 11348 INFO demo_dc odoo.addons.auth_totp.models.auth_totp: GC'd 0 totp devices entries 
+2025-12-07 08:37:19,312 11348 INFO demo_dc odoo.models.unlink: User #1 deleted bus.bus records with IDs: [98] 
+2025-12-07 08:37:19,570 11348 INFO demo_dc odoo.addons.base.models.ir_cron: Job `Base: Auto-vacuum internal data` done. 
+2025-12-07 08:39:19,601 11348 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `DC: Auto-Create Sales Orders`. 
+2025-12-07 08:39:19,603 11348 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:39:19,603 11348 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON START: Auto-create DC SO 
+2025-12-07 08:39:19,609 11348 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: Found 0 PO candidates 
+2025-12-07 08:39:19,609 11348 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON END: 0 DC SO created 
+2025-12-07 08:39:19,609 11348 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:39:19,610 11348 INFO demo_dc odoo.addons.base.models.ir_cron: Job `DC: Auto-Create Sales Orders` done. 
+2025-12-07 08:39:59,675 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:39:59] "GET /web HTTP/1.1" 200 - 10 0.000 0.015
+2025-12-07 08:40:00,261 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:00] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 4 0.004 0.005
+2025-12-07 08:40:00,276 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:00] "POST /web/action/load HTTP/1.1" 200 - 8 0.018 0.009
+2025-12-07 08:40:00,607 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:00] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 2 0.015 0.001
+2025-12-07 08:40:00,634 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:00] "POST /mail/init_messaging HTTP/1.1" 200 - 30 0.006 0.037
+2025-12-07 08:40:00,641 11348 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:00] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 0.001
+2025-12-07 08:40:00,641 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:00] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 10 0.005 0.010
+2025-12-07 08:40:00,657 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:00] "GET /websocket HTTP/1.1" 101 - 1 0.000 0.016
+2025-12-07 08:40:00,670 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:00] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 8 0.004 0.024
+2025-12-07 08:40:00,870 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:00] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.016 0.000
+2025-12-07 08:40:00,978 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:00] "POST /mail/load_message_failures HTTP/1.1" 200 - 3 0.005 0.018
+2025-12-07 08:40:00,990 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:00] "POST /mail/inbox/messages HTTP/1.1" 200 - 4 0.021 0.014
+2025-12-07 08:40:00,990 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:00] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.009 0.023
+2025-12-07 08:40:01,005 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:01] "GET /web/image/res.partner/2/avatar_128 HTTP/1.1" 304 - 7 0.004 0.015
+2025-12-07 08:40:01,188 11348 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:01] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.004 0.004
+2025-12-07 08:40:09,565 4452 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:40:09,565 4452 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:40:09,565 4452 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:40:09,565 4452 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:40:09,775 4452 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:40:10,060 4452 INFO ? odoo.service.server: HTTP service (werkzeug) running on ThinkpadSaptadi:8069 
+2025-12-07 08:40:11,821 4452 INFO ? odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:40:11,821 4452 INFO ? odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra) 
+2025-12-07 08:40:11,869 4452 INFO ? odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:40:12,923 4452 INFO ? odoo.modules.loading: 66 modules loaded in 1.05s, 0 queries (+0 extra) 
+2025-12-07 08:40:13,067 4452 INFO ? odoo.modules.loading: Modules loaded. 
+2025-12-07 08:40:13,081 4452 INFO ? odoo.modules.registry: Registry loaded in 1.308s 
+2025-12-07 08:40:13,081 4452 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:40:13,468 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:13] "GET /websocket HTTP/1.1" 101 - 22 0.048 1.646
+2025-12-07 08:40:13,479 4452 INFO ? odoo.addons.bus.models.bus: Bus.loop listen imbus on db postgres 
+2025-12-07 08:40:38,963 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:38] "GET /web HTTP/1.1" 200 - 84 0.055 0.986
+2025-12-07 08:40:41,589 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:40:41,591 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:40:41,592 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:40:41,593 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:40:41,594 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:40:41,594 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:40:41,597 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:40:41,598 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:40:41,599 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:40:41,600 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:40:41,602 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:40:41,602 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:40:41,603 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:40:41,603 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:40:41,603 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:40:41,603 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:40:41,603 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:40:41,603 4452 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:40:42,214 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:42] "GET /web/webclient/load_menus/0af5d97dd54f35bf5c418181b1bfa004da77e57fccbee80c5ef16c90317728e7 HTTP/1.1" 200 - 2 0.010 2.893
+2025-12-07 08:40:42,246 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:42] "GET /web/assets/119-06688a8/web.assets_common.min.css HTTP/1.1" 200 - 4 0.008 3.247
+2025-12-07 08:40:42,253 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:42] "GET /web/assets/120-ad9b184/web.assets_backend.min.css HTTP/1.1" 200 - 4 0.000 3.262
+2025-12-07 08:40:42,256 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:42] "GET /web/assets/123-03064a2/web.assets_backend_prod_only.min.js HTTP/1.1" 200 - 4 0.000 2.948
+2025-12-07 08:40:42,385 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:42] "GET /web/assets/122-ad9b184/web.assets_backend.min.js HTTP/1.1" 200 - 4 0.010 3.069
+2025-12-07 08:40:42,536 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:42] "GET /web/assets/121-06688a8/web.assets_common.min.js HTTP/1.1" 200 - 4 0.010 3.222
+2025-12-07 08:40:42,536 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:42] "GET /web/webclient/translations/30bd0de6a39297ae326fc80ecef76a1b4d3701b0?lang=en_US HTTP/1.1" 200 - 2 0.000 0.000
+2025-12-07 08:40:43,363 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:43] "GET /web/webclient/translations/30bd0de6a39297ae326fc80ecef76a1b4d3701b0?lang=en_US HTTP/1.1" 200 - 2 0.004 0.003
+2025-12-07 08:40:43,396 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:43] "GET /web/webclient/translations/30bd0de6a39297ae326fc80ecef76a1b4d3701b0?lang=en_US HTTP/1.1" 200 - 2 0.003 0.005
+2025-12-07 08:40:43,400 4452 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:43] "GET /web/static/img/favicon.ico HTTP/1.1" 200 - 0 0.000 0.010
+2025-12-07 08:40:43,656 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:43] "POST /web/action/load HTTP/1.1" 200 - 8 0.027 0.010
+2025-12-07 08:40:43,738 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:43] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 3 0.014 0.006
+2025-12-07 08:40:43,760 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:43] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 5 0.004 0.009
+2025-12-07 08:40:43,815 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:43] "POST /mail/init_messaging HTTP/1.1" 200 - 54 0.064 0.035
+2025-12-07 08:40:43,852 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:43] "POST /mail/load_message_failures HTTP/1.1" 200 - 3 0.015 0.006
+2025-12-07 08:40:44,087 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:44] "GET /websocket HTTP/1.1" 101 - 1 0.000 0.002
+2025-12-07 08:40:56,964 4452 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:56] "GET /web/static/lib/odoo_ui_icons/fonts/odoo_ui_icons.woff2 HTTP/1.1" 200 - 0 0.000 0.016
+2025-12-07 08:40:56,964 4452 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:56] "GET /web/static/src/libs/fontawesome/fonts/fontawesome-webfont.woff2?v=4.7.0 HTTP/1.1" 200 - 0 0.000 0.016
+2025-12-07 08:40:56,971 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:56] "POST /mail/inbox/messages HTTP/1.1" 200 - 8 0.021 0.002
+2025-12-07 08:40:56,984 4452 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:56] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 0.012
+2025-12-07 08:40:57,003 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:57] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 10 0.028 0.013
+2025-12-07 08:40:57,029 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:57] "GET /web/image/res.partner/2/avatar_128 HTTP/1.1" 304 - 12 0.031 0.026
+2025-12-07 08:40:57,277 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:57] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.000 0.000
+2025-12-07 08:40:57,329 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:57] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.004 0.009
+2025-12-07 08:40:57,619 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:57] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 8 0.019 0.002
+2025-12-07 08:40:59,849 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:59] "GET /web HTTP/1.1" 200 - 10 0.004 0.011
+2025-12-07 08:40:59,888 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:40:59] "GET /web/assets/119-06688a8/web.assets_common.min.css HTTP/1.1" 200 - 4 0.001 0.010
+2025-12-07 08:41:00,090 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:00] "GET /web/assets/120-ad9b184/web.assets_backend.min.css HTTP/1.1" 200 - 4 0.006 0.000
+2025-12-07 08:41:00,226 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:00] "GET /web/assets/122-ad9b184/web.assets_backend.min.js HTTP/1.1" 200 - 4 0.007 0.018
+2025-12-07 08:41:00,227 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:00] "GET /web/webclient/load_menus/0af5d97dd54f35bf5c418181b1bfa004da77e57fccbee80c5ef16c90317728e7 HTTP/1.1" 200 - 1 0.002 0.019
+2025-12-07 08:41:00,227 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:00] "GET /web/webclient/translations/30bd0de6a39297ae326fc80ecef76a1b4d3701b0?lang=en_US HTTP/1.1" 200 - 2 0.007 0.012
+2025-12-07 08:41:00,229 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:00] "GET /web/assets/121-06688a8/web.assets_common.min.js HTTP/1.1" 200 - 4 0.006 0.022
+2025-12-07 08:41:00,231 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:00] "GET /web/assets/123-03064a2/web.assets_backend_prod_only.min.js HTTP/1.1" 200 - 4 0.008 0.019
+2025-12-07 08:41:00,863 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:00] "GET /web/webclient/translations/30bd0de6a39297ae326fc80ecef76a1b4d3701b0?lang=en_US HTTP/1.1" 200 - 2 0.002 0.002
+2025-12-07 08:41:00,955 4452 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:00] "GET /web/static/img/favicon.ico HTTP/1.1" 200 - 0 0.000 0.003
+2025-12-07 08:41:00,959 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:00] "GET /web/webclient/translations/30bd0de6a39297ae326fc80ecef76a1b4d3701b0?lang=en_US HTTP/1.1" 200 - 2 0.001 0.007
+2025-12-07 08:41:01,113 4452 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "GET /web/static/lib/odoo_ui_icons/fonts/odoo_ui_icons.woff2 HTTP/1.1" 200 - 0 0.000 0.000
+2025-12-07 08:41:01,271 4452 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "GET /web/static/src/libs/fontawesome/fonts/fontawesome-webfont.woff2?v=4.7.0 HTTP/1.1" 200 - 0 0.000 0.005
+2025-12-07 08:41:01,284 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "POST /web/action/load HTTP/1.1" 200 - 8 0.007 0.009
+2025-12-07 08:41:01,334 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 2 0.008 0.006
+2025-12-07 08:41:01,346 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.004 0.011
+2025-12-07 08:41:01,371 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "POST /mail/init_messaging HTTP/1.1" 200 - 30 0.050 0.037
+2025-12-07 08:41:01,444 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.002 0.007
+2025-12-07 08:41:01,600 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "POST /mail/inbox/messages HTTP/1.1" 200 - 4 0.012 0.004
+2025-12-07 08:41:01,671 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "POST /mail/load_message_failures HTTP/1.1" 200 - 3 0.000 0.006
+2025-12-07 08:41:01,715 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.008 0.007
+2025-12-07 08:41:01,734 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 8 0.007 0.024
+2025-12-07 08:41:01,734 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "GET /web/image/res.partner/2/avatar_128 HTTP/1.1" 304 - 7 0.005 0.028
+2025-12-07 08:41:01,764 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.003 0.005
+2025-12-07 08:41:01,926 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:01] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.008 0.005
+2025-12-07 08:41:02,051 4452 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:02] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 0.002
+2025-12-07 08:41:02,091 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:02] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 4 0.003 0.005
+2025-12-07 08:41:02,422 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:02] "GET /websocket HTTP/1.1" 101 - 1 0.000 0.006
+2025-12-07 08:41:04,100 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:04] "GET /web HTTP/1.1" 200 - 10 0.030 0.004
+2025-12-07 08:41:04,136 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:04] "GET /web/assets/119-06688a8/web.assets_common.min.css HTTP/1.1" 200 - 4 0.002 0.007
+2025-12-07 08:41:04,341 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:04] "GET /web/assets/120-ad9b184/web.assets_backend.min.css HTTP/1.1" 200 - 4 0.002 0.006
+2025-12-07 08:41:04,452 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:04] "GET /web/webclient/load_menus/0af5d97dd54f35bf5c418181b1bfa004da77e57fccbee80c5ef16c90317728e7 HTTP/1.1" 200 - 1 0.001 0.012
+2025-12-07 08:41:04,462 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:04] "GET /web/assets/121-06688a8/web.assets_common.min.js HTTP/1.1" 200 - 4 0.012 0.016
+2025-12-07 08:41:04,463 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:04] "GET /web/assets/122-ad9b184/web.assets_backend.min.js HTTP/1.1" 200 - 4 0.013 0.016
+2025-12-07 08:41:04,463 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:04] "GET /web/assets/123-03064a2/web.assets_backend_prod_only.min.js HTTP/1.1" 200 - 4 0.009 0.017
+2025-12-07 08:41:04,469 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:04] "GET /web/webclient/translations/30bd0de6a39297ae326fc80ecef76a1b4d3701b0?lang=en_US HTTP/1.1" 200 - 2 0.003 0.012
+2025-12-07 08:41:05,111 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "GET /web/webclient/translations/30bd0de6a39297ae326fc80ecef76a1b4d3701b0?lang=en_US HTTP/1.1" 200 - 2 0.004 0.005
+2025-12-07 08:41:05,119 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "GET /web/webclient/translations/30bd0de6a39297ae326fc80ecef76a1b4d3701b0?lang=en_US HTTP/1.1" 200 - 2 0.001 0.004
+2025-12-07 08:41:05,124 4452 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "GET /web/static/img/favicon.ico HTTP/1.1" 200 - 0 0.000 0.002
+2025-12-07 08:41:05,364 4452 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "GET /web/static/lib/odoo_ui_icons/fonts/odoo_ui_icons.woff2 HTTP/1.1" 200 - 0 0.000 0.004
+2025-12-07 08:41:05,447 4452 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "GET /web/static/src/libs/fontawesome/fonts/fontawesome-webfont.woff2?v=4.7.0 HTTP/1.1" 200 - 0 0.000 0.000
+2025-12-07 08:41:05,466 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "POST /web/action/load HTTP/1.1" 200 - 8 0.016 0.003
+2025-12-07 08:41:05,466 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 2 0.000 0.000
+2025-12-07 08:41:05,505 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.002 0.016
+2025-12-07 08:41:05,547 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "POST /mail/init_messaging HTTP/1.1" 200 - 30 0.060 0.040
+2025-12-07 08:41:05,695 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.006 0.007
+2025-12-07 08:41:05,765 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "POST /mail/inbox/messages HTTP/1.1" 200 - 4 0.000 0.000
+2025-12-07 08:41:05,807 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "POST /mail/load_message_failures HTTP/1.1" 200 - 3 0.002 0.004
+2025-12-07 08:41:05,829 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "GET /web/image/res.partner/2/avatar_128 HTTP/1.1" 304 - 7 0.005 0.014
+2025-12-07 08:41:05,881 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.003 0.012
+2025-12-07 08:41:05,887 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:05] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 8 0.007 0.013
+2025-12-07 08:41:06,006 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:06] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.004 0.005
+2025-12-07 08:41:06,080 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:06] "GET /web/image/res.company/1/favicon HTTP/1.1" 304 - 5 0.000 0.000
+2025-12-07 08:41:06,195 4452 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:06] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 0.002
+2025-12-07 08:41:06,321 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:06] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 4 0.003 0.005
+2025-12-07 08:41:06,634 4452 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:41:06] "GET /websocket HTTP/1.1" 101 - 1 0.000 0.001
+2025-12-07 08:48:06,708 6200 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:48:06,709 6200 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:48:06,709 6200 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:48:06,709 6200 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:48:07,196 6200 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:48:07,748 6200 INFO ? odoo.service.server: HTTP service (werkzeug) running on ThinkpadSaptadi:8069 
+2025-12-07 08:48:21,886 6200 INFO ? odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:48:21,896 6200 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+2025-12-07 08:48:22,043 6200 INFO ? odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:48:24,130 6200 INFO ? odoo.modules.loading: 66 modules loaded in 2.09s, 0 queries (+0 extra) 
+2025-12-07 08:48:24,370 6200 INFO ? odoo.modules.loading: Modules loaded. 
+2025-12-07 08:48:24,389 6200 INFO ? odoo.modules.registry: Registry loaded in 2.590s 
+2025-12-07 08:48:24,391 6200 INFO demo_dc odoo.addons.base.models.ir_http: Generating routing map for key None 
+2025-12-07 08:48:26,385 6200 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:48:26] "GET /web HTTP/1.1" 200 - 105 0.252 4.340
+2025-12-07 08:48:27,097 6200 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:48:27] "GET /bus/websocket_worker_bundle?v=1.0.5 HTTP/1.1" 304 - 6 0.007 0.012
+2025-12-07 08:48:27,600 6200 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:48:27] "GET /websocket HTTP/1.1" 101 - 1 0.003 0.077
+2025-12-07 08:48:27,611 6200 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:48:27] "POST /mail/init_messaging HTTP/1.1" 200 - 54 0.139 0.052
+2025-12-07 08:48:27,635 6200 INFO ? odoo.addons.bus.models.bus: Bus.loop listen imbus on db postgres 
+2025-12-07 08:48:27,693 6200 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:48:27] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 15 0.070 0.135
+2025-12-07 08:48:27,727 6200 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:48:27] "POST /mail/load_message_failures HTTP/1.1" 200 - 4 0.022 0.029
+2025-12-07 08:48:29,685 6200 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:48:29,686 6200 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:48:29,686 6200 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:48:29,691 6200 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:48:29,691 6200 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:48:29,692 6200 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:48:29,696 6200 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:48:29,696 6200 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:48:29,697 6200 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:48:29,968 6200 INFO ? werkzeug: 127.0.0.1 - - [07/Dec/2025 08:48:29] "GET /mail/static/src/audio/ting.ogg HTTP/1.1" 206 - 0 0.000 2.484
+2025-12-07 08:48:29,993 6200 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:48:29] "POST /web/action/load HTTP/1.1" 200 - 8 0.011 2.514
+2025-12-07 08:48:30,006 6200 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:48:30] "POST /web/dataset/call_kw/res.users/systray_get_activities HTTP/1.1" 200 - 3 0.026 2.560
+2025-12-07 08:48:30,032 6200 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:48:30] "POST /mail/inbox/messages HTTP/1.1" 200 - 8 0.014 0.010
+2025-12-07 08:48:30,383 6200 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:48:30] "GET /web/image/res.partner/2/avatar_128 HTTP/1.1" 304 - 7 0.009 0.019
+2025-12-07 08:48:31,715 6200 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:48:31] "POST /web/action/load HTTP/1.1" 200 - 13 0.053 0.017
+2025-12-07 08:48:32,098 6200 INFO demo_dc werkzeug: 127.0.0.1 - - [07/Dec/2025 08:48:32] "POST /web/dataset/call_kw/dc.order.monitor/get_views HTTP/1.1" 200 - 25 0.027 0.039
+2025-12-07 08:49:07,851 6200 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `payment: post-process transactions`. 
+2025-12-07 08:49:07,871 6200 INFO demo_dc odoo.addons.base.models.ir_cron: Job `payment: post-process transactions` done. 
+2025-12-07 08:49:07,882 6200 INFO demo_dc odoo.addons.base.models.ir_cron: Starting job `DC: Auto-Create Sales Orders`. 
+2025-12-07 08:49:07,889 6200 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:49:07,889 6200 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON START: Auto-create DC SO 
+2025-12-07 08:49:07,899 6200 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: Found 0 PO candidates 
+2025-12-07 08:49:07,899 6200 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: CRON END: 0 DC SO created 
+2025-12-07 08:49:07,899 6200 INFO demo_dc odoo.addons.distribution_channel.models.purchase_order: ================================================================================ 
+2025-12-07 08:49:07,899 6200 INFO demo_dc odoo.addons.base.models.ir_cron: Job `DC: Auto-Create Sales Orders` done. 
+2025-12-07 08:51:00,071 19096 INFO ? odoo: Odoo version 16.0-20251113 
+2025-12-07 08:51:00,071 19096 INFO ? odoo: Using configuration file at C:\latihanodoo\odoo.conf 
+2025-12-07 08:51:00,071 19096 INFO ? odoo: addons paths: ['C:\\odoo16c\\server\\odoo\\addons', 'c:\\odoo16c\\sessions\\addons\\16.0', 'c:\\odoo16c\\server\\addons', 'c:\\latihanodoo', 'c:\\odoo16c\\server\\odoo\\addons'] 
+2025-12-07 08:51:00,071 19096 INFO ? odoo: database: openpg@localhost:5432 
+2025-12-07 08:51:00,299 19096 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\odoo16c\thirdparty\wkhtmltopdf.exe 
+2025-12-07 08:51:00,664 19096 INFO demo_dc odoo.modules.loading: loading 1 modules... 
+2025-12-07 08:51:00,670 19096 INFO demo_dc odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra) 
+2025-12-07 08:51:00,690 19096 INFO demo_dc odoo.modules.loading: updating modules list 
+2025-12-07 08:51:00,694 19096 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via n/a 
+2025-12-07 08:51:00,928 19096 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_farming', defaulting to LGPL-3 
+2025-12-07 08:51:00,930 19096 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_image_url', defaulting to LGPL-3 
+2025-12-07 08:51:00,932 19096 WARNING demo_dc odoo.modules.module: Missing `license` key in manifest for 'grt_l10n_id_kabupaten', defaulting to LGPL-3 
+2025-12-07 08:51:01,767 19096 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:51:01,767 19096 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['Distribution Channel'] to user __system__ #1 via n/a 
+2025-12-07 08:51:02,366 19096 INFO demo_dc odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user __system__ #1 via n/a 
+2025-12-07 08:51:02,398 19096 INFO demo_dc odoo.modules.loading: loading 66 modules... 
+2025-12-07 08:51:03,432 19096 INFO demo_dc odoo.modules.loading: Loading module distribution_channel (57/66) 
+2025-12-07 08:51:03,626 19096 INFO demo_dc odoo.modules.registry: module distribution_channel: creating or updating database tables 
+2025-12-07 08:51:03,855 19096 INFO demo_dc odoo.modules.loading: loading distribution_channel/security/ir.model.access.csv 
+2025-12-07 08:51:03,942 19096 INFO demo_dc odoo.modules.loading: loading distribution_channel/data/cron_jobs.xml 
+2025-12-07 08:51:03,953 19096 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/res_company_views.xml 
+2025-12-07 08:51:03,977 19096 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/stock_orderpoint_views.xml 
+2025-12-07 08:51:04,008 19096 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/dc_monitor_views.xml 
+2025-12-07 08:51:04,050 19096 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/purchase_order_views.xml 
+2025-12-07 08:51:04,104 19096 INFO demo_dc odoo.modules.loading: loading distribution_channel/views/sale_order_views.xml 
+2025-12-07 08:51:04,162 19096 INFO demo_dc odoo.modules.loading: loading distribution_channel/wizard/replenish_wizard_views.xml 
+2025-12-07 08:51:04,195 19096 INFO demo_dc odoo.modules.loading: Module distribution_channel loaded in 0.76s, 346 queries (+346 other) 
+2025-12-07 08:51:04,253 19096 INFO demo_dc odoo.modules.loading: 66 modules loaded in 1.85s, 346 queries (+346 extra) 
+2025-12-07 08:51:04,609 19096 INFO demo_dc odoo.modules.registry: verifying fields for every extended model 
+2025-12-07 08:51:05,031 19096 INFO demo_dc odoo.modules.loading: Modules loaded. 
+2025-12-07 08:51:05,043 19096 INFO demo_dc odoo.modules.registry: Registry loaded in 4.427s 
+2025-12-07 08:51:05,043 19096 INFO demo_dc odoo.service.server: Initiating shutdown 
+2025-12-07 08:51:05,043 19096 INFO demo_dc odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+2025-12-07 08:51:05,044 19096 INFO demo_dc odoo.sql_db: ConnectionPool(used=0/count=0/max=64): Closed 1 connections  
