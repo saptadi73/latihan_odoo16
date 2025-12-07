@@ -1,31 +1,30 @@
 {
     'name': 'Distribution Channel',
-    'version': '1.0.14',
-    'description': 'Distribution Channel Management Module',
-    'summary': 'Auto SO/PO Creation between Retailer & DC',
-    'author': 'Saptadi Nurfarid, PT. Gagak Rimang Teknologi',
-    'website': 'https://rimang.id',
-    'license': 'LGPL-3',
+    'version': '16.0.1.0.0',
     'category': 'Inventory',
-    'depends': [
-        'base',
-        'sale_management',
-        'purchase',
-        'stock',
-        'point_of_sale',
-    ],
+    'summary': 'Multi-company distribution channel management',
+    'description': """
+Distribution Channel Management
+================================
+* Link retailer companies with distribution centers
+* Auto-create inter-company sales orders from purchase orders
+* Monitor order flow between companies
+    """,
+    'author': 'Your Company',
+    'website': 'https://www.yourcompany.com',
+    'depends': ['base', 'stock', 'purchase', 'sale', 'mail'],
     'data': [
         'security/ir.model.access.csv',
-        'views/retail_order_views.xml',
-        'views/retail_order_report_views.xml',
-        'views/pos_sales_report_views.xml',
-    ],
-    'demo': [
-        ''
+        'data/cron_jobs.xml',
+        'views/res_company_views.xml',
+        'views/stock_orderpoint_views.xml',
+        'views/dc_monitor_views.xml',
+        'views/purchase_order_views.xml',
+        'views/sale_order_views.xml',
+        'wizard/replenish_wizard_views.xml',
     ],
     'installable': True,
-    'application': True,
-    'assets': {
-        
-    }
+    'application': False,
+    'auto_install': False,
+    'license': 'LGPL-3',
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data noupdate="1">
+
+    <!-- Sequence for Monitor -->
+    <record id="seq_dc_monitor" model="ir.sequence">
+      <field name="name">DC Order Monitor</field>
+      <field name="code">dc.order.monitor</field>
+      <field name="prefix">MON/</field>
+      <field name="padding">5</field>
+      <field name="number_next">1</field>
+      <field name="number_increment">1</field>
+    </record>
+
+    <!-- Cron: Auto-create DC SO every 5 minutes -->
+    <record id="cron_auto_create_dc_so" model="ir.cron">
+      <field name="name">DC: Auto-Create Sales Orders</field>
+      <field name="model_id" ref="model_purchase_order"/>
+      <field name="state">code</field>
+      <field name="code">model._cron_create_dc_sales_orders()</field>
+      <field name="interval_type">minutes</field>
+      <field name="interval_number">5</field>
+      <field name="numbercall">-1</field>
+      <field name="doall" eval="False"/>
+      <field name="active" eval="True"/>
+    </record>
+
+  </data>
+</odoo>

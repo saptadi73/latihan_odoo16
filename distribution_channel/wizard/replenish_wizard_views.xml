@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <!-- Form View -->
+  <record id="view_replenish_wizard_form" model="ir.ui.view">
+    <field name="name">replenish.wizard.form</field>
+    <field name="model">replenish.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Manual Replenish">
+        <sheet>
+          <div class="alert alert-info" role="alert">
+            <strong>Manual Replenishment</strong><br/>
+            Create Purchase Order manually and optionally generate DC Sales Order automatically.
+          </div>
+
+          <group>
+            <group string="Reordering Rule">
+              <field name="orderpoint_id" readonly="1" force_save="1"/>
+              <field name="product_id" readonly="1"/>
+              <field name="company_id" readonly="1"/>
+            </group>
+            <group string="Current Stock">
+              <field name="current_qty" readonly="1"/>
+              <field name="min_qty" readonly="1"/>
+              <field name="max_qty" readonly="1"/>
+            </group>
+          </group>
+
+          <group>
+            <group string="Order Quantity">
+              <field name="qty_to_order" 
+                     required="1"
+                     class="oe_inline"/>
+            </group>
+          </group>
+
+          <separator string="DC Configuration" attrs="{'invisible': [('dc_company_id', '=', False)]}"/>
+          <group attrs="{'invisible': [('dc_company_id', '=', False)]}">
+            <group>
+              <field name="dc_company_id" readonly="1"/>
+              <field name="dc_warehouse_id" readonly="1"/>
+            </group>
+            <group>
+              <field name="auto_create_dc_so" readonly="1"/>
+            </group>
+          </group>
+
+          <div class="alert alert-warning" 
+               role="alert"
+               attrs="{'invisible': ['|', ('auto_create_dc_so', '=', False), ('dc_company_id', '=', False)]}">
+            <i class="fa fa-info-circle"/> DC Sales Order will be created automatically after Purchase Order creation.
+          </div>
+
+        </sheet>
+        <footer>
+          <button name="action_create_po" 
+                  type="object" 
+                  string="Create Purchase Order" 
+                  class="btn-primary"/>
+          <button string="Cancel" 
+                  class="btn-secondary" 
+                  special="cancel"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+</odoo>

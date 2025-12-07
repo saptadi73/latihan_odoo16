@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <!-- Inherit Form View: Add DC config -->
+  <record id="view_company_form_dc" model="ir.ui.view">
+    <field name="name">res.company.form.dc</field>
+    <field name="model">res.company</field>
+    <field name="inherit_id" ref="base.view_company_form"/>
+    <field name="arch" type="xml">
+      
+      <xpath expr="//notebook" position="inside">
+        <page name="dc_config" string="Distribution Channel">
+          <group>
+            <group string="Company Type">
+              <field name="is_dc_company"/>
+              <field name="is_retailer_company"/>
+            </group>
+            <group string="DC Configuration" attrs="{'invisible': [('is_retailer_company', '=', False)]}">
+              <field name="dc_company_id" 
+                     attrs="{'required': [('is_retailer_company', '=', True)]}"/>
+              <field name="dc_warehouse_id" 
+                     domain="[('company_id', '=', dc_company_id)]"
+                     attrs="{'invisible': [('dc_company_id', '=', False)]}"/>
+            </group>
+          </group>
+
+          <div class="alert alert-info" role="alert" attrs="{'invisible': [('is_dc_company', '=', False)]}">
+            <strong>DC Company</strong><br/>
+            This company is configured as a Distribution Center. It can fulfill orders from multiple retailers.
+          </div>
+
+          <div class="alert alert-warning" role="alert" attrs="{'invisible': [('is_retailer_company', '=', False)]}">
+            <strong>Retailer Company</strong><br/>
+            This company is configured as a Retailer. Purchase Orders will automatically create Sales Orders in the DC Company.
+          </div>
+        </page>
+      </xpath>
+
+    </field>
+  </record>
+
+</odoo>

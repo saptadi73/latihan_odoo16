@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <!-- Inherit Form View: Add DC fields & buttons -->
+  <record id="view_purchase_order_form_dc" model="ir.ui.view">
+    <field name="name">purchase.order.form.dc</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_form"/>
+    <field name="arch" type="xml">
+      
+      <!-- Add DC info after origin -->
+      <xpath expr="//field[@name='origin']" position="after">
+        <field name="is_from_reordering" invisible="1"/>
+        <field name="dc_monitor_id" invisible="1"/>
+        <field name="orderpoint_id" 
+               readonly="1"
+               attrs="{'invisible': [('orderpoint_id', '=', False)]}"/>
+        <field name="dc_company_id" 
+               readonly="1"
+               attrs="{'invisible': [('dc_company_id', '=', False)]}"/>
+        <field name="dc_sales_order_id" 
+               readonly="1"
+               attrs="{'invisible': [('dc_sales_order_id', '=', False)]}"/>
+      </xpath>
+
+      <!-- Add button to view DC SO -->
+      <xpath expr="//header" position="inside">
+        <button name="action_view_dc_so" 
+                type="object" 
+                string="View DC SO" 
+                class="btn-primary"
+                attrs="{'invisible': [('dc_sales_order_id', '=', False)]}"/>
+      </xpath>
+
+      <!-- Add smart button for monitor -->
+      <xpath expr="//div[@name='button_box']" position="inside">
+        <button name="%(distribution_channel.action_dc_monitor)d" 
+                type="action" 
+                class="oe_stat_button" 
+                icon="fa-link"
+                attrs="{'invisible': [('dc_monitor_id', '=', False)]}"
+                context="{'search_default_retailer_po_id': active_id}">
+          <div class="o_field_widget o_stat_info">
+            <span class="o_stat_text">View</span>
+            <span class="o_stat_text">Monitor</span>
+          </div>
+        </button>
+      </xpath>
+
+      <!-- Add notebook page for DC info -->
+      <xpath expr="//notebook" position="inside">
+        <page name="dc_info" 
+              string="DC Information" 
+              attrs="{'invisible': [('dc_company_id', '=', False)]}">
+          <group>
+            <group string="DC Details">
+              <field name="dc_company_id" readonly="1"/>
+              <field name="dc_sales_order_id" readonly="1"/>
+            </group>
+            <group string="Reordering Info">
+              <field name="orderpoint_id" readonly="1"/>
+              <field name="is_from_reordering" readonly="1"/>
+            </group>
+          </group>
+        </page>
+      </xpath>
+
+    </field>
+  </record>
+
+  <!-- Inherit Tree View: Add DC columns -->
+  <record id="view_purchase_order_tree_dc" model="ir.ui.view">
+    <field name="name">purchase.order.tree.dc</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+    <field name="arch" type="xml">
+      
+      <xpath expr="//field[@name='partner_id']" position="after">
+        <field name="dc_company_id" optional="hide"/>
+        <field name="is_from_reordering" optional="hide"/>
+      </xpath>
+
+    </field>
+  </record>
+
+  <!-- Inherit Search View: Add DC filters -->
+  <record id="view_purchase_order_search_dc" model="ir.ui.view">
+    <field name="name">purchase.order.search.dc</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+    <field name="arch" type="xml">
+      
+      <xpath expr="//search" position="inside">
+        <filter name="from_reordering" 
+                string="From Reordering" 
+                domain="[('is_from_reordering', '=', True)]"/>
+        
+        <filter name="with_dc_so" 
+                string="With DC SO" 
+                domain="[('dc_sales_order_id', '!=', False)]"/>
+        
+        <filter name="without_dc_so" 
+                string="Without DC SO" 
+                domain="[('dc_sales_order_id', '=', False), ('dc_company_id', '!=', False)]"/>
+        
+        <group expand="0" string="Group By">
+          <filter name="group_by_dc_company" 
+                  string="DC Company" 
+                  context="{'group_by': 'dc_company_id'}"/>
+        </group>
+      </xpath>
+
+    </field>
+  </record>
+
+</odoo>

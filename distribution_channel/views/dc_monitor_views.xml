@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <!-- Form View -->
+  <record id="view_dc_monitor_form" model="ir.ui.view">
+    <field name="name">dc.order.monitor.form</field>
+    <field name="model">dc.order.monitor</field>
+    <field name="arch" type="xml">
+      <form string="DC Order Monitor">
+        <header>
+          <field name="state" widget="statusbar" statusbar_visible="draft,dc_so_created,dc_so_confirmed,completed"/>
+        </header>
+        <sheet>
+          <div class="oe_title">
+            <h1>
+              <field name="name" readonly="1"/>
+            </h1>
+          </div>
+          
+          <group>
+            <group string="Companies">
+              <field name="retailer_company_id" readonly="1"/>
+              <field name="dc_company_id" readonly="1"/>
+            </group>
+            <group string="Summary">
+              <field name="total_qty" readonly="1"/>
+              <field name="total_amount" readonly="1" widget="monetary"/>
+            </group>
+          </group>
+
+          <group>
+            <group string="Retailer Side">
+              <field name="retailer_po_id" readonly="1"/>
+              <button name="action_view_retailer_po" 
+                      type="object" 
+                      string="→ Open PO" 
+                      class="oe_link"
+                      attrs="{'invisible': [('retailer_po_id', '=', False)]}"/>
+            </group>
+            <group string="DC Side">
+              <field name="dc_sales_order_id" readonly="1"/>
+              <button name="action_view_dc_so" 
+                      type="object" 
+                      string="→ Open SO" 
+                      class="oe_link"
+                      attrs="{'invisible': [('dc_sales_order_id', '=', False)]}"/>
+            </group>
+          </group>
+
+          <group>
+            <group string="Reordering">
+              <field name="orderpoint_id" readonly="1"/>
+            </group>
+          </group>
+
+          <notebook>
+            <page name="notes" string="Notes">
+              <field name="notes" placeholder="Add notes here..." nolabel="1"/>
+            </page>
+          </notebook>
+        </sheet>
+        
+        <div class="oe_chatter">
+          <field name="message_follower_ids"/>
+          <field name="message_ids"/>
+        </div>
+      </form>
+    </field>
+  </record>
+
+  <!-- Tree View -->
+  <record id="view_dc_monitor_tree" model="ir.ui.view">
+    <field name="name">dc.order.monitor.tree</field>
+    <field name="model">dc.order.monitor</field>
+    <field name="arch" type="xml">
+      <tree string="DC Order Monitors" decoration-info="state=='draft'" decoration-success="state=='completed'">
+        <field name="name"/>
+        <field name="retailer_company_id"/>
+        <field name="dc_company_id"/>
+        <field name="retailer_po_id"/>
+        <field name="dc_sales_order_id"/>
+        <field name="total_qty" sum="Total Qty"/>
+        <field name="total_amount" sum="Total Amount" widget="monetary"/>
+        <field name="state" widget="badge" decoration-info="state=='draft'" decoration-success="state=='completed'"/>
+        <field name="create_date"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Search View -->
+  <record id="view_dc_monitor_search" model="ir.ui.view">
+    <field name="name">dc.order.monitor.search</field>
+    <field name="model">dc.order.monitor</field>
+    <field name="arch" type="xml">
+      <search string="Search Monitors">
+        <field name="name"/>
+        <field name="retailer_company_id"/>
+        <field name="dc_company_id"/>
+        <field name="retailer_po_id"/>
+        <field name="dc_sales_order_id"/>
+        
+        <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+        <filter name="dc_so_created" string="DC SO Created" domain="[('state', '=', 'dc_so_created')]"/>
+        <filter name="completed" string="Completed" domain="[('state', '=', 'completed')]"/>
+        
+        <separator/>
+        <filter name="today" string="Today" domain="[('create_date', '&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]"/>
+        <filter name="this_week" string="This Week" domain="[('create_date', '&gt;=', (context_today() - datetime.timedelta(days=context_today().weekday())).strftime('%Y-%m-%d'))]"/>
+        
+        <group expand="0" string="Group By">
+          <filter name="group_by_retailer" string="Retailer" context="{'group_by': 'retailer_company_id'}"/>
+          <filter name="group_by_dc" string="DC" context="{'group_by': 'dc_company_id'}"/>
+          <filter name="group_by_state" string="Status" context="{'group_by': 'state'}"/>
+          <filter name="group_by_create_date" string="Creation Date" context="{'group_by': 'create_date:month'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <!-- Action -->
+  <record id="action_dc_monitor" model="ir.actions.act_window">
+    <field name="name">Order Monitors</field>
+    <field name="res_model">dc.order.monitor</field>
+    <field name="view_mode">tree,form</field>
+    <field name="context">{'search_default_this_week': 1}</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        No monitors found!
+      </p>
+      <p>
+        Order monitors will be automatically created when DC Sales Orders are generated from Retailer Purchase Orders.
+      </p>
+    </field>
+  </record>
+
+  <!-- Menu -->
+  <menuitem id="menu_distribution_channel"
+            name="Distribution Channel"
+            sequence="100"
+            web_icon="distribution_channel,static/description/icon.png"/>
+
+  <menuitem id="menu_dc_monitor"
+            name="Order Monitors"
+            parent="menu_distribution_channel"
+            action="action_dc_monitor"
+            sequence="10"/>
+
+</odoo>
