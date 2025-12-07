@@ -2,6 +2,364 @@
 <odoo>
 
   <!-- ============================================== -->
+  <!-- POS SALES DETAILED REPORT -->
+  <!-- ============================================== -->
+
+  <record id="view_pos_sales_report_tree" model="ir.ui.view">
+    <field name="name">distribution_channel.pos_sales_report.tree</field>
+    <field name="model">distribution_channel.pos_sales_report</field>
+    <field name="arch" type="xml">
+      <tree string="PoS Sales Details">
+        <field name="date_order"/>
+        <field name="retailer_company_id"/>
+        <field name="product_id"/>
+        <field name="product_category_id"/>
+        <field name="quantity"/>
+        <field name="unit_price" widget="monetary"/>
+        <field name="price_subtotal" widget="monetary"/>
+        <field name="tax_amount" widget="monetary"/>
+        <field name="price_total" widget="monetary"/>
+        <field name="order_state" widget="badge"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="view_pos_sales_report_form" model="ir.ui.view">
+    <field name="name">distribution_channel.pos_sales_report.form</field>
+    <field name="model">distribution_channel.pos_sales_report</field>
+    <field name="arch" type="xml">
+      <form string="PoS Sales Detail">
+        <sheet>
+          <div class="oe_title">
+            <h1>
+              <field name="name" readonly="1"/>
+            </h1>
+          </div>
+
+          <group>
+            <group string="Sale Info">
+              <field name="sale_order_id" readonly="1"/>
+              <field name="date_order" readonly="1"/>
+              <field name="order_state" readonly="1" widget="badge"/>
+            </group>
+            <group string="Retailer">
+              <field name="retailer_company_id" readonly="1"/>
+              <field name="partner_id" readonly="1"/>
+            </group>
+          </group>
+
+          <group string="Product">
+            <group>
+              <field name="product_id" readonly="1"/>
+              <field name="product_category_id" readonly="1"/>
+            </group>
+            <group>
+              <field name="quantity" readonly="1"/>
+              <field name="unit_price" readonly="1" widget="monetary"/>
+            </group>
+          </group>
+
+          <group string="Amounts">
+            <group>
+              <field name="price_subtotal" readonly="1" widget="monetary"/>
+              <field name="tax_amount" readonly="1" widget="monetary"/>
+            </group>
+            <group>
+              <field name="discount_amount" readonly="1" widget="monetary"/>
+              <field name="price_total" readonly="1" widget="monetary"/>
+            </group>
+          </group>
+
+          <group string="Payment">
+            <field name="payment_method" readonly="1"/>
+            <field name="pos_order_id" readonly="1"/>
+            <field name="pos_state" readonly="1" widget="badge"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="view_pos_sales_report_search" model="ir.ui.view">
+    <field name="name">distribution_channel.pos_sales_report.search</field>
+    <field name="model">distribution_channel.pos_sales_report</field>
+    <field name="arch" type="xml">
+      <search string="Search PoS Sales">
+        <field name="date_order"/>
+        <field name="retailer_company_id"/>
+        <field name="product_id"/>
+        <field name="product_category_id"/>
+        <field name="partner_id"/>
+
+        <separator/>
+
+        <filter name="today" string="Today" domain="[('date_day', '=', context_today().strftime('%Y-%m-%d'))]"/>
+        <filter name="this_month" string="This Month" domain="[('date_month', '=', context_today().strftime('%B %Y'))]"/>
+        <filter name="this_year" string="This Year" domain="[('date_year', '=', context_today().strftime('%Y'))]"/>
+
+        <separator/>
+
+        <filter name="completed" string="Completed" domain="[('order_state', 'in', ['done', 'sale'])]"/>
+        <filter name="draft" string="Draft" domain="[('order_state', '=', 'draft')]"/>
+
+        <separator/>
+
+        <group expand="1" string="Group By">
+          <filter name="group_retailer" string="Retailer" context="{'group_by': 'retailer_company_id'}"/>
+          <filter name="group_category" string="Category" context="{'group_by': 'product_category_id'}"/>
+          <filter name="group_date" string="Date" context="{'group_by': 'date_day'}"/>
+          <filter name="group_product" string="Product" context="{'group_by': 'product_id'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="view_pos_sales_report_pivot" model="ir.ui.view">
+    <field name="name">distribution_channel.pos_sales_report.pivot</field>
+    <field name="model">distribution_channel.pos_sales_report</field>
+    <field name="arch" type="xml">
+      <pivot string="PoS Sales Pivot">
+        <field name="date_day" type="row"/>
+        <field name="retailer_company_id" type="col"/>
+        <field name="quantity" type="measure"/>
+        <field name="price_total" type="measure"/>
+      </pivot>
+    </field>
+  </record>
+
+  <record id="view_pos_sales_report_graph" model="ir.ui.view">
+    <field name="name">distribution_channel.pos_sales_report.graph</field>
+    <field name="model">distribution_channel.pos_sales_report</field>
+    <field name="arch" type="xml">
+      <graph string="PoS Sales Analysis" type="bar">
+        <field name="retailer_company_id" type="row"/>
+        <field name="price_total" type="measure"/>
+      </graph>
+    </field>
+  </record>
+
+  <!-- Action -->
+  <record id="action_pos_sales_report" model="ir.actions.act_window">
+    <field name="name">PoS Sales Report (Details)</field>
+    <field name="res_model">distribution_channel.pos_sales_report</field>
+    <field name="view_mode">tree,form,pivot,graph</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Detailed PoS sales report for each retailer
+      </p>
+    </field>
+  </record>
+
+  <!-- ============================================== -->
+  <!-- DAILY SUMMARY REPORT -->
+  <!-- ============================================== -->
+
+  <record id="view_pos_sales_report_daily_tree" model="ir.ui.view">
+    <field name="name">distribution_channel.pos_sales_report_daily.tree</field>
+    <field name="model">distribution_channel.pos_sales_report_daily</field>
+    <field name="arch" type="xml">
+      <tree string="Daily Sales Summary">
+        <field name="date_day"/>
+        <field name="retailer_company_id"/>
+        <field name="total_orders"/>
+        <field name="total_items"/>
+        <field name="total_subtotal" widget="monetary"/>
+        <field name="total_tax" widget="monetary"/>
+        <field name="total_revenue" widget="monetary"/>
+        <field name="average_ticket" widget="monetary"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="view_pos_sales_report_daily_form" model="ir.ui.view">
+    <field name="name">distribution_channel.pos_sales_report_daily.form</field>
+    <field name="model">distribution_channel.pos_sales_report_daily</field>
+    <field name="arch" type="xml">
+      <form string="Daily Summary">
+        <sheet>
+          <div class="oe_title">
+            <h1>
+              <field name="date_day" readonly="1"/>
+            </h1>
+          </div>
+
+          <group>
+            <group string="Company">
+              <field name="retailer_company_id" readonly="1"/>
+            </group>
+            <group string="Summary">
+              <field name="total_orders" readonly="1"/>
+              <field name="total_items" readonly="1"/>
+            </group>
+          </group>
+
+          <group string="Financial Summary">
+            <group>
+              <field name="total_subtotal" readonly="1" widget="monetary"/>
+              <field name="total_tax" readonly="1" widget="monetary"/>
+              <field name="total_discount" readonly="1" widget="monetary"/>
+            </group>
+            <group>
+              <field name="total_revenue" readonly="1" widget="monetary"/>
+              <field name="average_ticket" readonly="1" widget="monetary"/>
+            </group>
+          </group>
+
+          <group>
+            <field name="top_category_id" readonly="1"/>
+            <field name="top_category_sales" readonly="1" widget="monetary"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="view_pos_sales_report_daily_search" model="ir.ui.view">
+    <field name="name">distribution_channel.pos_sales_report_daily.search</field>
+    <field name="model">distribution_channel.pos_sales_report_daily</field>
+    <field name="arch" type="xml">
+      <search string="Search Daily Reports">
+        <field name="date_day"/>
+        <field name="retailer_company_id"/>
+
+        <separator/>
+
+        <filter name="today" string="Today" domain="[('date_day', '=', context_today().strftime('%Y-%m-%d'))]"/>
+        <filter name="yesterday" string="Yesterday" domain="[('date_day', '=', (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d'))]"/>
+        <filter name="this_month" string="This Month" domain="[('date_day', '>=', context_today().replace(day=1).strftime('%Y-%m-%d'))]"/>
+
+        <separator/>
+
+        <group expand="1" string="Group By">
+          <filter name="group_retailer" string="Retailer" context="{'group_by': 'retailer_company_id'}"/>
+          <filter name="group_week" string="Week" context="{'group_by': 'date_day:week'}"/>
+          <filter name="group_month" string="Month" context="{'group_by': 'date_day:month'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="view_pos_sales_report_daily_graph" model="ir.ui.view">
+    <field name="name">distribution_channel.pos_sales_report_daily.graph</field>
+    <field name="model">distribution_channel.pos_sales_report_daily</field>
+    <field name="arch" type="xml">
+      <graph string="Daily Revenue Trend" type="line">
+        <field name="date_day" type="row"/>
+        <field name="total_revenue" type="measure"/>
+      </graph>
+    </field>
+  </record>
+
+  <record id="action_pos_sales_report_daily" model="ir.actions.act_window">
+    <field name="name">Daily PoS Sales Summary</field>
+    <field name="res_model">distribution_channel.pos_sales_report_daily</field>
+    <field name="view_mode">tree,form,graph</field>
+  </record>
+
+  <!-- ============================================== -->
+  <!-- CATEGORY REPORT -->
+  <!-- ============================================== -->
+
+  <record id="view_pos_sales_report_category_tree" model="ir.ui.view">
+    <field name="name">distribution_channel.pos_sales_report_category.tree</field>
+    <field name="model">distribution_channel.pos_sales_report_category</field>
+    <field name="arch" type="xml">
+      <tree string="Sales by Category">
+        <field name="retailer_company_id"/>
+        <field name="product_category_id"/>
+        <field name="total_quantity"/>
+        <field name="total_sales" widget="monetary"/>
+        <field name="percentage" widget="percentage"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="view_pos_sales_report_category_graph" model="ir.ui.view">
+    <field name="name">distribution_channel.pos_sales_report_category.graph</field>
+    <field name="model">distribution_channel.pos_sales_report_category</field>
+    <field name="arch" type="xml">
+      <graph string="Sales by Category" type="pie">
+        <field name="product_category_id" type="row"/>
+        <field name="total_sales" type="measure"/>
+      </graph>
+    </field>
+  </record>
+
+  <record id="action_pos_sales_report_category" model="ir.actions.act_window">
+    <field name="name">Sales by Category</field>
+    <field name="res_model">distribution_channel.pos_sales_report_category</field>
+    <field name="view_mode">tree,graph</field>
+  </record>
+
+  <!-- ============================================== -->
+  <!-- TOP PRODUCTS REPORT -->
+  <!-- ============================================== -->
+
+  <record id="view_pos_sales_report_product_tree" model="ir.ui.view">
+    <field name="name">distribution_channel.pos_sales_report_product.tree</field>
+    <field name="model">distribution_channel.pos_sales_report_product</field>
+    <field name="arch" type="xml">
+      <tree string="Top Selling Products">
+        <field name="retailer_company_id"/>
+        <field name="product_id"/>
+        <field name="total_quantity"/>
+        <field name="average_price" widget="monetary"/>
+        <field name="total_sales" widget="monetary"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="view_pos_sales_report_product_graph" model="ir.ui.view">
+    <field name="name">distribution_channel.pos_sales_report_product.graph</field>
+    <field name="model">distribution_channel.pos_sales_report_product</field>
+    <field name="arch" type="xml">
+      <graph string="Top Products" type="bar">
+        <field name="product_id" type="row"/>
+        <field name="total_sales" type="measure"/>
+      </graph>
+    </field>
+  </record>
+
+  <record id="action_pos_sales_report_product" model="ir.actions.act_window">
+    <field name="name">Top Selling Products</field>
+    <field name="res_model">distribution_channel.pos_sales_report_product</field>
+    <field name="view_mode">tree,graph</field>
+  </record>
+
+  <!-- ============================================== -->
+  <!-- MENUS -->
+  <!-- ============================================== -->
+
+  <menuitem id="menu_pos_reports"
+            name="PoS Sales Reports"
+            parent="menu_distribution_operations"
+            sequence="3"/>
+
+  <menuitem id="menu_pos_sales_report_details"
+            name="Sales Details"
+            parent="menu_pos_reports"
+            action="action_pos_sales_report"
+            sequence="1"/>
+
+  <menuitem id="menu_pos_sales_report_daily"
+            name="Daily Summary"
+            parent="menu_pos_reports"
+            action="action_pos_sales_report_daily"
+            sequence="2"/>
+
+  <menuitem id="menu_pos_sales_report_category"
+            name="By Category"
+            parent="menu_pos_reports"
+            action="action_pos_sales_report_category"
+            sequence="3"/>
+
+  <menuitem id="menu_pos_sales_report_product"
+            name="Top Products"
+            parent="menu_pos_reports"
+            action="action_pos_sales_report_product"
+            sequence="4"/>
+
+  <!-- ============================================== -->
   <!-- RETAIL ORDER DETAILED VIEWS -->
   <!-- ============================================== -->
 
