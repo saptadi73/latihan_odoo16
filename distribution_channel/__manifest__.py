@@ -1,6 +1,6 @@
 {
     'name': 'Distribution Channel',
-    'version': '16.0.1.0.5',
+    'version': '16.0.1.0.15',
     'category': 'Inventory',
     'summary': 'Multi-company distribution channel management',
     'description': """

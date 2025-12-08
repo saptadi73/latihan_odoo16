@@ -1,6 +1,8 @@
 from odoo import models, fields, api
 import logging
 
+_logger = logging.getLogger(__name__)  # add logger
+
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
@@ -38,6 +40,22 @@ class PurchaseOrder(models.Model):
         readonly=True
     )
     
+    @api.model
+    def create(self, vals):
+        # Tangkap orderpoint_id dari context (dikirim dari stock_rule)
+        if 'orderpoint_id' not in vals and self.env.context.get('orderpoint_id'):
+            vals['orderpoint_id'] = self.env.context.get('orderpoint_id')
+        
+        # Mark as from reordering jika ada orderpoint
+        if vals.get('orderpoint_id'):
+            vals['is_from_reordering'] = True
+        
+        po = super().create(vals)
+        _logger.info("PO %s created | is_from_reordering=%s | orderpoint_id=%s",
+                    po.name, vals.get('is_from_reordering'), vals.get('orderpoint_id'))
+        
+        return po
+
     def action_view_dc_so(self):
         """Button to view related DC SO"""
         self.ensure_one()
@@ -55,71 +73,58 @@ class PurchaseOrder(models.Model):
     
     @api.model
     def _cron_create_dc_sales_orders(self):
-        """
-        CRON JOB: Auto-create DC SO from new retailer PO
-        Run every 5 minutes
-        """
-        _logger = logging.getLogger(__name__)
-        _logger.info("=" * 80)
-        _logger.info("CRON START: Auto-create DC SO")
+        """Cron: Auto-create DC SO from PO - DIRECT APPROACH"""
+        self = self.sudo().with_context(active_test=False)
         
-        from datetime import timedelta
-        threshold = fields.Datetime.now() - timedelta(minutes=5)
-        
-        # Find PO: draft, from reordering, no DC SO yet
-        pos = self.sudo().search([
-            ('create_date', '>=', threshold),
-            ('state', 'in', ('draft', 'sent')),
-            ('orderpoint_id', '!=', False),
+        # Cari PO yang:
+        # 1. Belum punya DC SO
+        # 2. State = purchase (confirmed)
+        # 3. Ada product yang punya reordering rule dengan DC
+        pos = self.search([
             ('dc_sales_order_id', '=', False),
-            ('dc_company_id', '!=', False),
+            ('state', '=', 'purchase'),  # hanya confirmed PO
         ])
         
-        _logger.info("Found %s PO candidates", len(pos))
-        processed = 0
+        _logger.info("CRON: Scanning %d PO for DC SO creation", len(pos))
         
+        ok = fail = 0
         for po in pos:
+            # Cari orderpoint dari product di PO
+            products = po.order_line.product_id
+            warehouse = po.picking_type_id.warehouse_id if po.picking_type_id else None
+            
+            if not warehouse:
+                _logger.warning("PO %s: no warehouse found", po.name)
+                continue
+            
+            # Cari orderpoint punya DC config
+            orderpoint = self.env['stock.warehouse.orderpoint'].sudo().search([
+                ('product_id', 'in', products.ids),
+                ('warehouse_id', '=', warehouse.id),
+                ('auto_create_dc_so', '=', True),
+                ('dc_company_id', '!=', False),
+                ('dc_warehouse_id', '!=', False),
+            ], limit=1)
+            
+            if not orderpoint:
+                _logger.info("Skip PO %s: no suitable orderpoint found", po.name)
+                continue
+            
             try:
-                orderpoint = po.orderpoint_id
-                
-                if not orderpoint.auto_create_dc_so:
-                    _logger.info("PO %s: auto_create_dc_so disabled", po.name)
-                    continue
-                
-                if not orderpoint.dc_company_id:
-                    _logger.warning("PO %s: no DC company configured", po.name)
-                    continue
-                
-                _logger.info("→ Creating DC SO for PO %s", po.name)
-                
-                # Create DC SO
-                dc_so = self._create_dc_so_from_po(po, orderpoint)
-                
-                if dc_so:
-                    po.sudo().write({'dc_sales_order_id': dc_so.id})
-                    
-                    # Create monitor
-                    monitor = self.env['dc.order.monitor'].sudo().create({
-                        'retailer_company_id': po.company_id.id,
+                so = po._create_dc_so_from_po(po, orderpoint)
+                if so:
+                    po.write({
+                        'dc_sales_order_id': so.id,
                         'dc_company_id': orderpoint.dc_company_id.id,
-                        'retailer_po_id': po.id,
-                        'dc_sales_order_id': dc_so.id,
-                        'orderpoint_id': orderpoint.id,
-                        'state': 'dc_so_created',
-                        'notes': 'Auto-created via CRON',
+                        'orderpoint_id': orderpoint.id,  # set sekarang
                     })
-                    
-                    po.sudo().write({'dc_monitor_id': monitor.id})
-                    dc_so.sudo().write({'dc_monitor_id': monitor.id})
-                    
-                    _logger.info("✓ DC SO %s created", dc_so.name)
-                    processed += 1
-                    
+                    _logger.info("✓ Created DC SO %s for PO %s", so.name, po.name)
+                    ok += 1
             except Exception as e:
-                _logger.exception("Error processing PO %s: %s", po.name, e)
+                fail += 1
+                _logger.exception("✗ Failed PO %s: %s", po.name, str(e))
         
-        _logger.info("CRON END: %s DC SO created", processed)
-        _logger.info("=" * 80)
+        _logger.info("CRON DONE: %d success, %d failed", ok, fail)
     
     @api.model
     def _create_dc_so_from_po(self, po, orderpoint):
@@ -128,7 +133,10 @@ class PurchaseOrder(models.Model):
         retailer_partner = po.company_id.partner_id
         
         if not retailer_partner:
+            _logger.warning("PO %s: retailer partner not found", po.name)
             return False
+        
+        SO = self.env['sale.order'].sudo().with_company(dc_company.id)
         
         so_vals = {
             'partner_id': retailer_partner.id,
@@ -136,24 +144,21 @@ class PurchaseOrder(models.Model):
             'warehouse_id': orderpoint.dc_warehouse_id.id if orderpoint.dc_warehouse_id else False,
             'origin': f"Auto from {po.name}",
             'client_order_ref': po.name,
-            'is_auto_created': True,
-            'retailer_po_id': po.id,
         }
         
-        so = self.env['sale.order'].sudo().with_company(dc_company.id).create(so_vals)
+        so = SO.create(so_vals)
         
+        # Copy lines
         for po_line in po.order_line:
             if not po_line.product_id:
                 continue
             
-            product = po_line.product_id.sudo().with_company(dc_company.id)
-            
             self.env['sale.order.line'].sudo().with_company(dc_company.id).create({
                 'order_id': so.id,
-                'product_id': product.id,
+                'product_id': po_line.product_id.id,
                 'product_uom_qty': po_line.product_qty,
                 'product_uom': po_line.product_uom.id,
-                'price_unit': product.list_price or 0,
+                'price_unit': po_line.price_unit or 0,
             })
         
         return so
