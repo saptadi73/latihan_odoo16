@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <!-- Form View Inherit - Add Stock On Hand -->
+  <record id="view_product_form_stock_dc" model="ir.ui.view">
+    <field name="name">product.product.form.stock.dc</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_normal_form_view"/>
+    <field name="arch" type="xml">
+      
+      <!-- Add stock info buttons -->
+      <xpath expr="//div[@name='button_box']" position="inside">
+        <button name="action_open_quants" type="object" class="oe_stat_button" icon="fa-cubes"
+                attrs="{'invisible': [('type', '=', 'service')]}">
+          <field name="qty_available" widget="statinfo" string="On Hand"/>
+        </button>
+        <button name="action_open_quants" type="object" class="oe_stat_button" icon="fa-tasks"
+                attrs="{'invisible': [('type', '=', 'service')]}">
+          <field name="virtual_available" widget="statinfo" string="Available"/>
+        </button>
+      </xpath>
+
+    </field>
+  </record>
+
+  <!-- Search View -->
+  <record id="view_product_search_stock_dc" model="ir.ui.view">
+    <field name="name">product.product.search.stock.dc</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_search_form_view"/>
+    <field name="arch" type="xml">
+      
+      <xpath expr="//search" position="inside">
+        <separator/>
+        <filter name="low_stock" string="Low Stock" domain="[('qty_available', '&lt;', 10)]"/>
+        <filter name="no_stock" string="Out of Stock" domain="[('qty_available', '=', 0)]"/>
+        <filter name="negative_stock" string="Negative Stock" domain="[('qty_available', '&lt;', 0)]"/>
+      </xpath>
+
+    </field>
+  </record>
+
+</odoo>

@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 import logging
 
 _logger = logging.getLogger(__name__)  # add logger
@@ -161,4 +162,55 @@ class PurchaseOrder(models.Model):
                 'price_unit': po_line.price_unit or 0,
             })
         
+        # Auto-confirm DC SO
+        so.action_confirm()
+        _logger.info("DC SO %s auto-confirmed", so.name)
+        
+        # AUTO: Create monitor
+        monitor = self.env['dc.order.monitor'].sudo().create({
+            'retailer_company_id': po.company_id.id,
+            'dc_company_id': dc_company.id,
+            'retailer_po_id': po.id,
+            'dc_sales_order_id': so.id,
+            'orderpoint_id': orderpoint.id,
+            'state': 'dc_so_created',
+            'notes': f"Auto-created from PO {po.name}",
+        })
+        
+        _logger.info("✓ Monitor %s created for SO %s", monitor.name, so.name)
+        
         return so
+
+    def action_create_dc_monitor(self):
+        """Create DC Monitor dari PO ini"""
+        self.ensure_one()
+        
+        if not self.orderpoint_id:
+            raise UserError("Reordering Rule belum diset pada PO ini")
+
+        dc_so = self.dc_sales_order_id
+        if not dc_so:
+            # fallback: cari SO yang dibuat dari PO ini
+            dc_so = self.env['sale.order'].sudo().search([
+                ('origin', '=', f"Auto from {self.name}")
+            ], limit=1)
+
+        vals = {
+            'retailer_company_id': self.company_id.id,
+            'dc_company_id': self.orderpoint_id.dc_company_id.id if self.orderpoint_id.dc_company_id else False,
+            'retailer_po_id': self.id,
+            'orderpoint_id': self.orderpoint_id.id,
+            'notes': f"Created from PO {self.name}",
+        }
+        if dc_so:
+            vals['dc_sales_order_id'] = dc_so.id
+
+        monitor = self.env['dc.order.monitor'].sudo().create(vals)
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'DC Order Monitor',
+            'res_model': 'dc.order.monitor',
+            'res_id': monitor.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }

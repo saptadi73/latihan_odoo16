@@ -8,6 +8,10 @@
     <field name="arch" type="xml">
       <form string="DC Order Monitor">
         <header>
+          <button name="action_mark_completed" type="object" string="Mark Completed" class="btn-success"
+                  attrs="{'invisible': [('state', '=', 'completed')]}"/>
+          <button name="action_mark_cancelled" type="object" string="Cancel" class="btn-danger"
+                  attrs="{'invisible': [('state', '=', 'cancelled')]}"/>
           <field name="state" widget="statusbar" statusbar_visible="draft,dc_so_created,dc_so_confirmed,completed"/>
         </header>
         <sheet>

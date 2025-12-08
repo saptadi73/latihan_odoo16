@@ -78,3 +78,8 @@ class DcOrderMonitor(models.Model):
             'res_id': self.dc_sales_order_id.id,
             'view_mode': 'form',
         }
+    
+    def action_mark_completed(self):
+        self.write({'state': 'completed'})
+    def action_mark_cancelled(self):
+        self.write({'state': 'cancelled'})

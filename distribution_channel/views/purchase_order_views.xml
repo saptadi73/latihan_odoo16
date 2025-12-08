@@ -32,6 +32,15 @@
                 attrs="{'invisible': [('dc_sales_order_id', '=', False)]}"/>
       </xpath>
 
+      <!-- Add button to create DC Monitor -->
+      <xpath expr="//header" position="inside">
+        <button name="action_create_dc_monitor" 
+                type="object" 
+                string="Create DC Monitor" 
+                class="btn-primary"
+                attrs="{'invisible': [('orderpoint_id', '=', False)]}"/>
+      </xpath>
+
       <!-- Add smart button for monitor -->
       <xpath expr="//div[@name='button_box']" position="inside">
         <button name="%(distribution_channel.action_dc_monitor)d" 

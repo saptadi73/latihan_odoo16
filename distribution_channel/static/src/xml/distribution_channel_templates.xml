@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- DC Badge untuk list view -->
+    <t t-name="distribution_channel.DcBadge">
+        <span t-if="record.dc_company_id.raw_value" class="badge badge-info">
+            <i class="fa fa-link"/> <t t-esc="record.dc_company_id.value"/>
+        </span>
+    </t>
+
+    <!-- DC Status untuk kanban -->
+    <t t-name="distribution_channel.DcStatus">
+        <div class="dc-status">
+            <div class="row">
+                <div class="col-6">
+                    <strong>DC Company:</strong>
+                    <t t-if="record.dc_company_id.raw_value">
+                        <span class="badge badge-success">
+                            <t t-esc="record.dc_company_id.value"/>
+                        </span>
+                    </t>
+                    <t t-else="">
+                        <span class="badge badge-secondary">Not Set</span>
+                    </t>
+                </div>
+                <div class="col-6">
+                    <strong>DC Warehouse:</strong>
+                    <t t-if="record.dc_warehouse_id.raw_value">
+                        <span class="badge badge-info">
+                            <t t-esc="record.dc_warehouse_id.value"/>
+                        </span>
+                    </t>
+                    <t t-else="">
+                        <span class="badge badge-warning">Not Set</span>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- DC Sales Order Link -->
+    <t t-name="distribution_channel.DcSoLink">
+        <t t-if="record.dc_sales_order_id.raw_value">
+            <a t-attf-href="/web#id=#{record.dc_sales_order_id.raw_value}&amp;view_type=form&amp;model=sale.order" 
+               class="btn btn-sm btn-primary">
+                <i class="fa fa-arrow-right"/> View DC SO: <t t-esc="record.dc_sales_order_id.value"/>
+            </a>
+        </t>
+        <t t-else="">
+            <span class="badge badge-warning">No DC SO</span>
+        </t>
+    </t>
+
+    <!-- Stock Warning -->
+    <t t-name="distribution_channel.StockWarning">
+        <t t-if="record.qty_available.raw_value &lt; 10">
+            <span class="badge badge-danger">
+                <i class="fa fa-exclamation-triangle"/> Low Stock: <t t-esc="record.qty_available.value"/> units
+            </span>
+        </t>
+        <t t-elif="record.qty_available.raw_value === 0">
+            <span class="badge badge-danger">
+                <i class="fa fa-times"/> Out of Stock
+            </span>
+        </t>
+        <t t-else="">
+            <span class="badge badge-success">
+                <i class="fa fa-check"/> <t t-esc="record.qty_available.value"/> units
+            </span>
+        </t>
+    </t>
+
+    <!-- DC Monitor Status -->
+    <t t-name="distribution_channel.MonitorStatus">
+        <div class="monitor-status">
+            <span t-attf-class="badge #{record.state.value === 'completed' and 'badge-success' or record.state.value === 'dc_so_created' and 'badge-info' or 'badge-warning'}">
+                <t t-esc="record.state.value"/>
+            </span>
+            <small class="text-muted ml-2">
+                <t t-esc="record.create_date.value"/>
+            </small>
+        </div>
+    </t>
+
+    <!-- Reordering Rule Card -->
+    <t t-name="distribution_channel.OrderpointCard">
+        <div class="card border-primary mb-3">
+            <div class="card-header bg-primary text-white">
+                <strong><t t-esc="record.name.value"/></strong>
+                <span class="float-right badge badge-light"><t t-esc="record.product_id.value"/></span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Min Qty:</strong> <t t-esc="record.product_min_qty.value"/></p>
+                        <p><strong>Max Qty:</strong> <t t-esc="record.product_max_qty.value"/></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>DC Company:</strong> <t t-esc="record.dc_company_id.value or 'Not Set'"/></p>
+                        <p><strong>DC Warehouse:</strong> <t t-esc="record.dc_warehouse_id.value or 'Not Set'"/></p>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <t t-if="record.auto_create_dc_so.raw_value">
+                        <span class="badge badge-success">
+                            <i class="fa fa-check"/> Auto DC SO Enabled
+                        </span>
+                    </t>
+                    <t t-else="">
+                        <span class="badge badge-secondary">Auto DC SO Disabled</span>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

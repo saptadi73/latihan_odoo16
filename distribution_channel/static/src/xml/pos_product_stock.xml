@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-extend="ProductItem">
+        <t t-jquery="div.product-name" t-operation="after">
+            <div class="dc-stock-info" style="font-size:11px; margin-top:2px;">
+                <t t-if="props.product.qty_available &gt; 0">
+                    <span style="color:green; font-weight:bold;">
+                    Stock:
+                        <t t-esc="props.product.qty_available"/>
+                    </span>
+                </t>
+                <t t-if="props.product.qty_available == 0">
+                    <span style="color:red; font-weight:bold;">
+                    Out of Stock
+                </span>
+                </t>
+                <t t-if="props.product.qty_available &lt; 0">
+                    <span style="color:orange; font-weight:bold;">
+                    Negative:
+                        <t t-esc="props.product.qty_available"/>
+                    </span>
+                </t>
+            </div>
+        </t>
+    </t>
+</templates>

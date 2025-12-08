@@ -41,3 +41,15 @@ class SaleOrder(models.Model):
             'view_mode': 'form',
             'target': 'current',
         }
+
+    def action_confirm(self):
+        res = super().action_confirm()
+        monitors = self.env['dc.order.monitor'].sudo().search([('dc_sales_order_id', 'in', self.ids)])
+        monitors.write({'state': 'dc_so_confirmed'})
+        return res
+
+    def action_done(self):
+        res = super().action_done()
+        monitors = self.env['dc.order.monitor'].sudo().search([('dc_sales_order_id', 'in', self.ids)])
+        monitors.write({'state': 'completed'})
+        return res
