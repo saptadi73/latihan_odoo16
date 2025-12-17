@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <function model="ir.filters" name="write">
+        <value eval="[ref('garazd_product_label.filter_label_apps')]"/>
+        <value eval="{'is_default': True}"/>
+    </function>
+
+</odoo>

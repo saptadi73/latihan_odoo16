@@ -1,6 +1,6 @@
 {
     'name': 'Distribution Channel',
-    'version': '16.0.1.1.11',
+    'version': '16.0.1.1.12',
     'category': 'Inventory',
     'summary': 'Multi-company distribution channel management',
     'description': """
@@ -22,6 +22,7 @@ Distribution Channel Management
         'views/purchase_order_views.xml',
         'views/sale_order_views.xml',
         'views/product_views.xml',
+        'views/product_template_views.xml',
         'wizard/replenish_wizard_views.xml',
     ],
     'assets': {
